@@ -1,11 +1,11 @@
 package com.example.habot;
 
 public class Habit {
-    private Stirng title;
+    private String title;
     private String reason;
     private Date date;
 
-    Habit(String title, Stirng Reason, Date date)
+    Habit(String title, String reason, Date date)
     {
         this.title = title;
         this.reason = reason;
