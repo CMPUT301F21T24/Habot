@@ -1,18 +1,14 @@
 package com.example.habot;
 
 public class Habit_Event {
-  package com.example.habot;
+    public Habit habit;
+    public String eventTime;
+    public String comment;
+    public String photo;
+    public String status;
+    public String Geolocation;
 
-public class Habit_Event {
-  public class Habit_Event {
-        private Habit habit;
-        private Date eventTime;
-        private String comment;
-        private String photo;
-        private String status;
-        private String Geolocation;
-
-        Habit_Event(Habit habit, Date eventTime, String comment, String photo, String status, String Geolocation){
+        Habit_Event(Habit habit, String eventTime, String comment, String photo, String status, String Geolocation){
             this.habit = habit;
             this.eventTime = eventTime;
             this.comment = comment;
@@ -29,11 +25,11 @@ public class Habit_Event {
             return habit;
         }
 
-        public void setEventTime(Date eventTime) {
+        public void setEventTime(String eventTime) {
             this.eventTime = eventTime;
         }
 
-        public Date getEventTime() {
+        public String getEventTime() {
             return eventTime;
         }
 

@@ -1,11 +1,13 @@
 package com.example.habot;
 
+import java.util.Date;
+
 public class Habit {
     private String title;
     private String reason;
-    private Date date;
+    private String date;
 
-    Habit(String title, String reason, Date date)
+    Habit(String title, String reason, String date)
     {
         this.title = title;
         this.reason = reason;
@@ -21,13 +23,13 @@ public class Habit {
     public String getdate(){
         return this.date;
     }
-    public String settitle(String title){
+    public void settitle(String title){
         this.title = title;
     }
-    public String setreason(String reason){
+    public void setreason(String reason){
         this.reason = reason;
     }
-    public String setdate(String date){
+    public void setdate(String date){
         this.date = date;
     }
 }
