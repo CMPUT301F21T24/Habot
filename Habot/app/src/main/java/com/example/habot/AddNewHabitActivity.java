@@ -7,24 +7,24 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TodayHabitActivity extends AppCompatActivity {
-    Button TodayHabitBackButton;
+public class AddNewHabitActivity extends AppCompatActivity {
+    Button CancelBackToMenuButton;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.todayhabit);
+        setContentView(R.layout.addnewhabit);
 
-        TodayHabitBackButton = findViewById(R.id.TodayHabitToMenu);
+        CancelBackToMenuButton = findViewById(R.id.add_habit_cancel_button);
 
-        TodayHabitBackButton.setOnClickListener(new View.OnClickListener() {
+        CancelBackToMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent JumpToSignUp = new Intent();
-                JumpToSignUp.setClass(TodayHabitActivity.this, MenuActivity.class);
+                JumpToSignUp.setClass(AddNewHabitActivity.this, MenuActivity.class);
                 startActivity(JumpToSignUp);
             }
         });
-
 
     }
 }

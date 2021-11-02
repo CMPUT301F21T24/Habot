@@ -45,6 +45,14 @@ public class SignInActivity extends AppCompatActivity {
         ConfirmButton = findViewById(R.id.confirm_buttom);
         BackToSignUpButton = findViewById(R.id.BackToSignUp);
 
+        CancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UsernameSignInEditText.setText("");
+                PasswordSignInEdiText.setText("");
+            }
+        });
+
         BackToSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +112,5 @@ public class SignInActivity extends AppCompatActivity {
                         });
             }
         });
-
     }
 }
