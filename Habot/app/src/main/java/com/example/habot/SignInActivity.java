@@ -13,6 +13,8 @@ import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -63,46 +65,44 @@ public class SignInActivity extends AppCompatActivity {
 
 
                 final CollectionReference collectionReference = db.collection(Username);
-//                final int[] Exist = {0};
-//
-//                collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
-//                        for(QueryDocumentSnapshot doc: queryDocumentSnapshots){
-//                            if(doc.getId() == "UserProfile"){
-//                                Exist[0] = 1;
-//                            }
-//                        }
-//                    }
-//                });
-//                if (Exist[0] == 0) {
-                HashMap<String, String> HabitList = new HashMap<>();
-                collectionReference
-                        .document("HabitList")
-                        .set(HabitList);
 
-                HashMap<String, String> HabitEventList = new HashMap<>();
-                collectionReference
-                        .document("HabitEventList")
-                        .set(HabitEventList);
-
-                HashMap<String, String> Profile = new HashMap<>();
-                Profile.put("Password", Password);
-                collectionReference
-                        .document("UserProfile")
-                        .set(Profile)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                DocumentReference noteRef = db.collection(Username).document("UserProfile");
+                noteRef.get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
-                            public void onSuccess(Void unused) {
-                                Log.d("Username", "Username and Password have been successfully added.");
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
 
+                                }
+                                else{
+                                    HashMap<String, String> HabitList = new HashMap<>();
+                                    collectionReference
+                                            .document("HabitList")
+                                            .set(HabitList);
+
+                                    HashMap<String, String> HabitEventList = new HashMap<>();
+                                    collectionReference
+                                            .document("HabitEventList")
+                                            .set(HabitEventList);
+
+                                    HashMap<String, String> Profile = new HashMap<>();
+                                    Profile.put("Password", Password);
+                                    collectionReference
+                                            .document("UserProfile")
+                                            .set(Profile)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Log.d("Username", "Username and Password have been successfully added.");
+
+                                                }
+                                            });
+                                    UsernameSignInEditText.setText("");
+                                    PasswordSignInEdiText.setText("");
+                                }
                             }
                         });
-                UsernameSignInEditText.setText("");
-                PasswordSignInEdiText.setText("");
             }
-
-
         });
 
     }
