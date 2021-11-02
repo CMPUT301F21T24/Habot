@@ -18,6 +18,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -83,6 +84,16 @@ public class SignInActivity extends AppCompatActivity {
 
                                 }
                                 else{
+                                    HashMap<String, String> RequestSendList = new HashMap<>();
+                                    collectionReference
+                                            .document("RequestSendList")
+                                            .set(RequestSendList);
+
+                                    HashMap<String, String> RequestRecievedList = new HashMap<>();
+                                    collectionReference
+                                            .document("RequestRecievedList")
+                                            .set(RequestRecievedList);
+
                                     HashMap<String, String> HabitList = new HashMap<>();
                                     collectionReference
                                             .document("HabitList")
