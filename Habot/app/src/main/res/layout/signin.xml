@@ -19,8 +19,8 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/imageButton3"
+        <Button
+            android:id="@+id/BackToSignUp"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentStart="true"
@@ -28,7 +28,6 @@
             android:layout_marginStart="-120dp"
             android:layout_marginBottom="5dp"
             android:backgroundTint="#2196F3"
-            app:srcCompat="?attr/actionModeCloseDrawable"
             app:tint="#FFFFFF"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -66,10 +65,10 @@
             app:drawableTint="#D6D7D7" />
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/usernameSignIn"
             android:layout_width="190dp"
             android:layout_height="80dp"
-            android:layout_above="@+id/Password"
+            android:layout_above="@+id/PasswordSignIn"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -82,7 +81,7 @@
             android:hint="Enter a Username" />
 
         <EditText
-            android:id="@+id/Password"
+            android:id="@+id/PasswordSignIn"
             android:layout_width="189dp"
             android:layout_height="74dp"
             android:layout_alignParentStart="true"
