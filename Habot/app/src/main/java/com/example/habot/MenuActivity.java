@@ -32,45 +32,60 @@ public class MenuActivity extends AppCompatActivity {
         following_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent JumpToSignUp = new Intent();
-                JumpToSignUp.setClass(MenuActivity.this, CheckFollowingActivity.class);
-                startActivity(JumpToSignUp);
+                Intent Jump = new Intent();
+                Jump.setClass(MenuActivity.this, CheckFollowingActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("UserName", Username);
+                Jump.putExtras(bundle);
+                startActivity(Jump);
             }
         });
 
         today_habit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent JumpToSignUp = new Intent();
-                JumpToSignUp.setClass(MenuActivity.this, TodayHabitActivity.class);
-                startActivity(JumpToSignUp);
+                Intent Jump = new Intent();
+                Jump.setClass(MenuActivity.this, TodayHabitActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("UserName", Username);
+                Jump.putExtras(bundle);
+                startActivity(Jump);
             }
         });
 
         follower_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent JumpToSignUp = new Intent();
-                JumpToSignUp.setClass(MenuActivity.this, CheckFollowerActivity.class);
-                startActivity(JumpToSignUp);
+                Intent Jump = new Intent();
+                Jump.setClass(MenuActivity.this, CheckFollowerActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("UserName", Username);
+                Jump.putExtras(bundle);
+                startActivity(Jump);
             }
         });
 
         habit_event_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent JumpToSignUp = new Intent();
-                JumpToSignUp.setClass(MenuActivity.this, HabitEventActivity.class);
-                startActivity(JumpToSignUp);
+                Intent Jump = new Intent();
+                Jump.setClass(MenuActivity.this, HabitEventActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("UserName", Username);
+                Jump.putExtras(bundle);
+                startActivity(Jump);
             }
         });
 
         habit_detail_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent JumpToSignUp = new Intent();
-                JumpToSignUp.setClass(MenuActivity.this, HabitDetailAcitivity.class);
-                startActivity(JumpToSignUp);
+                Intent Jump = new Intent();
+                Jump.setClass(MenuActivity.this, HabitDetailAcitivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("UserName", Username);
+                Jump.putExtras(bundle);
+                startActivity(Jump);
             }
         });
 
