@@ -19,6 +19,8 @@
         android:layout_marginBottom="20dp"
         android:fontFamily="monospace"
         android:includeFontPadding="true"
+        android:rotationX="0"
+        android:rotationY="0"
         android:text="HABOT"
         android:textAlignment="center"
         android:textAllCaps="true"

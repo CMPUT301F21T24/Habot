@@ -38,6 +38,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
+            android:rotationX="-42"
             android:text="Sign Up"
             android:textColor="#fff"
             android:textSize="40sp" />
@@ -66,8 +67,8 @@
 
         <EditText
             android:id="@+id/usernameSignIn"
-            android:layout_width="190dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
             android:layout_above="@+id/PasswordSignIn"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -75,21 +76,21 @@
             android:layout_marginStart="100dp"
             android:layout_marginTop="265dp"
             android:layout_marginEnd="100dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="50dp"
             android:background="#D6D7D7"
             android:gravity="center"
             android:hint="Enter a Username" />
 
         <EditText
             android:id="@+id/PasswordSignIn"
-            android:layout_width="189dp"
-            android:layout_height="74dp"
+            android:layout_width="wrap_content"
+            android:layout_height="62dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp"
-            android:layout_marginBottom="179dp"
+            android:layout_marginBottom="225dp"
             android:background="#D6D7D7"
             android:gravity="center"
             android:hint="Enter a Password" />
