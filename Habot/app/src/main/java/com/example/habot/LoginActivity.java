@@ -36,5 +36,14 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(JumpToSignUp);
             }
         });
+
+        LoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent JumpToMenu = new Intent();
+                JumpToMenu.setClass(LoginActivity.this, MenuActivity.class);
+                startActivity(JumpToMenu);
+            }
+        });
     }
 }
