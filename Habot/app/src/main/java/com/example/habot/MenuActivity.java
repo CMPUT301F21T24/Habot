@@ -2,6 +2,7 @@ package com.example.habot;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -19,6 +20,9 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
 
+        Bundle bundle = getIntent().getExtras();
+        String Username = bundle.getString("UserName");
+        Log.d("TAG", "----------------> Username is :"+Username);
         following_button = findViewById(R.id.Menu_following_button);
         today_habit_button = findViewById(R.id.Menu_today_habit_button);
         follower_button = findViewById(R.id.Menu_follower_button);
