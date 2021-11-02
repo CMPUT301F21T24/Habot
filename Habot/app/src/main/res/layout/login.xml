@@ -7,31 +7,50 @@
     android:background="#0B233B"
     android:backgroundTint="#0B233B" >
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/UsernameLogin"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="monospace"
+        android:includeFontPadding="true"
+        android:text="HABOT"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+
     <Button
         android:id="@+id/log_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/PasswordLogin"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="100dp"
+        android:background="@android:color/background_light"
+        android:text="Login" />
+
+    <Button
+        android:id="@+id/sign_up_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="240dp"
         android:layout_marginEnd="100dp"
         android:background="@android:color/background_light"
-        android:text="Login" />
-
-        <Button
-            android:id="@+id/sign_up_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="300dp"
-            android:layout_marginEnd="100dp"
-            android:background="@android:color/background_light"
-            android:text="Sign Up" />
+        android:text="Sign Up" />
 
     <EditText
         android:id="@+id/UsernameLogin"
@@ -39,13 +58,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="99dp"
-        android:layout_marginEnd="101dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:background="@color/white"
         android:ems="10"
         android:hint="Enter Username"
         android:inputType="textPersonName"
         android:textColor="@color/black"
-        android:background="@color/white" />
+        android:textSize="25sp" />
 
     <EditText
         android:id="@+id/PasswordLogin"
@@ -55,13 +75,14 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="100dp"
+        android:background="@color/white"
         android:ems="10"
         android:hint="Enter Password"
         android:inputType="textPersonName"
         android:textColor="@color/black"
-        android:background="@color/white"/>
+        android:textSize="25sp" />
 
 </RelativeLayout>
 
