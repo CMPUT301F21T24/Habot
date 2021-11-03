@@ -66,6 +66,7 @@
             android:textSize="20sp" />
 
         <ListView
+            android:id="@+id/HabitDetail"
             android:layout_width="match_parent"
             android:layout_height="520dp"
             android:layout_above="@+id/newHabits_button"
