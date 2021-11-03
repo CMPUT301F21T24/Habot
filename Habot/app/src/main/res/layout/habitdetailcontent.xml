@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="City"
-        android:textSize="40dp"/>
+        android:textColor="@color/white"
+        android:textSize="40dp" />
 
 </LinearLayout>
