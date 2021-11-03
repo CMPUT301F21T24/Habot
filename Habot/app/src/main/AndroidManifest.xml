@@ -65,6 +65,14 @@
             android:name=".PendingListActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".AddNewHabitEventActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".HabitEventDetailActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
