@@ -60,7 +60,8 @@
             android:layout_marginLeft="140dp"
             android:layout_marginTop="12dp"
             android:hint="Enter habit name"
-            android:textColorHint="#fff" />
+            android:textColorHint="#fff"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/habit_description_text"
@@ -81,9 +82,10 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="120dp"
             android:hint="Enter habit description"
-            android:textColorHint="#fff" />
+            android:textColorHint="#fff"
+            android:textColor="@color/white"/>
 
-        <TextView
+        <Button
             android:id="@+id/habit_startDate_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,20 +93,21 @@
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="420dp"
             android:text="Day to Start:"
-            android:textColor="#fff"
+            android:textColor="@android:color/holo_blue_dark"
             android:textSize="20sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/input_habit_startDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="250dp"
-            android:hint="Enter day to start"
-            android:textColorHint="#fff" />
+            android:text="2021-1-1"
+            android:textColor="#fff"
+            android:textSize="20sp"/>
 
-        <TextView
+        <Button
             android:id="@+id/habit_occurDate_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -112,18 +115,19 @@
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="320dp"
             android:text="Day to Occur:"
-            android:textColor="#fff"
+            android:textColor="@android:color/holo_blue_dark"
             android:textSize="20sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/input_habit_occurDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="350dp"
-            android:hint="Enter day to occur"
-            android:textColorHint="#fff" />
+            android:text="2021-9-14"
+            android:textColor="#fff"
+            android:textSize="20sp"/>
 
 
         <Button

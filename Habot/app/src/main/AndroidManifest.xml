@@ -49,6 +49,14 @@
             android:name=".AddNewHabitActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".CalendarActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".CalendarDateOccurActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
