@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +19,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class LoginActivity extends AppCompatActivity {
     EditText UsernameLoginEditText;
     EditText PasswordLoginEditText;
+    TextView IncorrectUsername;
+    TextView IncorrectPassword;
 
     Button SignUpButton;
     Button LoginButton;
@@ -29,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
 
         UsernameLoginEditText = findViewById(R.id.UsernameLogin);
         PasswordLoginEditText = findViewById(R.id.PasswordLogin);
+        IncorrectUsername = findViewById(R.id.incorrectUsername);
+        IncorrectPassword = findViewById(R.id.incorrectPassword);
 
         SignUpButton = findViewById(R.id.sign_up_button);
         LoginButton = findViewById(R.id.log_in_button);
@@ -47,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                IncorrectPassword.setVisibility(View.INVISIBLE);
+                IncorrectUsername.setVisibility(View.INVISIBLE);
                 final String Username = UsernameLoginEditText.getText().toString();
                 final String Password = PasswordLoginEditText.getText().toString();
 
@@ -67,11 +74,11 @@ public class LoginActivity extends AppCompatActivity {
                                         startActivity(JumpToMenu);
                                     }
                                     else {
-                                        Log.d("TAG", "Password is not correct");
+                                        IncorrectPassword.setVisibility(View.VISIBLE);
                                     }
                                 }
                                 else{
-                                    Log.d("TAG", "Username is not found ");
+                                    IncorrectUsername.setVisibility(View.VISIBLE);
                                 }
                             }
                         });
