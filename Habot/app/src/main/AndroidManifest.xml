@@ -57,6 +57,14 @@
             android:name=".CalendarDateOccurActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".CheckRequestNameActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".PendingListActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

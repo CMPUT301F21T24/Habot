@@ -20,15 +20,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/TodayHabitToMenu"
+            android:id="@+id/back_buttom"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="-60dp"
-            android:layout_marginEnd="55dp"
+            android:layout_marginStart="-110dp"
             android:layout_marginBottom="7dp"
-            android:layout_marginLeft="0dp"
             android:backgroundTint="#2196F3"
             app:srcCompat="?attr/actionModeCloseDrawable"
             app:tint="#FFFFFF"
@@ -41,7 +39,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:text="Today's Habits"
+            android:text="Following"
             android:textColor="#fff"
             android:textSize="40sp" />
 
@@ -56,28 +54,41 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/habitList_text"
+            android:id="@+id/search_button"
             android:layout_width="147dp"
             android:layout_height="33dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="256dp"
             android:layout_marginBottom="602dp"
-            android:text="Habits List:"
+            android:text="All Following:"
             android:textColor="#fff"
             android:textSize="20sp" />
 
         <ListView
+            android:id="@+id/userFollowing"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="520dp"
+            android:layout_above="@+id/request_button"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="50dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="19dp"
             android:textColor="#fff">
 
         </ListView>
 
+        <Button
+            android:id="@+id/request_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="#040D1E"
+            android:text="Request"
+            android:textColor="#fff"
+            android:textSize="20sp" />
     </RelativeLayout>
 
 </RelativeLayout>
