@@ -10,6 +10,9 @@ android {
     compileSdk 31
     testOptions {
         unitTests.returnDefaultValues = true
+//        unitTests.all{
+//            useJUnitPlatform()
+//        }
     }
     defaultConfig {
         applicationId "com.example.habot"
@@ -46,4 +49,9 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-firestore'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
 }

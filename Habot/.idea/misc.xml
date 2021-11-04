@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/Sign_In.xml" value="0.37589376915219613" />
+        <entry key="app/src/main/res/layout/aaaa.xml" value="0.28055555555555556" />
+        <entry key="app/src/main/res/layout/add_new_habit.xml" value="0.37589376915219613" />
+        <entry key="app/src/main/res/layout/addnewhabit.xml" value="0.45" />
+        <entry key="app/src/main/res/layout/addnewhabitevent.xml" value="0.38333333333333336" />
+        <entry key="app/src/main/res/layout/calendar_layout.xml" value="0.29635416666666664" />
+        <entry key="app/src/main/res/layout/checkfollower.xml" value="0.29635416666666664" />
+        <entry key="app/src/main/res/layout/checkfollowing.xml" value="0.29635416666666664" />
+        <entry key="app/src/main/res/layout/checkrequestname.xml" value="0.3515625" />
+        <entry key="app/src/main/res/layout/followers.xml" value="0.37589376915219613" />
+        <entry key="app/src/main/res/layout/following.xml" value="0.37589376915219613" />
+        <entry key="app/src/main/res/layout/habit_detail.xml" value="0.37589376915219613" />
+        <entry key="app/src/main/res/layout/habitdetail.xml" value="0.29635416666666664" />
+        <entry key="app/src/main/res/layout/habitdetailcontent.xml" value="0.3515625" />
+        <entry key="app/src/main/res/layout/habitevent.xml" value="0.29635416666666664" />
+        <entry key="app/src/main/res/layout/habiteventdetail.xml" value="0.38333333333333336" />
+        <entry key="app/src/main/res/layout/login.xml" value="0.3977471774945423" />
+        <entry key="app/src/main/res/layout/menu.xml" value="0.29635416666666664" />
+        <entry key="app/src/main/res/layout/menudelete.xml" value="0.29635416666666664" />
+        <entry key="app/src/main/res/layout/pendinglist.xml" value="0.37589376915219613" />
+        <entry key="app/src/main/res/layout/profile.xml" value="0.37589376915219613" />
+        <entry key="app/src/main/res/layout/signin.xml" value="0.29635416666666664" />
+        <entry key="app/src/main/res/layout/signup.xml" value="0.21145833333333333" />
+        <entry key="app/src/main/res/layout/today_habits.xml" value="0.21145833333333333" />
+        <entry key="app/src/main/res/layout/todayhabit.xml" value="0.29635416666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../../2021FALL" />
+    <option name="OPTION_SCOPE" value="private" />
+    <option name="OPTION_DOCUMENT_TAG_USE" value="true" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="true" />
+    <option name="OPTION_DOCUMENT_TAG_VERSION" value="true" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
