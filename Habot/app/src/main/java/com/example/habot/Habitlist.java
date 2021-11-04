@@ -54,6 +54,21 @@ public class Habitlist extends ArrayAdapter<Habit> {
         return view;
     }
 
+    public int getCount(){
+        return habits.size();
+    }
+
+    public void AddHabit(Habit habit){
+        habits.add(habit);
+    }
+
+    public void DeleteHabit(int i){
+        Habit habit = habits.get(i);
+        if (habits.contains(habit)) {
+            habits.remove(habit);
+        }
+    }
+
 
 
 }
