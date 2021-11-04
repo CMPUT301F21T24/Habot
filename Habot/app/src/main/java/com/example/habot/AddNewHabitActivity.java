@@ -46,7 +46,10 @@ public class AddNewHabitActivity extends AppCompatActivity {
     int position;
     EditText TimeStartEditText;
 
-
+    /**
+     *  Action after this activity is created.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
