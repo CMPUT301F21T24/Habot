@@ -1,100 +1,67 @@
 package com.example.habot;
 
-/**
- * This is a Habit_Event object
- */
 public class Habit_Event {
-    public Habit habit;
-    public String eventTime;
+    public String habit_name;
+    public String eventtime;
     public String comment;
     public String photo;
     public String status;
-    public String Geolocation;
+    public String geolocation;
 
-    /**
-     * This is the constructor of habit event and takes six parameter
-     * @param habit
-     * @param eventTime
-     * @param comment
-     * @param photo
-     * @param status
-     * @param Geolocation
-     */
-    Habit_Event(Habit habit, String eventTime, String comment, String photo, String status, String Geolocation){
-        this.habit = habit;
-        this.eventTime = eventTime;
-        this.comment = comment;
-        this.photo = photo;
-        this.status = status;
-        this.Geolocation = Geolocation;
+        Habit_Event(String habit_name, String eventtime, String comment, String photo, String status, String geolocation){
+            this.habit_name = habit_name;
+            this.eventtime = eventtime;
+            this.comment = comment;
+            this.photo = photo;
+            this.status = status;
+            this.geolocation = geolocation;
+        }
+
+    public String getHabit_name() {
+        return habit_name;
     }
 
-    /**
-     * This takes a Habit as parameter, set the habit to habitevent
-     * @param habit
-     */
-    public void setHabit(Habit habit) {
-        this.habit = habit;
+    public void setHabit_name(String habit_name) {
+        this.habit_name = habit_name;
     }
 
-    /**
-     * This will get the habit of the habit event
-     * @return
-     *      This will return the habit of the habit event
-     */
-    public Habit getHabit() {
-        return habit;
+    public String getEventtime() {
+        return eventtime;
     }
 
-    /**
-     * This takes a string as parameterr and it will set the time of habit event
-     * @param eventTime
-     */
-    public void setEventTime(String eventTime) {
-        this.eventTime = eventTime;
+    public void setEventtime(String eventtime) {
+        this.eventtime = eventtime;
     }
 
-    /**
-     * This will get the time of habit event
-     * @return
-     *      This will return the time of habit event
-     */
-    public String getEventTime() {
-        return eventTime;
-    }
-
-    /**
-     * This takes a string of comment as parameter and this will set comment for the habit event
-     * @param comment
-     */
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    /**
-     * This will get the comment of the habit event
-     * @return
-     *      This will return the comment of the habit event
-     */
     public String getComment() {
         return comment;
     }
 
-    /**
-     * This takes a photo as input and set the photo as the photo of the habit event
-     * @param photo
-     */
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
     public void setPhoto(String photo) {
         this.photo = photo;
     }
 
-    /**
-     * This will get the photo of the habit event
-     * @return
-     *      This will return the photo of the habit event
-     */
-    public String getPhoto() {
-        return photo;
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getGeolocation() {
+        return geolocation;
+    }
+
+    public void setGeolocation(String geolocation) {
+        this.geolocation = geolocation;
     }
 }

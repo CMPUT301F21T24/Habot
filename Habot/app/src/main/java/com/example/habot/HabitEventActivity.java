@@ -4,22 +4,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-/**
- * This activity is created when the activity start
- */
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.ArrayList;
+
 public class HabitEventActivity extends AppCompatActivity {
-    //Initialize the variables
     Button HabitEventBackButton;
     Button AddNewEventButton;
+    ArrayAdapter<Habit_Event> habiteventadapter;
+    ArrayList<Habit_Event> habiteventlist;
+    FirebaseFirestore db;
+    ListView habiteventdetail;
 
-    /**
-     * Action when the activity start
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,16 +38,10 @@ public class HabitEventActivity extends AppCompatActivity {
         String Username = bundle.getString("UserName");
         Log.d("TAG", "----------------> Username is :"+Username);
 
-        //find id from layout files
         HabitEventBackButton = findViewById(R.id.HabitEventToMenu);
         AddNewEventButton = findViewById(R.id.newHabitsEvent_button);
 
         HabitEventBackButton.setOnClickListener(new View.OnClickListener() {
-
-            /**
-             * This intent will direct users from Habit Event Page to Menu Page
-             * @param v
-             */
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();
@@ -50,12 +53,8 @@ public class HabitEventActivity extends AppCompatActivity {
             }
         });
 
-        AddNewEventButton.setOnClickListener(new View.OnClickListener() {
 
-            /**
-             * This intent will direct users from Habit Event Page to Add New Event Activity
-             * @param v
-             */
+        AddNewEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();
@@ -66,5 +65,52 @@ public class HabitEventActivity extends AppCompatActivity {
                 startActivity(Jump);
             }
         });
+
+        habiteventdetail = findViewById(R.id.HabitDetail);
+        habiteventlist = new ArrayList<Habit_Event>();
+
+        habiteventadapter = new Habit_Eventlist(this,habiteventlist);
+
+        habiteventdetail.setAdapter(habiteventadapter);
+
+        db = FirebaseFirestore.getInstance();
+        DocumentReference noteRef = db.collection(Username).document("HabitEventList");
+        noteRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                habiteventlist.clear();
+                for (int i =1;;i++)
+                {
+
+                    String habit_name = (String) value.getString("habitevent"+Integer.toString(i)+"name");
+                    if(habit_name==null){
+                        break;
+                    }
+                    Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + habit_name);
+                    String eventtime = value.getString("habitevent"+Integer.toString(i)+"eventtime");
+                    String comment = value.getString("habitevent"+Integer.toString(i)+"comment");
+                    String photo = value.getString("habitevent"+Integer.toString(i)+"photo");
+                    String status = value.getString("habitevent"+Integer.toString(i)+"status");
+                    String geolocation = value.getString("habitevent"+Integer.toString(i)+"geolocation");
+                    habiteventlist.add(new Habit_Event(habit_name, eventtime, comment, photo, status, geolocation));
+
+                }
+                habiteventadapter.notifyDataSetChanged();
+            }
+        });
+
+        habiteventdetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent Jump = new Intent();
+                Jump.setClass(HabitEventActivity.this, HabitEventDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("UserName", Username);
+                bundle.putInt("position",i);
+                Jump.putExtras(bundle);
+                startActivity(Jump);
+            }
+        });
+
     }
 }

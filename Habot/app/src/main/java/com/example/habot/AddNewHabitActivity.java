@@ -77,7 +77,6 @@ public class AddNewHabitActivity extends AppCompatActivity {
 
         if(edit){
             position = bundle.getInt("position");
-            String a = "1";
             noteRef.get()
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override

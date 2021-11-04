@@ -53,11 +53,13 @@
         android:background="#0B233B"
         android:gravity="center">
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="130dp"
-            android:background="@color/black"></ImageView>
+<!--        <ImageView-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="150dp"-->
+<!--            android:layout_below="@+id/detail_name"-->
+<!--            android:layout_marginLeft="130dp"-->
+<!--            android:layout_marginTop="-100dp"-->
+<!--            android:background="@color/black"></ImageView>-->
 
 
         <TextView
@@ -71,7 +73,7 @@
             android:textSize="25sp"></TextView>
 
         <TextView
-            android:id="@+id/display_comment"
+            android:id="@+id/detail_comment"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginLeft="20dp"
@@ -92,12 +94,12 @@
             android:textColor="#FFF"
             android:textSize="25sp"></TextView>
 
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/mapView"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginLeft="180dp"
-            android:layout_marginTop="300dp" />
+<!--        <com.google.android.gms.maps.MapView-->
+<!--            android:id="@+id/mapView"-->
+<!--            android:layout_width="140dp"-->
+<!--            android:layout_height="140dp"-->
+<!--            android:layout_marginLeft="160dp"-->
+<!--            android:layout_marginTop="60dp" />-->
 
 
         <TextView
@@ -122,6 +124,28 @@
             android:textColor="#FFF"
             android:textColorHint="#98ACB8"
             android:textSize="20sp"></TextView>
+
+        <TextView
+            android:id="@+id/detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_centerHorizontal="true"
+            android:text="Habit name"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/detail_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="570dp"
+            android:text="Date"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
 
 
     </RelativeLayout>
