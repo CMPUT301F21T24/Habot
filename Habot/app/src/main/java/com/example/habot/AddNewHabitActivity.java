@@ -8,8 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -30,6 +32,12 @@ public class AddNewHabitActivity extends AppCompatActivity {
     Button ConfirmButton;
     FirebaseFirestore db;
     ArrayList<Habit> habitlist;
+    String HabitNameInput;
+    String HabitDescriptionInput;
+    String dateStart;
+    String dateOccur;
+    int position;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +54,53 @@ public class AddNewHabitActivity extends AppCompatActivity {
         HabitOccurDateTextView = findViewById(R.id.input_habit_occurDate);
         ConfirmButton = findViewById(R.id.confirm_button);
         db = FirebaseFirestore.getInstance();
+
         habitlist = new ArrayList<Habit>();
 
 
         Bundle bundle = getIntent().getExtras();
         String Username = bundle.getString("UserName");
-        Log.d("TAG", "----------------> Username is :"+Username);
-        String HabitNameInput = bundle.getString("HabitName");
-        String HabitDescriptionInput = bundle.getString("HabitDescription");
-
         DocumentReference noteRef = db.collection(Username).document("HabitList");
+        boolean edit = bundle.getBoolean("edit");
 
-        HabitNameEditText.setText(HabitNameInput);
-        HabitDescriptionEditText.setText(HabitDescriptionInput);
+        if(edit){
+            position = bundle.getInt("position");
+            String a = "1";
+            noteRef.get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if(documentSnapshot.exists()) {
 
 
-        Intent GetDate = getIntent();
-        String dateStart = GetDate.getStringExtra("dateStart");
-        String dateOccur = bundle.getString("dateOccur");
+                                HabitNameInput = documentSnapshot.getString("habit" + Integer.toString(position+1) + "name");
+                                Log.d("TAG", "onSuccess:zzzzzzzzzzzzzs"+HabitNameInput);
+                                HabitDescriptionInput = documentSnapshot.getString("habit" + Integer.toString(position+1) + "reason");
+                                dateStart = documentSnapshot.getString("habit" + Integer.toString(position+1) + "date");
+                                dateOccur = "2021-!!-!!";
+                                CancelBackToMenuButton.setText("Delete");
+                                ConfirmButton.setText("Update");
+                                HabitNameEditText.setText(HabitNameInput);
+                                HabitDescriptionEditText.setText(HabitDescriptionInput);
+                                HabitStartDateTextView.setText(dateStart);
+                                HabitOccurDateTextView.setText(dateOccur);
+                            }
+                        }
+                    });
 
-        HabitStartDateTextView.setText(dateStart);
-        HabitOccurDateTextView.setText(dateOccur);
+        }
+        else {
+            HabitNameInput = bundle.getString("HabitName");
+            HabitDescriptionInput = bundle.getString("HabitDescription");
+            Intent GetDate = getIntent();
+            dateStart = GetDate.getStringExtra("dateStart");
+            dateOccur = bundle.getString("dateOccur");
+            HabitNameEditText.setText(HabitNameInput);
+            HabitDescriptionEditText.setText(HabitDescriptionInput);
+            HabitStartDateTextView.setText(dateStart);
+            HabitOccurDateTextView.setText(dateOccur);
+
+        }
 
         HabitStartDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,54 +134,41 @@ public class AddNewHabitActivity extends AppCompatActivity {
             }
         });
 
+
         CancelBackToMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Jump = new Intent();
-                Jump.setClass(AddNewHabitActivity.this, MenuActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("UserName", Username);
-                Jump.putExtras(bundle);
-                startActivity(Jump);
-            }
-        });
-
-        ConfirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String title = HabitNameEditText.getText().toString();
-                String reason = HabitDescriptionEditText.getText().toString();
-                String date = HabitStartDateTextView.getText().toString();
-                HashMap<String,String> newhabit = new HashMap<>();
-
                 final int[] stop_point = new int[1];
-                noteRef.get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if(documentSnapshot.exists()){
-                                    for (int i =1;;i++)
-                                    {
+                HashMap<String, String> newhabit = new HashMap<>();
+                if(edit){
+                    noteRef.get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if(documentSnapshot.exists()){
+                                        for (int i = 1; ; i++) {
 
-                                        String title = (String) documentSnapshot.getString("habit"+Integer.toString(i)+"name");
-                                        if(title==null){
-                                            stop_point[0] = i;
-                                            Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz"+Integer.toString(i));
-                                            break;
+                                            String title = (String) documentSnapshot.getString("habit" + Integer.toString(i) + "name");
+                                            if (title == null) {
+                                                stop_point[0] = i;
+                                                Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i));
+                                                break;
+                                            }
+                                            Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + title);
+                                            String reason = documentSnapshot.getString("habit" + Integer.toString(i) + "reason");
+                                            String date = documentSnapshot.getString("habit" + Integer.toString(i) + "date");
+                                            habitlist.add(new Habit(title, reason, date));
+
                                         }
-                                        Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + title);
-                                        String reason = documentSnapshot.getString("habit"+Integer.toString(i)+"reason");
-                                        String date = documentSnapshot.getString("habit"+Integer.toString(i)+"date");
-                                        habitlist.add(new Habit(title, reason, date));
-
+                                        habitlist.remove(position);
                                     }
-                                    habitlist.add(new Habit(title, reason, date));
-                                    for (int i =1; i<=stop_point[0];i++){
-                                        Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz"+Integer.toString(i)+Integer.toString(stop_point[0]));
+                                    for (int i = 1; i < stop_point[0]-1; i++) {
+                                        Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
 
-                                        newhabit.put("habit"+Integer.toString(i)+"name",habitlist.get(i-1).gettitle());
-                                        newhabit.put("habit"+Integer.toString(i)+"reason",habitlist.get(i-1).getreason());
-                                        newhabit.put("habit"+Integer.toString(i)+"date",habitlist.get(i-1).getdate());
+                                        newhabit.put("habit" + Integer.toString(i) + "name", habitlist.get(i - 1).gettitle());
+                                        newhabit.put("habit" + Integer.toString(i) + "reason", habitlist.get(i - 1).getreason());
+                                        newhabit.put("habit" + Integer.toString(i) + "date", habitlist.get(i - 1).getdate());
+
                                     }
                                     noteRef.set(newhabit);
                                     Intent Jump = new Intent();
@@ -157,9 +178,117 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                     Jump.putExtras(bundle);
                                     startActivity(Jump);
                                 }
-                            }
-                        });
+                            });
 
+
+                }
+                else {
+                    Intent Jump = new Intent();
+                    Jump.setClass(AddNewHabitActivity.this, HabitDetailAcitivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("UserName", Username);
+                    Jump.putExtras(bundle);
+                    startActivity(Jump);
+                }
+            }
+        });
+
+        ConfirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String title = HabitNameEditText.getText().toString();
+                String reason = HabitDescriptionEditText.getText().toString();
+                String date = HabitStartDateTextView.getText().toString();
+                HashMap<String, String> newhabit = new HashMap<>();
+
+                final int[] stop_point = new int[1];
+                if(!edit){
+                    noteRef.get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if (documentSnapshot.exists()) {
+                                        for (int i = 1; ; i++) {
+
+                                            String title = (String) documentSnapshot.getString("habit" + Integer.toString(i) + "name");
+                                            if (title == null) {
+                                                stop_point[0] = i;
+                                                Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i));
+                                                break;
+                                            }
+                                            Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + title);
+                                            String reason = documentSnapshot.getString("habit" + Integer.toString(i) + "reason");
+                                            String date = documentSnapshot.getString("habit" + Integer.toString(i) + "date");
+                                            habitlist.add(new Habit(title, reason, date));
+
+                                        }
+                                        habitlist.add(new Habit(title, reason, date));
+                                        for (int i = 1; i <= stop_point[0]; i++) {
+                                            Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
+
+
+                                            newhabit.put("habit" + Integer.toString(i) + "name", habitlist.get(i - 1).gettitle());
+                                            newhabit.put("habit" + Integer.toString(i) + "reason", habitlist.get(i - 1).getreason());
+                                            newhabit.put("habit" + Integer.toString(i) + "date", habitlist.get(i - 1).getdate());
+                                        }
+                                        noteRef.set(newhabit);
+                                        Intent Jump = new Intent();
+                                        Jump.setClass(AddNewHabitActivity.this, HabitDetailAcitivity.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("UserName", Username);
+                                        Jump.putExtras(bundle);
+                                        startActivity(Jump);
+                                    }
+                                }
+                            });
+
+
+                }
+                else{
+                    noteRef.get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if(documentSnapshot.exists()){
+                                        for (int i = 1; ; i++) {
+
+                                            String title = (String) documentSnapshot.getString("habit" + Integer.toString(i) + "name");
+                                            if (title == null) {
+                                                stop_point[0] = i;
+                                                Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i));
+                                                break;
+                                            }
+                                            Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + title);
+                                            String reason = documentSnapshot.getString("habit" + Integer.toString(i) + "reason");
+                                            String date = documentSnapshot.getString("habit" + Integer.toString(i) + "date");
+                                            habitlist.add(new Habit(title, reason, date));
+
+                                        }
+                                    }
+                                    for (int i = 1; i < stop_point[0]; i++) {
+                                        Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
+                                        if(position==(i-1)){
+                                            newhabit.put("habit"+Integer.toString(position+1)+"name",title);
+                                            newhabit.put("habit"+Integer.toString(position+1)+"reason",reason);
+                                            newhabit.put("habit"+Integer.toString(position+1)+"date",date);
+                                        }
+                                        else {
+                                            newhabit.put("habit" + Integer.toString(i) + "name", habitlist.get(i - 1).gettitle());
+                                            newhabit.put("habit" + Integer.toString(i) + "reason", habitlist.get(i - 1).getreason());
+                                            newhabit.put("habit" + Integer.toString(i) + "date", habitlist.get(i - 1).getdate());
+                                        }
+                                    }
+                                    noteRef.set(newhabit);
+                                    Intent Jump = new Intent();
+                                    Jump.setClass(AddNewHabitActivity.this, HabitDetailAcitivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("UserName", Username);
+                                    Jump.putExtras(bundle);
+                                    startActivity(Jump);
+                                }
+                            });
+
+                }
             }
         });
     }

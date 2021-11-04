@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,12 +21,26 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.protobuf.StringValue;
+
+import java.util.ArrayList;
+
 public class HabitDetailAcitivity extends AppCompatActivity {
     Button HabitDetailBackButton;
     Button AddHabitButton;
     ArrayAdapter<Habit> habitsadapater;
     ArrayList<Habit> habitlist;
     FirebaseFirestore db;
+    ListView habitdetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +73,12 @@ public class HabitDetailAcitivity extends AppCompatActivity {
                 Jump.setClass(HabitDetailAcitivity.this, AddNewHabitActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("UserName", Username);
+                bundle.putBoolean("edit",false);
                 Jump.putExtras(bundle);
                 startActivity(Jump);
             }
         });
-        ListView habitdetail = findViewById(R.id.HabitDetail);
+        habitdetail = findViewById(R.id.HabitDetail);
         habitlist = new ArrayList<Habit>();
 
         habitsadapater = new Habitlist(this,habitlist);
@@ -93,5 +109,23 @@ public class HabitDetailAcitivity extends AppCompatActivity {
                 habitsadapater.notifyDataSetChanged();
             }
         });
+
+
+
+
+        habitdetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent Jump = new Intent();
+                Jump.setClass(HabitDetailAcitivity.this, AddNewHabitActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("UserName", Username);
+                bundle.putInt("position",i);
+                bundle.putBoolean("edit",true);
+                Jump.putExtras(bundle);
+                startActivity(Jump);
+            }
+        });
+
     }
 }
