@@ -1,9 +1,7 @@
 package com.example.habot;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,16 +13,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.GeoPoint;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     EditText UsernameSignInEditText;
     EditText PasswordSignInEdiText;
@@ -37,7 +30,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signin);
+        setContentView(R.layout.signup);
 
         UsernameSignInEditText = findViewById(R.id.usernameSignIn);
         PasswordSignInEdiText = findViewById(R.id.PasswordSignIn);
@@ -58,7 +51,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent JumpToSignUp = new Intent();
-                JumpToSignUp.setClass(SignInActivity.this, LoginActivity.class);
+                JumpToSignUp.setClass(SignUpActivity.this, LoginActivity.class);
                 startActivity(JumpToSignUp);
             }
         });

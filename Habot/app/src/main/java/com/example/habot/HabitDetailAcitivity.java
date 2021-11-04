@@ -31,7 +31,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.protobuf.StringValue;
-
 import java.util.ArrayList;
 
 public class HabitDetailAcitivity extends AppCompatActivity {

@@ -18,7 +18,11 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class AddNewHabitActivity extends AppCompatActivity {
@@ -27,8 +31,8 @@ public class AddNewHabitActivity extends AppCompatActivity {
     Button HabitStartDateButton;
     EditText HabitNameEditText;
     EditText HabitDescriptionEditText;
-    Button HabitOccurDateButton;
-    TextView HabitOccurDateTextView;
+//    Button HabitOccurDateButton;
+//    TextView HabitOccurDateTextView;
     Button ConfirmButton;
     FirebaseFirestore db;
     ArrayList<Habit> habitlist;
@@ -37,6 +41,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
     String dateStart;
     String dateOccur;
     int position;
+    EditText TimeStartEditText;
 
 
     @Override
@@ -50,8 +55,8 @@ public class AddNewHabitActivity extends AppCompatActivity {
         HabitStartDateButton = findViewById(R.id.habit_startDate_text);
         HabitNameEditText = findViewById(R.id.input_habit_name);
         HabitDescriptionEditText = findViewById(R.id.input_habit_description);
-        HabitOccurDateButton = findViewById(R.id.habit_occurDate_text);
-        HabitOccurDateTextView = findViewById(R.id.input_habit_occurDate);
+//        HabitOccurDateButton = findViewById(R.id.habit_occurDate_text);
+        TimeStartEditText = findViewById(R.id.TimeStart);
         ConfirmButton = findViewById(R.id.confirm_button);
         db = FirebaseFirestore.getInstance();
 
@@ -77,13 +82,13 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                 Log.d("TAG", "onSuccess:zzzzzzzzzzzzzs"+HabitNameInput);
                                 HabitDescriptionInput = documentSnapshot.getString("habit" + Integer.toString(position+1) + "reason");
                                 dateStart = documentSnapshot.getString("habit" + Integer.toString(position+1) + "date");
-                                dateOccur = "2021-!!-!!";
+//                                dateOccur = "2021-!!-!!";
                                 CancelBackToMenuButton.setText("Delete");
                                 ConfirmButton.setText("Update");
                                 HabitNameEditText.setText(HabitNameInput);
                                 HabitDescriptionEditText.setText(HabitDescriptionInput);
                                 HabitStartDateTextView.setText(dateStart);
-                                HabitOccurDateTextView.setText(dateOccur);
+//                                HabitOccurDateTextView.setText(dateOccur);
                             }
                         }
                     });
@@ -94,11 +99,11 @@ public class AddNewHabitActivity extends AppCompatActivity {
             HabitDescriptionInput = bundle.getString("HabitDescription");
             Intent GetDate = getIntent();
             dateStart = GetDate.getStringExtra("dateStart");
-            dateOccur = bundle.getString("dateOccur");
+//            dateOccur = bundle.getString("dateOccur");
             HabitNameEditText.setText(HabitNameInput);
             HabitDescriptionEditText.setText(HabitDescriptionInput);
             HabitStartDateTextView.setText(dateStart);
-            HabitOccurDateTextView.setText(dateOccur);
+//            HabitOccurDateTextView.setText(dateOccur);
 
         }
 
@@ -112,27 +117,27 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 bundle.putString("UserName", Username);
                 bundle.putString("HabitName", HabitNameInput);
                 bundle.putString("HabitDescription", HabitDescriptionInput);
-                bundle.putString("dateOccur", dateOccur);
+//                bundle.putString("dateOccur", dateOccur);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
 
-        HabitOccurDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String HabitNameInput = HabitNameEditText.getText().toString();
-                String HabitDescriptionInput = HabitDescriptionEditText.getText().toString();
-                Intent  intent = new Intent(AddNewHabitActivity.this, CalendarDateOccurActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("UserName", Username);
-                bundle.putString("HabitName", HabitNameInput);
-                bundle.putString("HabitDescription", HabitDescriptionInput);
-                bundle.putString("dateStart", dateStart);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+//        HabitOccurDateButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String HabitNameInput = HabitNameEditText.getText().toString();
+//                String HabitDescriptionInput = HabitDescriptionEditText.getText().toString();
+//                Intent  intent = new Intent(AddNewHabitActivity.this, CalendarDateOccurActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("UserName", Username);
+//                bundle.putString("HabitName", HabitNameInput);
+//                bundle.putString("HabitDescription", HabitDescriptionInput);
+//                bundle.putString("dateStart", dateStart);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
 
 
         CancelBackToMenuButton.setOnClickListener(new View.OnClickListener() {
@@ -196,6 +201,9 @@ public class AddNewHabitActivity extends AppCompatActivity {
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String TimeStart = TimeStartEditText.getText().toString();
+                Log.d("TAG", "------------->>>>>>>>>>>>>kkkkkkkkkkkkkkkkkk Time Stored"+ TimeStart);
+
                 String title = HabitNameEditText.getText().toString();
                 String reason = HabitDescriptionEditText.getText().toString();
                 String date = HabitStartDateTextView.getText().toString();

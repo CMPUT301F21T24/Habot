@@ -6,6 +6,7 @@ public class Habit {
     private String title;
     private String reason;
     private String date;
+    private String Time;
 
     Habit(String title, String reason, String date)
     {
@@ -32,4 +33,13 @@ public class Habit {
     public void setdate(String date){
         this.date = date;
     }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String time) {
+        Time = time;
+    }
 }
+

@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Habot">
         <activity
-            android:name=".SignInActivity"
+            android:name=".SignUpActivity"
             android:exported="true">
         </activity>
 

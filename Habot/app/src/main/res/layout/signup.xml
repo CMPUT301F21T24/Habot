@@ -39,7 +39,7 @@
             android:layout_marginBottom="5dp"
             android:gravity="center"
             android:rotationX="-42"
-            android:text="Sign In"
+            android:text="Sign Up"
             android:textColor="#fff"
             android:textSize="40sp" />
 
