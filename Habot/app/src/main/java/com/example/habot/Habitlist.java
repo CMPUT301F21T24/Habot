@@ -64,10 +64,10 @@ public class Habitlist extends ArrayAdapter<Habit> {
     }
 
     public void DeleteHabit(int i){
-        Habit habit = habits.get(i);
-        if (habits.contains(habit)) {
-            habits.remove(habit);
-        }
+//        Habit habit = habits.get(i);
+//        if (habits.contains(habit)) {
+//            habits.remove(habit);
+//        }
     }
 
 
