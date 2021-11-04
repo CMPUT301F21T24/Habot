@@ -93,7 +93,8 @@
             android:layout_marginBottom="225dp"
             android:background="#D6D7D7"
             android:gravity="center"
-            android:hint="Enter a Password" />
+            android:hint="Enter a Password"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/cancel_button"

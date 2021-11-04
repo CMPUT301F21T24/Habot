@@ -111,6 +111,9 @@ public class SignUpActivity extends AppCompatActivity {
                                             });
                                     UsernameSignInEditText.setText("");
                                     PasswordSignInEdiText.setText("");
+                                    Intent JumpToLogIn = new Intent();
+                                    JumpToLogIn.setClass(SignUpActivity.this, LoginActivity.class);
+                                    startActivity(JumpToLogIn);
                                 }
                             }
                         });
