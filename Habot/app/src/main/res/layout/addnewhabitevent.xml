@@ -79,7 +79,8 @@
             android:gravity="center"
             android:hint="Enter your comment!"
             android:textColor="@color/white"
-            android:textColorHint="#98ACB8"></EditText>
+            android:textColorHint="#98ACB8"
+            android:maxLength="20"></EditText>
 
         <TextView
             android:layout_width="wrap_content"
@@ -141,10 +142,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="480dp"
             android:ems="10"
-            android:hint="Time"
-            android:inputType="textPersonName"
+            android:hint="00:00"
+            android:inputType="time"
+            android:textSize="20sp"
             android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:textColorHint="@color/white"
+            />
 
 
     </RelativeLayout>
