@@ -1,11 +1,21 @@
 package com.example.habot;
 
+import android.content.Context;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class UserList {
+public class UserList extends ArrayList<User>{
 
-    private ArrayList<User> userArrayList;
+    public ArrayList<User> userArrayList;
+    public Context context;
+    public UserList(Context context, ArrayList<User> userArrayList){
+        super();
+        this.userArrayList = userArrayList;
+        this.context = context;
+
+    }
+
 
     /**
      * This add a User to the userArrayList
@@ -26,5 +36,15 @@ public class UserList {
         return this.userArrayList;
     }
 
+    public int getCount(){
+        return userArrayList.size();
+    }
+
+    public void DeleteUser(int i){
+        User user = userArrayList.get(i);
+        if (userArrayList.contains(user)) {
+            userArrayList.remove(user);
+        }
+    }
 
 }
