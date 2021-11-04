@@ -61,7 +61,8 @@
             android:layout_marginTop="12dp"
             android:hint="Enter habit name"
             android:textColor="@color/white"
-            android:textColorHint="#fff" />
+            android:textColorHint="#fff"
+            android:maxLength="20"/>
 
         <TextView
             android:id="@+id/habit_description_text"
@@ -83,7 +84,8 @@
             android:layout_marginTop="120dp"
             android:hint="Enter habit description"
             android:textColor="@color/white"
-            android:textColorHint="#fff" />
+            android:textColorHint="#fff"
+            android:maxLength="30"/>
 
         <Button
             android:id="@+id/habit_startDate_text"

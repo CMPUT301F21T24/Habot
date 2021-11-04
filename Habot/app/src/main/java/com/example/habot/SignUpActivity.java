@@ -154,6 +154,9 @@ public class SignUpActivity extends AppCompatActivity {
                                     //after sign up account successfully, clear the user input
                                     UsernameSignInEditText.setText("");
                                     PasswordSignInEdiText.setText("");
+                                    Intent JumpToLogIn = new Intent();
+                                    JumpToLogIn.setClass(SignUpActivity.this, LoginActivity.class);
+                                    startActivity(JumpToLogIn);
                                 }
                             }
                         });
