@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * Prompt user to create a new habit activity
+ */
 public class AddNewHabitActivity extends AppCompatActivity {
     Button CancelBackToMenuButton;
     TextView HabitStartDateTextView;
