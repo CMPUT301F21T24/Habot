@@ -2,10 +2,12 @@ package com.example.habot;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -104,12 +106,13 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                     // else turn the error message visible
                                     else {
-                                        IncorrectPassword.setVisibility(View.VISIBLE);
+                                        Toast.makeText(LoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+
                                     }
                                 }
                                 // else turn the error message visible
                                 else{
-                                    IncorrectUsername.setVisibility(View.VISIBLE);
+                                    Toast.makeText(LoginActivity.this, "Username not found, please sign up first", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

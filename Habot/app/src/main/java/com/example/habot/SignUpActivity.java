@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -104,7 +105,7 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 if (documentSnapshot.exists()) {
-
+                                    Toast.makeText(SignUpActivity.this, "The UserName has already exist", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
 
@@ -147,7 +148,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void unused) {
                                                     Log.d("Username", "Username and Password have been successfully added.");
-
+                                                    Toast.makeText(SignUpActivity.this, "Successfully create account", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
 
