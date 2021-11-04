@@ -40,6 +40,7 @@ public class Habitlist extends ArrayAdapter<Habit> {
      * @return
      *      This will return the a view.
      */
+    @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 // return super.getView(position, convertView, parent);
         View view = convertView;

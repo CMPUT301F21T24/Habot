@@ -6,10 +6,10 @@ import java.util.Date;
  * This is a habit object
  */
 public class Habit {
-    private String title;
-    private String reason;
-    private String date;
-    private String Time;
+    public String title;
+    public String reason;
+    public String date;
+    public String Time;
 
     /**
      * This is the constructor of the habit object, it takes three parameter
@@ -17,7 +17,7 @@ public class Habit {
      * @param reason
      * @param date
      */
-    Habit(String title, String reason, String date)
+    public Habit(String title, String reason, String date)
     {
         this.title = title;
         this.reason = reason;
