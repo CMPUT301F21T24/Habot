@@ -33,7 +33,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.protobuf.StringValue;
 import java.util.ArrayList;
 
+/**
+ * This activity is created when the activity starts, generate Habit Detail Activity
+ */
 public class HabitDetailAcitivity extends AppCompatActivity {
+
+    //Initialize the variables
     Button HabitDetailBackButton;
     Button AddHabitButton;
     ArrayAdapter<Habit> habitsadapater;
@@ -41,6 +46,10 @@ public class HabitDetailAcitivity extends AppCompatActivity {
     FirebaseFirestore db;
     ListView habitdetail;
 
+    /**
+     * Action when the activity starts.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +59,16 @@ public class HabitDetailAcitivity extends AppCompatActivity {
         String Username = bundle.getString("UserName");
         Log.d("TAG", "----------------> Username is :"+Username);
 
+        //Find id from layout files
         HabitDetailBackButton = findViewById(R.id.HabitDetailToMenu);
         AddHabitButton = findViewById(R.id.newHabits_button);
 
         HabitDetailBackButton.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * This intent will direct users from Habit Detail Page back to Menu Page
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();
@@ -66,6 +81,11 @@ public class HabitDetailAcitivity extends AppCompatActivity {
         });
 
         AddHabitButton.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * This intent will direct users from Habit Detail Page to Add New Habit Page
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();
@@ -77,6 +97,8 @@ public class HabitDetailAcitivity extends AppCompatActivity {
                 startActivity(Jump);
             }
         });
+
+        //set up the adapters for the data list and list view
         habitdetail = findViewById(R.id.HabitDetail);
         habitlist = new ArrayList<Habit>();
 
@@ -84,27 +106,41 @@ public class HabitDetailAcitivity extends AppCompatActivity {
 
         habitdetail.setAdapter(habitsadapater);
 
-
+        //find username from firestore collection,
+        //and find HabitList from corresponding document
         db = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = db.collection(Username);
         DocumentReference noteRef = collectionReference.document("HabitList");
         noteRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+
+            /**
+             * This will get users input from the add new habit activity and
+             * import them to Firestore database
+             * @param value
+             * @param error
+             */
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 habitlist.clear();
                 for (int i =1;;i++)
                 {
-
+                    //get the Habit Name
                     String title = (String) value.getString("habit"+Integer.toString(i)+"name");
+                    //The Habit name cannot be null
                     if(title==null){
                         break;
                     }
                     Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + title);
+
+                    //get Habit reson and date
                     String reason = value.getString("habit"+Integer.toString(i)+"reason");
                     String date = value.getString("habit"+Integer.toString(i)+"date");
+
+                    //add Title, reason and date to the habitlist
                     habitlist.add(new Habit(title, reason, date));
 
                 }
+                //add Habit to the dataset
                 habitsadapater.notifyDataSetChanged();
             }
         });
@@ -113,6 +149,13 @@ public class HabitDetailAcitivity extends AppCompatActivity {
 
 
         habitdetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * This takes 4 parameter as input, once users click on the item, it jumps
+             * @param adapterView
+             * @param view
+             * @param i
+             * @param l
+             */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent Jump = new Intent();

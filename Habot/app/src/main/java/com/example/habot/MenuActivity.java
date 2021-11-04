@@ -8,6 +8,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * create menu page when this activity starts.
+ */
 public class MenuActivity extends AppCompatActivity {
     Button following_button;
     Button today_habit_button;
@@ -15,14 +18,21 @@ public class MenuActivity extends AppCompatActivity {
     Button habit_event_button;
     Button habit_detail_button;
 
+    /**
+     * Action after activity starts.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
 
+        //put username in the bundle and get data from database in every page
         Bundle bundle = getIntent().getExtras();
         String Username = bundle.getString("UserName");
         Log.d("TAG", "----------------> Username is :"+Username);
+
+        //find view id from layout files
         following_button = findViewById(R.id.Menu_following_button);
         today_habit_button = findViewById(R.id.Menu_today_habit_button);
         follower_button = findViewById(R.id.Menu_follower_button);
@@ -30,6 +40,10 @@ public class MenuActivity extends AppCompatActivity {
         habit_detail_button = findViewById(R.id.Menu_habit_detail_button);
 
         following_button.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This intent will direct users from Menu Page to Check Following Page
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();
@@ -42,6 +56,10 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         today_habit_button.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This intent will direct users from Menu Page to Today Habit Page
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();
@@ -54,6 +72,11 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         follower_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * This intent will direct users from Menu Page to Check Follower Page
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();
@@ -66,6 +89,11 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         habit_event_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * This intent will direct users from Menu Page to Habit Event Page
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();
@@ -78,6 +106,11 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         habit_detail_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * This intent will direct users from Menu Page to Habit Detail Page
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();

@@ -55,7 +55,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addnewhabit);
 
-
+        // connect with the layout file using the ids
         CancelBackToMenuButton = findViewById(R.id.add_habit_cancel_button);
         HabitStartDateTextView = findViewById(R.id.input_habit_startDate);
         HabitStartDateButton = findViewById(R.id.habit_startDate_text);
@@ -68,9 +68,10 @@ public class AddNewHabitActivity extends AppCompatActivity {
 
         habitlist = new ArrayList<Habit>();
 
-
+        // get info from the database
         Bundle bundle = getIntent().getExtras();
         String Username = bundle.getString("UserName");
+        // retrieve data from the HabitList document from the firebase
         DocumentReference noteRef = db.collection(Username).document("HabitList");
         boolean edit = bundle.getBoolean("edit");
 
@@ -114,10 +115,15 @@ public class AddNewHabitActivity extends AppCompatActivity {
         }
 
         HabitStartDateButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Set start date when the Day to Start button is pressed.
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 String HabitNameInput = HabitNameEditText.getText().toString();
                 String HabitDescriptionInput = HabitDescriptionEditText.getText().toString();
+                // when pressed, app will need to CalendarActivity for date selection
                 Intent  intent = new Intent(AddNewHabitActivity.this, CalendarActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("UserName", Username);
@@ -130,6 +136,10 @@ public class AddNewHabitActivity extends AppCompatActivity {
         });
 
 //        HabitOccurDateButton.setOnClickListener(new View.OnClickListener() {
+//            /**
+//             * Set Occur date when the Day to Start button is pressed.
+//             * @param v
+//             */
 //            @Override
 //            public void onClick(View v) {
 //                String HabitNameInput = HabitNameEditText.getText().toString();
@@ -147,6 +157,10 @@ public class AddNewHabitActivity extends AppCompatActivity {
 
 
         CancelBackToMenuButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Return to the menu page when cancel button is pressed.
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 final int[] stop_point = new int[1];
@@ -205,6 +219,10 @@ public class AddNewHabitActivity extends AppCompatActivity {
         });
 
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Add new habit when confirm button is pressed.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 String TimeStart = TimeStartEditText.getText().toString();

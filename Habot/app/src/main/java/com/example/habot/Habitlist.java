@@ -12,11 +12,19 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * This is a Habitlist that extends from ArrayAdapter
+ */
 public class Habitlist extends ArrayAdapter<Habit> {
     public ArrayList<Habit> habits;
 
     private Context context;
 
+    /**
+     * This takes context and habits as input and construct a habitlist
+     * @param context
+     * @param habits
+     */
     public Habitlist(Context context, ArrayList<Habit> habits){
         super(context, 0, habits);
         this.habits = habits;
@@ -24,7 +32,14 @@ public class Habitlist extends ArrayAdapter<Habit> {
 
     }
 
-
+    /**
+     * This takes position, convertView, parent as input and get view of habit name in the list
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     *      This will return the a view.
+     */
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 // return super.getView(position, convertView, parent);
         View view = convertView;
