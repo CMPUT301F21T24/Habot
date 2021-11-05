@@ -9,7 +9,7 @@ public class Habit {
     public String title;
     public String reason;
     public String date;
-    public String Time;
+    public String time;
 
     /**
      * This is the constructor of the habit object, it takes three parameter
@@ -17,11 +17,12 @@ public class Habit {
      * @param reason
      * @param date
      */
-    public Habit(String title, String reason, String date)
+    public Habit(String title, String reason, String date, String time)
     {
         this.title = title;
         this.reason = reason;
         this.date = date;
+        this.time = time;
     }
 
     /**
@@ -81,7 +82,7 @@ public class Habit {
      *      this will get the occur time of the habit
      */
     public String getTime() {
-        return Time;
+        return time;
     }
 
     /**
@@ -89,7 +90,7 @@ public class Habit {
      * @param time
      */
     public void setTime(String time) {
-        Time = time;
+        time = time;
     }
 }
 

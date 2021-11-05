@@ -29,11 +29,11 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.calendar_layout);
         // define values for variables
         Bundle bundle = getIntent().getExtras();
-        String Username = bundle.getString("UserName");
-        Log.d("TAG", "----------------> Username is :"+Username);
-        String HabitNameInput = bundle.getString("HabitName");
-        String HabitDescriptionInput = bundle.getString("HabitDescription");
-        String dateOccur = bundle.getString("dateOccur");
+//        String Username = bundle.getString("UserName");
+//        Log.d("TAG", "----------------> Username is :"+Username);
+//        String HabitNameInput = bundle.getString("HabitName");
+//        String HabitDescriptionInput = bundle.getString("HabitDescription");
+//        String dateOccur = bundle.getString("dateOccur");
         // connect layout file with view id
         mCalendarView = (CalendarView) findViewById(R.id.calendarView);
 
@@ -52,11 +52,11 @@ public class CalendarActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(CalendarActivity.this, AddNewHabitActivity.class);
                 intent.putExtra("dateStart", dateStart);
-                Bundle bundle = new Bundle();
-                bundle.putString("UserName", Username);
-                bundle.putString("HabitName", HabitNameInput);
-                bundle.putString("HabitDescription", HabitDescriptionInput);
-                bundle.putString("dateOccur", dateOccur);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("UserName", Username);
+//                bundle.putString("HabitName", HabitNameInput);
+//                bundle.putString("HabitDescription", HabitDescriptionInput);
+//                bundle.putString("dateOccur", dateOccur);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

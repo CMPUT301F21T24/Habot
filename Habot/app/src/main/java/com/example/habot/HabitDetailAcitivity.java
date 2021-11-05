@@ -135,9 +135,10 @@ public class HabitDetailAcitivity extends AppCompatActivity {
                     //get Habit reson and date
                     String reason = value.getString("habit"+Integer.toString(i)+"reason");
                     String date = value.getString("habit"+Integer.toString(i)+"date");
+                    String time = value.getString("habit"+Integer.toString(i)+"time");
 
                     //add Title, reason and date to the habitlist
-                    habitlist.add(new Habit(title, reason, date));
+                    habitlist.add(new Habit(title, reason, date, time));
 
                 }
                 //add Habit to the dataset
@@ -164,6 +165,7 @@ public class HabitDetailAcitivity extends AppCompatActivity {
                 bundle.putString("UserName", Username);
                 bundle.putInt("position",i);
                 bundle.putBoolean("edit",true);
+                bundle.putBoolean("calendar",false);
                 Jump.putExtras(bundle);
                 startActivity(Jump);
             }

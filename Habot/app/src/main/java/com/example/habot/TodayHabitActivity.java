@@ -103,9 +103,10 @@ public class TodayHabitActivity extends AppCompatActivity {
                     //get Habit reson and date
                     String reason = value.getString("habit"+Integer.toString(i)+"reason");
                     String date = value.getString("habit"+Integer.toString(i)+"date");
+                    String time = value.getString("habit"+Integer.toString(i)+"time");
 
                     //add Title, reason and date to the habitlist
-                    Todayhabitlist.add(new Habit(title, reason, date));
+                    Todayhabitlist.add(new Habit(title, reason, date, time));
 
                 }
                 //add Habit to the dataset

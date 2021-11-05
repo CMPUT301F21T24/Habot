@@ -54,10 +54,6 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".CalendarDateOccurActivity"
-            android:exported="true">
-        </activity>
-        <activity
             android:name=".CheckRequestNameActivity"
             android:exported="true">
         </activity>
