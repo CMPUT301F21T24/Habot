@@ -21,13 +21,13 @@
         <entry key="app/src/main/res/layout/habitdetailcontent.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/habitevent.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/habiteventdetail.xml" value="0.38333333333333336" />
-        <entry key="app/src/main/res/layout/login.xml" value="0.3977471774945423" />
+        <entry key="app/src/main/res/layout/login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/menu.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/menudelete.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/pendinglist.xml" value="0.37589376915219613" />
         <entry key="app/src/main/res/layout/profile.xml" value="0.37589376915219613" />
         <entry key="app/src/main/res/layout/signin.xml" value="0.29635416666666664" />
-        <entry key="app/src/main/res/layout/signup.xml" value="0.21145833333333333" />
+        <entry key="app/src/main/res/layout/signup.xml" value="0.375" />
         <entry key="app/src/main/res/layout/today_habits.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/todayhabit.xml" value="0.29635416666666664" />
       </map>
