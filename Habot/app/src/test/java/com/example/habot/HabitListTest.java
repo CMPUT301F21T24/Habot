@@ -22,9 +22,9 @@ public class HabitListTest {
     @Test
     public void AddHabitTest(){
         int listSize = habitlist.getCount();
-        habitlist.AddHabit(new Habit("Google", "Study","8-8"));
+        habitlist.AddHabit(new Habit("Google", "Study","8-8","2000-02-12"));
         assertEquals(habitlist.getCount(), listSize+1);
-        habitlist.AddHabit(new Habit("Reading", "Writing","8-9"));
+        habitlist.AddHabit(new Habit("Reading", "Writing","8-9","2000-02-12"));
         assertEquals(habitlist.getCount(), listSize+2);
     }
 
@@ -32,7 +32,7 @@ public class HabitListTest {
     public void DeleteHabitTest(){
         int listSize = habitlist.getCount();
         habitlist = new Habitlist(null, new ArrayList<Habit>());
-        habitlist.AddHabit(new Habit("Basketball","exercising","9-13"));
+        habitlist.AddHabit(new Habit("Basketball","exercising","9-13","2000-02-12"));
         assertEquals(habitlist.getCount(), listSize+1);
         habitlist.DeleteHabit(0);
         assertEquals(habitlist.getCount(), listSize);
@@ -42,7 +42,7 @@ public class HabitListTest {
     public void GetHabitTest(){
         int listSize = habitlist.getCount();
         habitlist = new Habitlist(null, new ArrayList<Habit>());
-        habitlist.AddHabit(new Habit("Basketball","exercising","9-13"));
+        habitlist.AddHabit(new Habit("Basketball","exercising","9-13","2000-02-12"));
         String title = habitlist.returnHabit(0).gettitle();
         assertEquals(title,"Basketball");
 
