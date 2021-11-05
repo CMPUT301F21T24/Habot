@@ -82,7 +82,8 @@
             android:gravity="center"
             android:text="No text for now"
             android:textColor="#FFF"
-            android:textSize="20sp"></EditText>
+            android:textSize="20sp"
+            android:maxLength="20"></EditText>
 
         <TextView
             android:layout_width="wrap_content"
