@@ -91,76 +91,85 @@ public class SignUpActivity extends AppCompatActivity {
                 final String Username = UsernameSignInEditText.getText().toString();
                 final String Password = PasswordSignInEdiText.getText().toString();
 
-                // set username as the collection name
-                final CollectionReference collectionReference = db.collection(Username);
+                //make sure the password isn't empty
+                if (Password.length() <= 1){
+                    Toast.makeText(SignUpActivity.this,"Password cannot be empty",Toast.LENGTH_SHORT).show();
+                }
 
-                // copy password to Userprofile document as a snapshot
-                DocumentReference noteRef = db.collection(Username).document("UserProfile");
-                noteRef.get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            /**
-                             * create user documents after user pressed confirm button.
-                             * @param documentSnapshot
-                             */
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if (documentSnapshot.exists()) {
-                                    Toast.makeText(SignUpActivity.this, "The UserName has already exist", Toast.LENGTH_SHORT).show();
+                else{
+                    // set username as the collection name
+                    final CollectionReference collectionReference = db.collection(Username);
+
+                    // copy password to Userprofile document as a snapshot
+                    DocumentReference noteRef = db.collection(Username).document("UserProfile");
+                    noteRef.get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                /**
+                                 * create user documents after user pressed confirm button.
+                                 * @param documentSnapshot
+                                 */
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if (documentSnapshot.exists()) {
+                                        Toast.makeText(SignUpActivity.this, "The UserName has already exist", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+
+                                        //create RequestSendList document
+                                        HashMap<String, String> RequestSendList = new HashMap<>();
+                                        collectionReference
+                                                .document("RequestSendList")
+                                                .set(RequestSendList);
+
+                                        //create RequestReceivedList document
+                                        HashMap<String, String> RequestRecievedList = new HashMap<>();
+                                        collectionReference
+                                                .document("RequestRecievedList")
+                                                .set(RequestRecievedList);
+
+                                        //create HabitList document
+                                        HashMap<String, String> HabitList = new HashMap<>();
+                                        collectionReference
+                                                .document("HabitList")
+                                                .set(HabitList);
+
+                                        //create HabitEventList document
+                                        HashMap<String, String> HabitEventList = new HashMap<>();
+                                        collectionReference
+                                                .document("HabitEventList")
+                                                .set(HabitEventList);
+
+                                        //create Profile document
+                                        HashMap<String, String> Profile = new HashMap<>();
+                                        Profile.put("Password", Password);
+                                        collectionReference
+                                                .document("UserProfile")
+                                                .set(Profile)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                                                    /**
+                                                     * if username and password are added, display the Log message
+                                                     * @param unused
+                                                     */
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d("Username", "Username and Password have been successfully added.");
+                                                        Toast.makeText(SignUpActivity.this, "Successfully create account", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+
+                                        //after sign up account successfully, clear the user input
+                                        UsernameSignInEditText.setText("");
+                                        PasswordSignInEdiText.setText("");
+                                        Intent JumpToLogIn = new Intent();
+                                        JumpToLogIn.setClass(SignUpActivity.this, LoginActivity.class);
+                                        startActivity(JumpToLogIn);
+                                    }
                                 }
-                                else{
+                            });
 
-                                    //create RequestSendList document
-                                    HashMap<String, String> RequestSendList = new HashMap<>();
-                                    collectionReference
-                                            .document("RequestSendList")
-                                            .set(RequestSendList);
+                }
 
-                                    //create RequestReceivedList document
-                                    HashMap<String, String> RequestRecievedList = new HashMap<>();
-                                    collectionReference
-                                            .document("RequestRecievedList")
-                                            .set(RequestRecievedList);
-
-                                    //create HabitList document
-                                    HashMap<String, String> HabitList = new HashMap<>();
-                                    collectionReference
-                                            .document("HabitList")
-                                            .set(HabitList);
-
-                                    //create HabitEventList document
-                                    HashMap<String, String> HabitEventList = new HashMap<>();
-                                    collectionReference
-                                            .document("HabitEventList")
-                                            .set(HabitEventList);
-
-                                    //create Profile document
-                                    HashMap<String, String> Profile = new HashMap<>();
-                                    Profile.put("Password", Password);
-                                    collectionReference
-                                            .document("UserProfile")
-                                            .set(Profile)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-
-                                                /**
-                                                 * if username and password are added, display the Log message
-                                                 * @param unused
-                                                 */
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Log.d("Username", "Username and Password have been successfully added.");
-                                                    Toast.makeText(SignUpActivity.this, "Successfully create account", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-
-                                    //after sign up account successfully, clear the user input
-                                    UsernameSignInEditText.setText("");
-                                    PasswordSignInEdiText.setText("");
-                                    Intent JumpToLogIn = new Intent();
-                                    JumpToLogIn.setClass(SignUpActivity.this, LoginActivity.class);
-                                    startActivity(JumpToLogIn);
-                                }
-                            }
-                        });
             }
         });
     }
