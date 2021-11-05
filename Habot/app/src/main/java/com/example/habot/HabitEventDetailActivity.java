@@ -55,6 +55,11 @@ public class HabitEventDetailActivity extends AppCompatActivity {
         //get username from the database
         DocumentReference noteRef = db.collection(Username).document("HabitEventList");
         noteRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            /**
+             * This will get the document from the firebase
+              * @param value
+             * @param error
+             */
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(value.exists()){
@@ -63,6 +68,7 @@ public class HabitEventDetailActivity extends AppCompatActivity {
                     String status = value.getString("habitevent"+Integer.toString(position+1)+"status");
                     String time = value.getString("habitevent"+Integer.toString(position+1)+"eventtime");
 
+                    //show the content on the surface
                     habit_name.setText(name);
                     habit_comment.setText(comment);
                     habit_status.setText(status);
@@ -73,6 +79,10 @@ public class HabitEventDetailActivity extends AppCompatActivity {
         });
 
         backtomenu.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Users are directed back to menu page once they click on this button
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 Intent Jump = new Intent();
