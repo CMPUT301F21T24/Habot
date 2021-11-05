@@ -72,6 +72,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
         // get info from the database
         Bundle bundle = getIntent().getExtras();
         String Username = bundle.getString("UserName");
+
         // retrieve data from the HabitList document from the firebase
         DocumentReference noteRef = db.collection(Username).document("HabitList");
         Boolean edit = bundle.getBoolean("edit");
@@ -82,8 +83,9 @@ public class AddNewHabitActivity extends AppCompatActivity {
         System.out.println("onCreate:3333333333333333333333333calendar boolean value:"+edit);
 
         if(edit){
+            position = bundle.getInt("position");
             if(!calendar) {
-                position = bundle.getInt("position");
+
                 noteRef.get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
@@ -158,6 +160,9 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 bundle.putString("HabitDescription", HabitDescriptionInput);
                 bundle.putString("TimeStart", timestart);
                 bundle.putBoolean("edit",edit);
+                if(edit){
+                    bundle.putInt("position",position);
+                }
                 bundle.putBoolean("calendar",true);
 //                bundle.putString("dateOccur", dateOccur);
                 intent.putExtras(bundle);
@@ -341,11 +346,15 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                             newhabit.put("habit"+Integer.toString(position+1)+"name",title);
                                             newhabit.put("habit"+Integer.toString(position+1)+"reason",reason);
                                             newhabit.put("habit"+Integer.toString(position+1)+"date",date);
+                                            newhabit.put("habit"+Integer.toString(position+1)+"time",time);
                                         }
                                         else {
                                             newhabit.put("habit" + Integer.toString(i) + "name", habitlist.get(i - 1).gettitle());
                                             newhabit.put("habit" + Integer.toString(i) + "reason", habitlist.get(i - 1).getreason());
                                             newhabit.put("habit" + Integer.toString(i) + "date", habitlist.get(i - 1).getdate());
+                                            newhabit.put("habit" + Integer.toString(i) + "time", habitlist.get(i - 1).getTime());
+
+
                                         }
                                     }
                                     noteRef.set(newhabit);

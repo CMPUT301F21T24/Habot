@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -25,10 +26,10 @@ public class HabitEventDetailActivity extends AppCompatActivity {
 
     //initialize the variables
     FirebaseFirestore db;
-    TextView habit_name;
-    TextView habit_comment;
-    TextView habit_status;
-    TextView habit_time;
+    EditText habit_name;
+    EditText habit_comment;
+    EditText habit_status;
+    EditText habit_time;
     Button backtomenu;
 
     /**
