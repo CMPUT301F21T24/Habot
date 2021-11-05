@@ -1,3 +1,5 @@
+package com.example.habot;
+
 import static org.junit.Assert.assertEquals;
 import com.example.habot.Habit;
 import com.example.habot.Habitlist;
