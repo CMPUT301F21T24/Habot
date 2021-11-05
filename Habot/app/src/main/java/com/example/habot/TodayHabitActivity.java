@@ -68,11 +68,14 @@ public class TodayHabitActivity extends AppCompatActivity {
 
         //set up the adapters for the data list and list view
         Todayhabitdetail = findViewById(R.id.TodayHabitListView);
+
         Todayhabitlist = new ArrayList<Habit>();
 
         Todayhabitsadapater = new Habitlist(this,Todayhabitlist);
 
         Todayhabitdetail.setAdapter(Todayhabitsadapater);
+
+
 
         //find username from firestore collection,
         //and find HabitList from corresponding document
@@ -104,9 +107,10 @@ public class TodayHabitActivity extends AppCompatActivity {
                     String reason = value.getString("habit"+Integer.toString(i)+"reason");
                     String date = value.getString("habit"+Integer.toString(i)+"date");
                     String time = value.getString("habit"+Integer.toString(i)+"time");
+                    String privacy = value.getString("habit" + Integer.toString(i) + "privacy");
 
                     //add Title, reason and date to the habitlist
-                    Todayhabitlist.add(new Habit(title, reason, date, time));
+                    Todayhabitlist.add(new Habit(title, reason, date, time, privacy));
 
                 }
                 //add Habit to the dataset
@@ -117,26 +121,26 @@ public class TodayHabitActivity extends AppCompatActivity {
 
 
 
-        Todayhabitdetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            /**
-             * This takes 4 parameter as input, once users click on the item, it jumps
-             * @param adapterView
-             * @param view
-             * @param i
-             * @param l
-             */
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent Jump = new Intent();
-                Jump.setClass(TodayHabitActivity.this, AddNewHabitActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("UserName", Username);
-                bundle.putInt("position",i);
-                bundle.putBoolean("edit",true);
-                Jump.putExtras(bundle);
-                startActivity(Jump);
-            }
-        });
+//        Todayhabitdetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            /**
+//             * This takes 4 parameter as input, once users click on the item, it jumps
+//             * @param adapterView
+//             * @param view
+//             * @param i
+//             * @param l
+//             */
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent Jump = new Intent();
+//                Jump.setClass(TodayHabitActivity.this, AddNewHabitActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("UserName", Username);
+//                bundle.putInt("position",i);
+//                bundle.putBoolean("edit",true);
+//                Jump.putExtras(bundle);
+//                startActivity(Jump);
+//            }
+//        });
 
 
     }

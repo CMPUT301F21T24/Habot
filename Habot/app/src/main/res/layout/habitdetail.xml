@@ -53,26 +53,26 @@
         android:background="#0B233B"
         android:gravity="center">
 
-        <TextView
-            android:id="@+id/habitsList_text"
-            android:layout_width="147dp"
-            android:layout_height="33dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="256dp"
-            android:layout_marginBottom="602dp"
-            android:text="Habits List:"
-            android:textColor="#fff"
-            android:textSize="20sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/habitsList_text"-->
+<!--            android:layout_width="147dp"-->
+<!--            android:layout_height="33dp"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_marginEnd="256dp"-->
+<!--            android:layout_marginBottom="602dp"-->
+<!--            android:text="Habits List:"-->
+<!--            android:textColor="#fff"-->
+<!--            android:textSize="20sp" />-->
 
         <ListView
             android:id="@+id/HabitDetail"
             android:layout_width="match_parent"
-            android:layout_height="520dp"
+            android:layout_height="463dp"
             android:layout_above="@+id/newHabits_button"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="0dp"
-            android:layout_marginBottom="19dp"
+            android:layout_marginBottom="76dp"
             android:textColor="@color/white">
 
         </ListView>
@@ -89,6 +89,37 @@
             android:text="Add New Habit"
             android:textColor="#fff"
             android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/swaphabit1"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Habit"
+            android:inputType="textPersonName"
+            android:textColor="#FFFFFF"
+
+            android:textColorHint="@color/white" />
+
+        <EditText
+            android:id="@+id/swaphabit2"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:ems="10"
+            android:hint="Habit"
+            android:inputType="textPersonName"
+            android:textColor="#FFFFFF"
+            android:textColorHint="@color/white" />
+
+        <Button
+            android:id="@+id/swap_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300dp"
+            android:text="Swap" />
+
+
     </RelativeLayout>
 
 </RelativeLayout>

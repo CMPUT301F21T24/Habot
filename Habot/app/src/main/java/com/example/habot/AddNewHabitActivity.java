@@ -35,6 +35,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
     Button HabitStartDateButton;
     EditText HabitNameEditText;
     EditText HabitDescriptionEditText;
+    EditText HabitPrivacyEditText;
 //    Button HabitOccurDateButton;
 //    TextView HabitOccurDateTextView;
     Button ConfirmButton;
@@ -44,6 +45,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
     String HabitDescriptionInput;
     String dateStart;
     String timestart;
+    String privacy;
     int position;
     EditText TimeStartEditText;
 
@@ -65,6 +67,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
 //        HabitOccurDateButton = findViewById(R.id.habit_occurDate_text);
         TimeStartEditText = findViewById(R.id.TimeStart);
         ConfirmButton = findViewById(R.id.confirm_button);
+        HabitPrivacyEditText = findViewById(R.id.Habit_Privacy);
         db = FirebaseFirestore.getInstance();
 
         habitlist = new ArrayList<Habit>();
@@ -98,6 +101,8 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                     HabitDescriptionInput = documentSnapshot.getString("habit" + Integer.toString(position + 1) + "reason");
                                     dateStart = documentSnapshot.getString("habit" + Integer.toString(position + 1) + "date");
                                     timestart = documentSnapshot.getString("habit" + Integer.toString(position + 1) + "time");
+                                    privacy = documentSnapshot.getString("habit" + Integer.toString(position + 1)+"privacy");
+
 
 //                                dateOccur = "2021-!!-!!";
                                     CancelBackToMenuButton.setText("Delete");
@@ -106,6 +111,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                     HabitDescriptionEditText.setText(HabitDescriptionInput);
                                     HabitStartDateTextView.setText(dateStart);
                                     TimeStartEditText.setText(timestart);
+                                    HabitPrivacyEditText.setText(privacy);
 //                                HabitOccurDateTextView.setText(dateOccur);
                                 }
                             }
@@ -117,6 +123,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 dateStart = GetDate.getStringExtra("dateStart");
 //            dateOccur = bundle.getString("dateOccur");
                 timestart = bundle.getString("TimeStart");
+                privacy = bundle.getString("privacy");
                 HabitNameEditText.setText(HabitNameInput);
                 HabitDescriptionEditText.setText(HabitDescriptionInput);
                 HabitStartDateTextView.setText(dateStart);
@@ -134,10 +141,12 @@ public class AddNewHabitActivity extends AppCompatActivity {
             dateStart = GetDate.getStringExtra("dateStart");
 //            dateOccur = bundle.getString("dateOccur");
             timestart = bundle.getString("TimeStart");
+            privacy = bundle.getString("privacy");
             HabitNameEditText.setText(HabitNameInput);
             HabitDescriptionEditText.setText(HabitDescriptionInput);
             HabitStartDateTextView.setText(dateStart);
             TimeStartEditText.setText(timestart);
+            HabitPrivacyEditText.setText(privacy);
 //            HabitOccurDateTextView.setText(dateOccur);
 
         }
@@ -152,6 +161,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 String HabitNameInput = HabitNameEditText.getText().toString();
                 String HabitDescriptionInput = HabitDescriptionEditText.getText().toString();
                 String timestart = TimeStartEditText.getText().toString();
+                String privacy = HabitPrivacyEditText.getText().toString();
                 // when pressed, app will need to CalendarActivity for date selection
                 Intent intent = new Intent(AddNewHabitActivity.this, CalendarActivity.class);
                 Bundle bundle = new Bundle();
@@ -160,6 +170,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 bundle.putString("HabitDescription", HabitDescriptionInput);
                 bundle.putString("TimeStart", timestart);
                 bundle.putBoolean("edit",edit);
+                bundle.putString("privacy",privacy);
                 if(edit){
                     bundle.putInt("position",position);
                 }
@@ -170,25 +181,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
             }
         });
 
-//        HabitOccurDateButton.setOnClickListener(new View.OnClickListener() {
-//            /**
-//             * Set Occur date when the Day to Start button is pressed.
-//             * @param v
-//             */
-//            @Override
-//            public void onClick(View v) {
-//                String HabitNameInput = HabitNameEditText.getText().toString();
-//                String HabitDescriptionInput = HabitDescriptionEditText.getText().toString();
-//                Intent  intent = new Intent(AddNewHabitActivity.this, CalendarDateOccurActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("UserName", Username);
-//                bundle.putString("HabitName", HabitNameInput);
-//                bundle.putString("HabitDescription", HabitDescriptionInput);
-//                bundle.putString("dateStart", dateStart);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
+
 
 
         CancelBackToMenuButton.setOnClickListener(new View.OnClickListener() {
@@ -218,7 +211,8 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                             String reason = documentSnapshot.getString("habit" + Integer.toString(i) + "reason");
                                             String date = documentSnapshot.getString("habit" + Integer.toString(i) + "date");
                                             String time = documentSnapshot.getString("habit"+ Integer.toString(i) + "time");
-                                            habitlist.add(new Habit(title, reason, date, time));
+                                            String privacy = documentSnapshot.getString("habit" + Integer.toString(i) + "privacy");
+                                            habitlist.add(new Habit(title, reason, date, time, privacy));
 
                                         }
                                         habitlist.remove(position);
@@ -230,6 +224,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                         newhabit.put("habit" + Integer.toString(i) + "reason", habitlist.get(i - 1).getreason());
                                         newhabit.put("habit" + Integer.toString(i) + "date", habitlist.get(i - 1).getdate());
                                         newhabit.put("habit" + Integer.toString(i) + "time", habitlist.get(i - 1).getTime());
+                                        newhabit.put("habit" + Integer.toString(i) + "privacy", habitlist.get(i - 1).getPrivacy());
 
 
                                     }
@@ -270,6 +265,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 String reason = HabitDescriptionEditText.getText().toString();
                 String date = HabitStartDateTextView.getText().toString();
                 String time = TimeStartEditText.getText().toString();
+                String privacy = HabitPrivacyEditText.getText().toString();
                 HashMap<String, String> newhabit = new HashMap<>();
 
                 final int[] stop_point = new int[1];
@@ -291,10 +287,11 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                             String reason = documentSnapshot.getString("habit" + Integer.toString(i) + "reason");
                                             String date = documentSnapshot.getString("habit" + Integer.toString(i) + "date");
                                             String time = documentSnapshot.getString("habit"+Integer.toString(i)+"time");
-                                            habitlist.add(new Habit(title, reason, date, time));
+                                            String privacy = documentSnapshot.getString("habit" + Integer.toString(i)+"privacy");
+                                            habitlist.add(new Habit(title, reason, date, time, privacy));
 
                                         }
-                                        habitlist.add(new Habit(title, reason, date, time));
+                                        habitlist.add(new Habit(title, reason, date, time, privacy));
                                         for (int i = 1; i <= stop_point[0]; i++) {
                                             Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
 
@@ -303,6 +300,8 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                             newhabit.put("habit" + Integer.toString(i) + "reason", habitlist.get(i - 1).getreason());
                                             newhabit.put("habit" + Integer.toString(i) + "date", habitlist.get(i - 1).getdate());
                                             newhabit.put("habit" + Integer.toString(i) + "time", habitlist.get(i - 1).getTime());
+                                            newhabit.put("habit" + Integer.toString(i) + "privacy", habitlist.get(i - 1).getPrivacy());
+
 
                                         }
                                         noteRef.set(newhabit);
@@ -336,7 +335,9 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                             String reason = documentSnapshot.getString("habit" + Integer.toString(i) + "reason");
                                             String date = documentSnapshot.getString("habit" + Integer.toString(i) + "date");
                                             String time = documentSnapshot.getString("habit"+Integer.toString(i)+"time");
-                                            habitlist.add(new Habit(title, reason, date, time));
+                                            String privacy = documentSnapshot.getString("habit"+Integer.toString(i)+"privacy");
+
+                                            habitlist.add(new Habit(title, reason, date, time, privacy));
 
                                         }
                                     }
@@ -347,12 +348,14 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                             newhabit.put("habit"+Integer.toString(position+1)+"reason",reason);
                                             newhabit.put("habit"+Integer.toString(position+1)+"date",date);
                                             newhabit.put("habit"+Integer.toString(position+1)+"time",time);
+                                            newhabit.put("habit"+Integer.toString(i)+"privacy",privacy);
                                         }
                                         else {
                                             newhabit.put("habit" + Integer.toString(i) + "name", habitlist.get(i - 1).gettitle());
                                             newhabit.put("habit" + Integer.toString(i) + "reason", habitlist.get(i - 1).getreason());
                                             newhabit.put("habit" + Integer.toString(i) + "date", habitlist.get(i - 1).getdate());
                                             newhabit.put("habit" + Integer.toString(i) + "time", habitlist.get(i - 1).getTime());
+                                            newhabit.put("habit" + Integer.toString(i)+ "privacy", habitlist.get(i-1).getPrivacy());
 
 
                                         }

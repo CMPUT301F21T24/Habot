@@ -20,6 +20,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -29,6 +30,20 @@
             android:text="Add New Habit"
             android:textColor="#fff"
             android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/BackButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="-70dp"
+            android:layout_marginBottom="7dp"
+            android:backgroundTint="#2196F3"
+            android:visibility="invisible"
+            app:srcCompat="?attr/actionModeCloseDrawable"
+            app:tint="#FFFFFF"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </RelativeLayout>
 
@@ -60,9 +75,9 @@
             android:layout_marginLeft="140dp"
             android:layout_marginTop="12dp"
             android:hint="Enter habit name"
+            android:maxLength="20"
             android:textColor="@color/white"
-            android:textColorHint="#fff"
-            android:maxLength="20"/>
+            android:textColorHint="#fff" />
 
         <TextView
             android:id="@+id/habit_description_text"
@@ -83,9 +98,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="120dp"
             android:hint="Enter habit description"
+            android:maxLength="30"
             android:textColor="@color/white"
-            android:textColorHint="#fff"
-            android:maxLength="30"/>
+            android:textColorHint="#fff" />
 
         <Button
             android:id="@+id/habit_startDate_text"
@@ -164,6 +179,17 @@
             android:layout_toRightOf="@+id/add_habit_cancel_button"
             android:backgroundTint="#D6D7D7"
             android:text="Add" />
+
+        <EditText
+            android:id="@+id/Habit_Privacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="450dp"
+            android:ems="10"
+            android:hint="Privacy: private/public"
+            android:inputType="textPersonName"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <!--        <EditText-->
         <!--            android:id="@+id/editTextTime"-->

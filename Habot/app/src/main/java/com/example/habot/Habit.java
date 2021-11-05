@@ -10,6 +10,7 @@ public class Habit {
     public String reason;
     public String date;
     public String time;
+    public String privacy;
 
     /**
      * This is the constructor of the habit object, it takes three parameter
@@ -17,12 +18,13 @@ public class Habit {
      * @param reason
      * @param date
      */
-    public Habit(String title, String reason, String date, String time)
+    public Habit(String title, String reason, String date, String time, String privay)
     {
         this.title = title;
         this.reason = reason;
         this.date = date;
         this.time = time;
+        this.privacy = privay;
     }
 
     /**
@@ -91,6 +93,14 @@ public class Habit {
      */
     public void setTime(String time) {
         time = time;
+    }
+
+    public String getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(String privacy) {
+        this.privacy = privacy;
     }
 }
 

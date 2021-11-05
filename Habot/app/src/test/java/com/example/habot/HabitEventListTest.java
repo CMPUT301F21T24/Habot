@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
 
 public class HabitEventListTest {
-    private Habit_Eventlist habit_eventlist;
+    public Habit_Eventlist habit_eventlist;
 
     @Before
     public void CreateHabitList(){
