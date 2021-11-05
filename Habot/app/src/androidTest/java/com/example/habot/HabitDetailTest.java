@@ -50,16 +50,16 @@ public class HabitDetailTest {
         solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText) solo.getView(R.id.UsernameLogin),"androidTest");
         solo.enterText((EditText) solo.getView(R.id.PasswordLogin),"12345");
-        solo.clickOnButton("Login");
-        solo.clickOnButton("Habit Detail");
-        solo.clickOnButton("Add New Habit");
+        solo.clickOnView(solo.getView(R.id.log_in_button));
+        solo.clickOnView(solo.getView(R.id.Menu_habit_detail_button));
+        solo.clickOnView(solo.getView(R.id.newHabits_button));
         solo.enterText((EditText) solo.getView(R.id.input_habit_name),"TestThisHabit");
         solo.enterText((EditText) solo.getView(R.id.input_habit_description),"TestThisDescription");
-        solo.clickOnButton("Add");
+        solo.clickOnView(solo.getView(R.id.confirm_button));
         assertTrue(solo.searchText("TestThisHabit"));
         assertTrue(solo.waitForText("TestThisHabit", 1, 2000));
         solo.clickInList(0);
-        solo.clickOnButton("Delete");
+        solo.clickOnView(solo.getView(R.id.add_habit_cancel_button));
     }
 
     @Test
@@ -73,6 +73,7 @@ public class HabitDetailTest {
         solo.enterText((EditText) solo.getView(R.id.input_habit_name),"MaybeThisDelete");
         solo.enterText((EditText) solo.getView(R.id.input_habit_description),"MaybeThisDelete");
         solo.clickOnButton("Add");
+
         ArrayList<View> l = solo.getCurrentViews();
         String listString = l.get(0).toString();
         solo.clickInList(0);
