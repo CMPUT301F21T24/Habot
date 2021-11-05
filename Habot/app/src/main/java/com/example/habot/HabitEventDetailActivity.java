@@ -34,7 +34,7 @@ public class HabitEventDetailActivity extends AppCompatActivity {
     EditText habit_comment;
     EditText habit_status;
     EditText habit_time;
-    Button backtomenu;
+
     Button deletebutton;
     Button updatebutton;
     ArrayList<Habit_Event> habit_events;
@@ -57,7 +57,6 @@ public class HabitEventDetailActivity extends AppCompatActivity {
         habit_comment = findViewById(R.id.detail_comment);
         habit_status = findViewById(R.id.detail_status);
         habit_time = findViewById(R.id.detail_time);
-        backtomenu = findViewById(R.id.HabitDetailToMenu);
         deletebutton = findViewById(R.id.delete_new_habit_event);
         updatebutton = findViewById(R.id.update_new_habit_event);
         habit_events = new ArrayList<Habit_Event>();
@@ -90,21 +89,6 @@ public class HabitEventDetailActivity extends AppCompatActivity {
             }
         });
 
-        backtomenu.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Users are directed back to menu page once they click on this button
-             * @param view
-             */
-            @Override
-            public void onClick(View view) {
-                Intent Jump = new Intent();
-                Jump.setClass(HabitEventDetailActivity.this, HabitEventActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("UserName", Username);
-                Jump.putExtras(bundle);
-                startActivity(Jump);
-            }
-        });
 
         deletebutton.setOnClickListener(new View.OnClickListener() {
             @Override

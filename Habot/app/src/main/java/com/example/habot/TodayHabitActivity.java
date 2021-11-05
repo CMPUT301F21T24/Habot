@@ -32,6 +32,7 @@ public class TodayHabitActivity extends AppCompatActivity {
     ArrayAdapter<Habit> Todayhabitsadapater;
     ArrayList<Habit> Todayhabitlist;
 
+
     /**
      * Action after create this activity
      * @param savedInstanceState
@@ -39,6 +40,15 @@ public class TodayHabitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.todayhabit);
+
+        //set up the adapters for the data list and list view
+        Todayhabitdetail = findViewById(R.id.TodayHabitListView);
+
+        Todayhabitlist = new ArrayList<Habit>();
+
+        Todayhabitsadapater = new Habitlist(this,Todayhabitlist);
+
+        Todayhabitdetail.setAdapter(Todayhabitsadapater);
 
         //get username from bundle
         Bundle bundle = getIntent().getExtras();
@@ -66,14 +76,7 @@ public class TodayHabitActivity extends AppCompatActivity {
         });
 
 
-        //set up the adapters for the data list and list view
-        Todayhabitdetail = findViewById(R.id.TodayHabitListView);
 
-        Todayhabitlist = new ArrayList<Habit>();
-
-        Todayhabitsadapater = new Habitlist(this,Todayhabitlist);
-
-        Todayhabitdetail.setAdapter(Todayhabitsadapater);
 
 
 

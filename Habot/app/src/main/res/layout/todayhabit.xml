@@ -75,16 +75,8 @@
             android:layout_marginTop="50dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="19dp"
-            android:clickable="false"
             android:textColor="#fff">
 
-            <EditText
-                android:id="@+id/editTextTextPersonName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="habit" />
         </ListView>
 
     </RelativeLayout>
