@@ -40,4 +40,19 @@ public class Habit_Eventlist extends ArrayAdapter<Habit_Event> {
         return view;
     }
 
+    public int getCount(){
+        return habitevents.size();
+    }
+
+    public void AddHabit_Event(Habit_Event habit_event){
+        habitevents.add(habit_event);
+    }
+
+    public void DeleteHabitEvent(int i) {
+        habitevents.remove(i);
+    }
+
+    public Habit_Event returnEvent(int i){
+        return habitevents.get(i);
+    }
 }

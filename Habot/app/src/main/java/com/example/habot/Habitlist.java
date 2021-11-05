@@ -12,9 +12,9 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-/**
- * This is a Habitlist that extends from ArrayAdapter
- */
+        /**
+        * This is a Habitlist that extends from ArrayAdapter
+        */
 public class Habitlist extends ArrayAdapter<Habit> {
     public ArrayList<Habit> habits;
 
@@ -64,12 +64,12 @@ public class Habitlist extends ArrayAdapter<Habit> {
     }
 
     public void DeleteHabit(int i){
-        Habit habit = habits.get(i);
-        if (habits.contains(habit)) {
-            habits.remove(habit);
-        }
+        habits.remove(i);
     }
 
+    public Habit returnHabit(int i){
+        return habits.get(i);
+    }
 
 
 }
