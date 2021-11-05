@@ -21,6 +21,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
+/**
+ * This is the habit event activity
+ */
 public class HabitEventActivity extends AppCompatActivity {
     Button HabitEventBackButton;
     Button AddNewEventButton;
@@ -29,6 +32,10 @@ public class HabitEventActivity extends AppCompatActivity {
     FirebaseFirestore db;
     ListView habiteventdetail;
 
+    /**
+     * This will create when the activity starts.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +45,15 @@ public class HabitEventActivity extends AppCompatActivity {
         String Username = bundle.getString("UserName");
         Log.d("TAG", "----------------> Username is :"+Username);
 
+        //get id from layout files
         HabitEventBackButton = findViewById(R.id.HabitEventToMenu);
         AddNewEventButton = findViewById(R.id.newHabitsEvent_button);
 
         HabitEventBackButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This will intent to menu page once user press the button
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();
@@ -55,6 +67,10 @@ public class HabitEventActivity extends AppCompatActivity {
 
 
         AddNewEventButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This will intent to add new habit event page once user press the button
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();
@@ -66,6 +82,7 @@ public class HabitEventActivity extends AppCompatActivity {
             }
         });
 
+        //get id from the layout files
         habiteventdetail = findViewById(R.id.HabitDetail);
         habiteventlist = new ArrayList<Habit_Event>();
 
@@ -76,6 +93,12 @@ public class HabitEventActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         DocumentReference noteRef = db.collection(Username).document("HabitEventList");
         noteRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+
+            /**
+             * This will get Snapshot from firestore database instantly.
+             * @param value
+             * @param error
+             */
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 habiteventlist.clear();
@@ -87,11 +110,15 @@ public class HabitEventActivity extends AppCompatActivity {
                         break;
                     }
                     Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + habit_name);
+
+                    //get data from the database
                     String eventtime = value.getString("habitevent"+Integer.toString(i)+"eventtime");
                     String comment = value.getString("habitevent"+Integer.toString(i)+"comment");
                     String photo = value.getString("habitevent"+Integer.toString(i)+"photo");
                     String status = value.getString("habitevent"+Integer.toString(i)+"status");
                     String geolocation = value.getString("habitevent"+Integer.toString(i)+"geolocation");
+
+                    //add data to the habit event list
                     habiteventlist.add(new Habit_Event(habit_name, eventtime, comment, photo, status, geolocation));
 
                 }
@@ -100,6 +127,14 @@ public class HabitEventActivity extends AppCompatActivity {
         });
 
         habiteventdetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * This takes 4 parameter and when user click on the button, user will be intent to
+             * Habit Event Detail Page.
+             * @param adapterView
+             * @param view
+             * @param i
+             * @param l
+             */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent Jump = new Intent();

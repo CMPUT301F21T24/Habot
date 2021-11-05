@@ -17,7 +17,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This activity create to add new habit event
+ */
 public class AddNewHabitEventActivity extends AppCompatActivity {
+
+    //initialize variables
     Button CancelBackHabitEventButton;
     Button Uploadbutton;
     EditText comment;
@@ -27,6 +32,10 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
     FirebaseFirestore db;
     ArrayList<Habit_Event> habit_events;
 
+    /**
+     * This will create when the activity starts.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +44,8 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String Username = bundle.getString("UserName");
         Log.d("TAG", "----------------> Username is :"+Username);
+
+        //get id from layout files
         comment = findViewById(R.id.comment_input);
         status = findViewById(R.id.status_input);
         time = findViewById(R.id.time_input);
@@ -47,6 +58,11 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         habit_events = new ArrayList<Habit_Event>();
 
         CancelBackHabitEventButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This takes a view as parameter, when users click on Cancel Button
+             * this will intent to HabitEvent Activity
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();
@@ -59,12 +75,21 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         });
 
         Uploadbutton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This will upload Habit Event Detail to firebase and intent back to Habit Event Activity
+             * once users click on the Upload Button
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 final int[] stop_point = new int[1];
                 HashMap<String,String> newhabitevent = new HashMap<>();
                 noteRef.get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            /**
+                             * Check if DocumentSnapshot in the firestore successful obtained
+                             * @param documentSnapshot
+                             */
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 if(documentSnapshot.exists()){
@@ -74,6 +99,8 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                                             stop_point[0]=i;
                                             break;
                                         }
+
+                                        //get data from firestore database
                                         String habitcomment = documentSnapshot.getString("habitevent"+Integer.toString(i)+"comment");
 
                                         String habiteventtime= documentSnapshot.getString("habitevent"+Integer.toString(i)+"eventtime");
@@ -82,6 +109,8 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                                         String habitgeolocation = documentSnapshot.getString("habitevent"+Integer.toString(i)+"geolocation");
                                         habit_events.add(new Habit_Event(name,habiteventtime,habitcomment, habitphoto, habitstatus, habitgeolocation));
                                     }
+
+                                    //add to habit event list
                                     habit_events.add(new Habit_Event(habit_name.getText().toString(),time.getText().toString(),comment.getText().toString(),"nothing",status.getText().toString(),"somewhere"));
                                     for (int i = 1; i <= stop_point[0]; i++) {
                                         Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
@@ -95,6 +124,8 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                                         newhabitevent.put("habitevent" + Integer.toString(i) + "geolocation", habit_events.get(i - 1).getGeolocation());
                                     }
                                     noteRef.set(newhabitevent);
+
+                                    //intnet to Habit Event Page
                                     Intent Jump = new Intent();
                                     Jump.setClass(AddNewHabitEventActivity.this, HabitEventActivity.class);
                                     Bundle bundle = new Bundle();

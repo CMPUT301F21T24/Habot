@@ -18,8 +18,12 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+/**
+ * This activity is the habit event detail activity
+ */
 public class HabitEventDetailActivity extends AppCompatActivity {
 
+    //initialize the variables
     FirebaseFirestore db;
     TextView habit_name;
     TextView habit_comment;
@@ -27,6 +31,10 @@ public class HabitEventDetailActivity extends AppCompatActivity {
     TextView habit_time;
     Button backtomenu;
 
+    /**
+     * This activity will be created when the activity starts
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +44,7 @@ public class HabitEventDetailActivity extends AppCompatActivity {
         String Username = bundle.getString("UserName");
         int position = bundle.getInt("position");
 
+        //get id from layout files
         habit_name = findViewById(R.id.detail_name);
         habit_comment = findViewById(R.id.detail_comment);
         habit_status = findViewById(R.id.detail_status);
@@ -43,8 +52,7 @@ public class HabitEventDetailActivity extends AppCompatActivity {
         backtomenu = findViewById(R.id.HabitDetailToMenu);
         db = FirebaseFirestore.getInstance();
 
-
-
+        //get username from the database
         DocumentReference noteRef = db.collection(Username).document("HabitEventList");
         noteRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override

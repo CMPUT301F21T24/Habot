@@ -5,6 +5,9 @@ import android.content.Context;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * This UserList is extending arrayList
+ */
 public class UserList extends ArrayList<User>{
 
     public ArrayList<User> userArrayList;
@@ -36,10 +39,18 @@ public class UserList extends ArrayList<User>{
         return this.userArrayList;
     }
 
+    /**
+     * This will return the size of userList
+     * @return
+     */
     public int getCount(){
         return userArrayList.size();
     }
 
+    /**
+     * This will delete a user i from the userList
+     * @param i
+     */
     public void DeleteUser(int i){
         User user = userArrayList.get(i);
         if (userArrayList.contains(user)) {
