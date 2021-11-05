@@ -19,23 +19,36 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+/**
+ * This class initialize the test and import the solo instrument.
+ */
 public class HabitDetailTest {
     private Solo solo;
     @Rule
     public ActivityTestRule<LoginActivity> rule =
             new ActivityTestRule<>(LoginActivity.class,true,true);
 
-
+    /**
+     * the function set up the solo instrument
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception{
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
     }
 
+    /**
+     * the function start to initialize the first activity
+     * @throws Exception
+     */
     @Test
     public void start() throws Exception{
         Activity activity = rule.getActivity();
     }
 
+    /**
+     * The function test the login page work
+     */
     @Test
     public void LoginTo(){
         solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
@@ -45,6 +58,9 @@ public class HabitDetailTest {
 
     }
 
+    /**
+     * the function test the add function in the habit detail activity
+     */
     @Test
     public void CheckAddNewHabit(){
         solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
@@ -61,6 +77,9 @@ public class HabitDetailTest {
         solo.clickInList(0);
     }
 
+    /**
+     * the function test delete function in the habit detail activity
+     */
     @Test
     public void CheckDeleteNewHabit(){
         solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
@@ -85,10 +104,11 @@ public class HabitDetailTest {
         solo.clickOnButton("Delete");
         assertFalse(solo.waitForText(listString, 1, 2000));
 
-
-
     }
 
+    /**
+     * the function test the update function in the habit detail activity
+     */
     @Test
     public void CheckUpdateNewHabit(){
         solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
@@ -111,6 +131,10 @@ public class HabitDetailTest {
         solo.clickOnButton("Delete");
     }
 
+    /**
+     * the function finish use the solo instrument
+     * @throws Exception
+     */
     @After
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();

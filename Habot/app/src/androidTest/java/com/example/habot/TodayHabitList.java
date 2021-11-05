@@ -17,24 +17,36 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.ArrayList;
-
+/**
+ * This class initialize the test and import the solo instrument.
+ */
 public class TodayHabitList {
     private Solo solo;
     @Rule
     public ActivityTestRule<LoginActivity> rule =
             new ActivityTestRule<>(LoginActivity.class,true,true);
 
-
+    /**
+     * the function set up the solo instrument
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception{
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
     }
 
+    /**
+     * the function start to initialize the first activity
+     * @throws Exception
+     */
     @Test
     public void start() throws Exception{
         Activity activity = rule.getActivity();
     }
 
+    /**
+     * The function test the login page work
+     */
     @Test
     public void LoginTo(){
         solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
@@ -44,6 +56,9 @@ public class TodayHabitList {
 
     }
 
+    /**
+     * the function show the today habit listview from the today habit activity
+     */
     @Test
     public void showTodayList(){
         solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
@@ -61,9 +76,13 @@ public class TodayHabitList {
         solo.clickOnView(solo.getView(R.id.TodayHabitToMenu));
         solo.clickOnView(solo.getView(R.id.Menu_habit_detail_button));
         solo.clickInList(0);
-        solo.clickOnView(solo.getView(R.id.cancel_new_habit_event));
+        solo.clickOnView(solo.getView(R.id.add_habit_cancel_button));
     }
 
+    /**
+     * the function finish use the solo instrument
+     * @throws Exception
+     */
     @After
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();

@@ -10,15 +10,24 @@ import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;
 
+/**
+ * This class initialize the test
+ */
 public class HabitListTest {
     private Habitlist habitlist;
 
+    /**
+     * the function initialize the habit arrayList
+     */
     @Before
     public void CreateHabitList(){
         habitlist = new Habitlist(null, new ArrayList<Habit>());
 
     }
 
+    /**
+     * the function test the adding function of habit list
+     */
     @Test
     public void AddHabitTest(){
         int listSize = habitlist.getCount();
@@ -28,6 +37,9 @@ public class HabitListTest {
         assertEquals(habitlist.getCount(), listSize+2);
     }
 
+    /**
+     * the function test the deleting function of habit list
+     */
     @Test
     public void DeleteHabitTest(){
         int listSize = habitlist.getCount();
@@ -38,6 +50,9 @@ public class HabitListTest {
         assertEquals(habitlist.getCount(), listSize);
     }
 
+    /**
+     * the function test the listview function from the habit list
+     */
     @Test
     public void GetHabitTest(){
         int listSize = habitlist.getCount();
