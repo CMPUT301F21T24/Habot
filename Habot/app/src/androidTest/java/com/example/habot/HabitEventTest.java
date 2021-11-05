@@ -76,14 +76,14 @@ public class HabitEventTest {
 
         solo.enterText((EditText) solo.getView(R.id.habit_name_input),"TestThisHabitEvent");
         solo.enterText((EditText) solo.getView(R.id.status_input),"TestThisDescription");
-        solo.clickOnButton("Upload");
+        solo.clickOnView(solo.getView(R.id.upload_new_habit_event));
         assertTrue(solo.searchText("TestThisHabitEvent"));
         assertTrue(solo.waitForText("TestThisHabitEvent", 1, 2000));
         solo.clickInList(0);
         solo.enterText((EditText) solo.getView(R.id.habit_name_input),"renew");
-        solo.clickOnButton("Update");
+        solo.clickOnView(solo.getView(R.id.upload_new_habit_event));
         solo.clickInList(0);
-        solo.clickOnButton("Delete");
+        solo.clickOnView(solo.getView(R.id.cancel_new_habit_event));
     }
     @After
     public void tearDown() throws Exception{
