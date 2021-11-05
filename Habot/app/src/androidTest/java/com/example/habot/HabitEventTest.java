@@ -50,17 +50,17 @@ public class HabitEventTest {
         solo.enterText((EditText) solo.getView(R.id.PasswordLogin),"12345");
         solo.clickOnButton("Login");
         solo.clickOnButton("Habit Event");
-        solo.clickOnButton("Add New Habit Event");
+        solo.clickOnView(solo.getView(R.id.newHabitsEvent_button));
         solo.enterText((EditText) solo.getView(R.id.habit_name_input),"TestThisHabitEvent");
         solo.enterText((EditText) solo.getView(R.id.status_input),"TestThisDescription");
-        solo.clickOnButton("Upload");
+        solo.clickOnView(solo.getView(R.id.upload_new_habit_event));
         assertTrue(solo.searchText("TestThisHabitEvent"));
         assertTrue(solo.waitForText("TestThisHabitEvent", 1, 2000));
 
         ArrayList<View> l = solo.getCurrentViews();
         String listString = l.get(0).toString();
         solo.clickInList(0);
-        solo.clickOnButton("Delete");
+        solo.clickOnView(solo.getView(R.id.cancel_new_habit_event));
         assertFalse(solo.waitForText(listString, 1, 2000));
     }
 

@@ -61,7 +61,6 @@ public class TodayHabitList {
         solo.clickOnView(solo.getView(R.id.TodayHabitToMenu));
         solo.clickOnView(solo.getView(R.id.Menu_habit_detail_button));
         solo.clickInList(0);
-        assertTrue(solo.waitForText("delete", 1, 2000));
         solo.clickOnView(solo.getView(R.id.cancel_new_habit_event));
     }
 

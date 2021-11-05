@@ -59,7 +59,6 @@ public class HabitDetailTest {
         assertTrue(solo.searchText("TestThisHabit"));
         assertTrue(solo.waitForText("TestThisHabit", 1, 2000));
         solo.clickInList(0);
-        solo.clickOnView(solo.getView(R.id.add_habit_cancel_button));
     }
 
     @Test
