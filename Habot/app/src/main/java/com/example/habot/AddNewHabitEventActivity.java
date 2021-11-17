@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +49,7 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
     Button addlocationbutton;
     FusedLocationProviderClient fusedLocationProviderClient;
     List<Address> addresses;
+    TextView geolocationtextview;
 
     /**
      * This will create when the activity starts.
@@ -68,6 +70,7 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         time = findViewById(R.id.time_input);
         habit_name = findViewById(R.id.habit_name_input);
         addlocationbutton = findViewById(R.id.add_location_button);
+        geolocationtextview = findViewById(R.id.display_geolocation);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -197,6 +200,9 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                         addresses = geocoder.getFromLocation(
                                 location.getLatitude(), location.getLongitude(), 1
                         );
+
+                        geolocationtextview.setText(addresses.get(0).getAddressLine(0));
+
                         Log.d("TAG", "onComplete: "+ addresses.get(0).getAddressLine(0));
 
                     } catch (IOException e) {

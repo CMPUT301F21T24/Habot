@@ -42,7 +42,7 @@
 
         <Button
             android:id="@+id/add_location_button"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="70dp"
@@ -58,6 +58,16 @@
             android:layout_marginTop="130dp"
             android:layout_marginRight="20dp"
             android:text="Add Image"></Button>
+
+        <TextView
+            android:id="@+id/display_geolocation"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="180dp"
+            android:layout_marginTop="90dp"
+            android:hint="Here will display geolocation"
+            android:textColor="@color/white"
+            android:textSize="10sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -78,9 +88,9 @@
             android:layout_marginRight="20dp"
             android:gravity="center"
             android:hint="Enter your comment!"
+            android:maxLength="20"
             android:textColor="@color/white"
-            android:textColorHint="#98ACB8"
-            android:maxLength="20"></EditText>
+            android:textColorHint="#98ACB8"></EditText>
 
         <TextView
             android:layout_width="wrap_content"
@@ -144,10 +154,9 @@
             android:ems="10"
             android:hint="00:00"
             android:inputType="time"
-            android:textSize="20sp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            />
+            android:textSize="20sp" />
 
 
     </RelativeLayout>
