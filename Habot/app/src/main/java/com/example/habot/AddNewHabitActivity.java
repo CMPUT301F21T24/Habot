@@ -86,9 +86,14 @@ public class AddNewHabitActivity extends AppCompatActivity {
         System.out.println("onCreate:3333333333333333333333333calendar boolean value:"+edit);
 
         if(edit){
+            /**
+             * This for checking whether it is in the edit mode
+             */
             position = bundle.getInt("position");
             if(!calendar) {
-
+/**
+ * calendar is boolean to check whether it is jumped back from Calendar Activity or not.
+ */
                 noteRef.get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
@@ -154,6 +159,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
         HabitStartDateButton.setOnClickListener(new View.OnClickListener() {
             /**
              * Set start date when the Day to Start button is pressed.
+             * jump to the Calendar Activity
              * @param v
              */
             @Override
@@ -187,6 +193,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
         CancelBackToMenuButton.setOnClickListener(new View.OnClickListener() {
             /**
              * Return to the Habitdetail page when cancel button is pressed.
+             * And if it is in the edit mode, the button will become delete button and delete the habit.
              * @param v
              */
             @Override
@@ -254,6 +261,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
             /**
              * Add new habit when confirm button is pressed.
+             * And if it is in the edit mode, confirm button will become the update button and update the habit.
              * @param view
              */
             @Override

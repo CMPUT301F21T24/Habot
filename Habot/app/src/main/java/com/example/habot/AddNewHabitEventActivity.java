@@ -1,21 +1,35 @@
 package com.example.habot;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * This activity create to add new habit event
@@ -31,6 +45,9 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
     EditText habit_name;
     FirebaseFirestore db;
     ArrayList<Habit_Event> habit_events;
+    Button addlocationbutton;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    List<Address> addresses;
 
     /**
      * This will create when the activity starts.
@@ -50,6 +67,10 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         status = findViewById(R.id.status_input);
         time = findViewById(R.id.time_input);
         habit_name = findViewById(R.id.habit_name_input);
+        addlocationbutton = findViewById(R.id.add_location_button);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
 
         db = FirebaseFirestore.getInstance();
         DocumentReference noteRef = db.collection(Username).document("HabitEventList");
@@ -71,6 +92,19 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                 bundle.putString("UserName", Username);
                 Jump.putExtras(bundle);
                 startActivity(Jump);
+            }
+        });
+
+        addlocationbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (ActivityCompat.checkSelfPermission(AddNewHabitEventActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                } else {
+                    ActivityCompat.requestPermissions(AddNewHabitEventActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                }
+
             }
         });
 
@@ -111,7 +145,7 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                                     }
 
                                     //add to habit event list
-                                    habit_events.add(new Habit_Event(habit_name.getText().toString(),time.getText().toString(),comment.getText().toString(),"nothing",status.getText().toString(),"somewhere"));
+                                    habit_events.add(new Habit_Event(habit_name.getText().toString(),time.getText().toString(),comment.getText().toString(),"nothing",status.getText().toString(),addresses.get(0).getAddressLine(0)));
                                     for (int i = 1; i <= stop_point[0]; i++) {
                                         Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
 
@@ -138,5 +172,39 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getLocation(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                Location location = task.getResult();
+                if (location != null) {
+
+
+                    try {
+                        Geocoder geocoder = new Geocoder(AddNewHabitEventActivity.this, Locale.getDefault());
+                        addresses = geocoder.getFromLocation(
+                                location.getLatitude(), location.getLongitude(), 1
+                        );
+                        Log.d("TAG", "onComplete: "+ addresses.get(0).getAddressLine(0));
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
     }
 }
