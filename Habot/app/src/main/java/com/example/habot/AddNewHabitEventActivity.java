@@ -40,13 +40,14 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
     //initialize variables
     Button CancelBackHabitEventButton;
     Button Uploadbutton;
+    Button addlocationbutton;
+    Button addImageButton;
     EditText comment;
     EditText status;
     EditText time;
     EditText habit_name;
     FirebaseFirestore db;
     ArrayList<Habit_Event> habit_events;
-    Button addlocationbutton;
     FusedLocationProviderClient fusedLocationProviderClient;
     List<Address> addresses;
     TextView geolocationtextview;
@@ -71,6 +72,8 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         habit_name = findViewById(R.id.habit_name_input);
         addlocationbutton = findViewById(R.id.add_location_button);
         geolocationtextview = findViewById(R.id.display_geolocation);
+
+        addImageButton = findViewById(R.id.add_image_button);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -110,6 +113,19 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
 
             }
         });
+
+        addImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Jump = new Intent();
+                Jump.setClass(AddNewHabitEventActivity.this, AddImageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("UserName", Username);
+                Jump.putExtras(bundle);
+                startActivity(Jump);
+            }
+        });
+
 
         Uploadbutton.setOnClickListener(new View.OnClickListener() {
             /**

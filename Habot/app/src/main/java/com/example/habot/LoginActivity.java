@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * This is log in activity that will prompt user to log in their unique identified profile
@@ -49,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton = findViewById(R.id.log_in_button);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
         SignUpButton.setOnClickListener(new View.OnClickListener() {
 

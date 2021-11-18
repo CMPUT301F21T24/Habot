@@ -15,6 +15,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 
@@ -78,6 +80,9 @@ public class SignUpActivity extends AppCompatActivity {
         // open and connect with firebase
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+//        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference mStorageRef;
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
 
@@ -100,8 +105,14 @@ public class SignUpActivity extends AppCompatActivity {
                     // set username as the collection name
                     final CollectionReference collectionReference = db.collection(Username);
 
+//                    final StorageReference storageRef = storage.getReference();
+
+
+
                     // copy password to Userprofile document as a snapshot
                     DocumentReference noteRef = db.collection(Username).document("UserProfile");
+//                    StorageReference userRef = storageRef.child("users/");
+
                     noteRef.get()
                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 /**
@@ -139,6 +150,10 @@ public class SignUpActivity extends AppCompatActivity {
                                                 .document("HabitEventList")
                                                 .set(HabitEventList);
 
+                                        //storageRef
+                                                //.child("username/");
+
+
                                         //create Profile document
                                         HashMap<String, String> Profile = new HashMap<>();
                                         Profile.put("Password", Password);
@@ -155,6 +170,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                     public void onSuccess(Void unused) {
                                                         Log.d("Username", "Username and Password have been successfully added.");
                                                         Toast.makeText(SignUpActivity.this, "Successfully create account", Toast.LENGTH_SHORT).show();
+
                                                     }
                                                 });
 

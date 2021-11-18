@@ -74,6 +74,10 @@
             android:name=".HabitEventDetailActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".AddImageActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
