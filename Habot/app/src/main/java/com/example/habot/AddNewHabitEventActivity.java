@@ -1,5 +1,7 @@
 package com.example.habot;
 
+import static android.content.ContentValues.TAG;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,8 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -24,7 +28,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,6 +57,9 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationProviderClient;
     List<Address> addresses;
     TextView geolocationtextview;
+    ArrayList<Habit> habitlist;
+    TextView geolocation1;
+
 
     /**
      * This will create when the activity starts.
@@ -72,6 +81,7 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         habit_name = findViewById(R.id.habit_name_input);
         addlocationbutton = findViewById(R.id.add_location_button);
         geolocationtextview = findViewById(R.id.display_geolocation);
+        geolocation1 = findViewById(R.id.display_geolocation);
 
         addImageButton = findViewById(R.id.add_image_button);
 
@@ -80,9 +90,47 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         DocumentReference noteRef = db.collection(Username).document("HabitEventList");
+        DocumentReference noteRef_2 = db.collection(Username).document("HabitList");
         CancelBackHabitEventButton = findViewById(R.id.cancel_new_habit_event);
         Uploadbutton = findViewById(R.id.upload_new_habit_event);
         habit_events = new ArrayList<Habit_Event>();
+        habitlist = new ArrayList<Habit>();
+
+        noteRef_2.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+
+            /**
+             * This will get users input from the add new habit activity and
+             * import them to Firestore database
+             * @param value
+             * @param error
+             */
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                final int[] stop_point = new int[1];
+                habitlist.clear();
+                for (int i =1;;i++)
+                {
+                    //get the Habit Name
+                    String title = (String) value.getString("habit"+Integer.toString(i)+"name");
+                    //The Habit name cannot be null
+                    if(title==null){
+                        stop_point[0] = i;
+                        break;
+                    }
+                    Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + title);
+
+                    //get Habit reson and date
+                    String reason = value.getString("habit"+Integer.toString(i)+"reason");
+                    String date = value.getString("habit"+Integer.toString(i)+"date");
+                    String time = value.getString("habit"+Integer.toString(i)+"time");
+                    String privacy = value.getString("habit" + Integer.toString(i)+"privacy");
+
+                    //add Title, reason and date to the habitlist
+                    habitlist.add(new Habit(title, reason, date, time, privacy));
+
+                }
+            }
+        });
 
         CancelBackHabitEventButton.setOnClickListener(new View.OnClickListener() {
             /**
@@ -107,6 +155,7 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
 
                 if (ActivityCompat.checkSelfPermission(AddNewHabitEventActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     getLocation();
+
                 } else {
                     ActivityCompat.requestPermissions(AddNewHabitEventActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
                 }
@@ -136,60 +185,76 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final int[] stop_point = new int[1];
+                boolean find = false;
+
                 HashMap<String,String> newhabitevent = new HashMap<>();
-                noteRef.get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            /**
-                             * Check if DocumentSnapshot in the firestore successful obtained
-                             * @param documentSnapshot
-                             */
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if(documentSnapshot.exists()){
-                                    for(int i = 1;;i++){
-                                        String name = documentSnapshot.getString("habitevent"+Integer.toString(i)+"name");
-                                        if(name == null){
-                                            stop_point[0]=i;
-                                            break;
+                for (int s = 0; s <habitlist.size(); s++){
+                    Log.d(TAG, "onClick: ssssssssssss  "+habitlist.get(s).gettitle());
+                    Log.d(TAG,"!!!!!!!!dwvwwwv  "+habit_name.getText().toString());
+                    if(habitlist.get(s).gettitle().equals(habit_name.getText().toString())){
+                        find = true;
+                    }
+                }
+                if(find == true){
+
+                    noteRef.get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                /**
+                                 * Check if DocumentSnapshot in the firestore successful obtained
+                                 * @param documentSnapshot
+                                 */
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if(documentSnapshot.exists()){
+                                        for(int i = 1;;i++){
+                                            String name = documentSnapshot.getString("habitevent"+Integer.toString(i)+"name");
+                                            if(name == null){
+                                                stop_point[0]=i;
+                                                break;
+                                            }
+
+                                            //get data from firestore database
+                                            String habitcomment = documentSnapshot.getString("habitevent"+Integer.toString(i)+"comment");
+
+                                            String habiteventtime= documentSnapshot.getString("habitevent"+Integer.toString(i)+"eventtime");
+                                            String habitstatus = documentSnapshot.getString("habitevent"+Integer.toString(i)+"status");
+                                            String habitphoto = documentSnapshot.getString("habitevent"+Integer.toString(i)+"photos");
+                                            String habitgeolocation = documentSnapshot.getString("habitevent"+Integer.toString(i)+"geolocation");
+                                            habit_events.add(new Habit_Event(name,habiteventtime,habitcomment, habitphoto, habitstatus, habitgeolocation));
                                         }
 
-                                        //get data from firestore database
-                                        String habitcomment = documentSnapshot.getString("habitevent"+Integer.toString(i)+"comment");
+                                        //add to habit event list
+                                        habit_events.add(new Habit_Event(habit_name.getText().toString(),time.getText().toString(),comment.getText().toString(),"nothing",status.getText().toString(),geolocation1.getText().toString()));
+                                        for (int i = 1; i <= stop_point[0]; i++) {
+                                            Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
 
-                                        String habiteventtime= documentSnapshot.getString("habitevent"+Integer.toString(i)+"eventtime");
-                                        String habitstatus = documentSnapshot.getString("habitevent"+Integer.toString(i)+"status");
-                                        String habitphoto = documentSnapshot.getString("habitevent"+Integer.toString(i)+"photos");
-                                        String habitgeolocation = documentSnapshot.getString("habitevent"+Integer.toString(i)+"geolocation");
-                                        habit_events.add(new Habit_Event(name,habiteventtime,habitcomment, habitphoto, habitstatus, habitgeolocation));
+
+                                            newhabitevent.put("habitevent" + Integer.toString(i) + "name", habit_events.get(i - 1).getHabit_name());
+                                            newhabitevent.put("habitevent" + Integer.toString(i) + "comment", habit_events.get(i - 1).getComment());
+                                            newhabitevent.put("habitevent" + Integer.toString(i) + "eventtime", habit_events.get(i - 1).getEventtime());
+                                            newhabitevent.put("habitevent" + Integer.toString(i) + "status", habit_events.get(i - 1).getStatus());
+                                            newhabitevent.put("habitevent" + Integer.toString(i) + "photos", habit_events.get(i - 1).getPhoto());
+                                            newhabitevent.put("habitevent" + Integer.toString(i) + "geolocation", habit_events.get(i - 1).getGeolocation());
+                                        }
+                                        noteRef.set(newhabitevent);
+
+                                        //intnet to Habit Event Page
+                                        Intent Jump = new Intent();
+                                        Jump.setClass(AddNewHabitEventActivity.this, HabitEventActivity.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("UserName", Username);
+                                        Jump.putExtras(bundle);
+                                        startActivity(Jump);
                                     }
-
-                                    //add to habit event list
-                                    habit_events.add(new Habit_Event(habit_name.getText().toString(),time.getText().toString(),comment.getText().toString(),"nothing",status.getText().toString(),addresses.get(0).getAddressLine(0)));
-                                    for (int i = 1; i <= stop_point[0]; i++) {
-                                        Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
-
-
-                                        newhabitevent.put("habitevent" + Integer.toString(i) + "name", habit_events.get(i - 1).getHabit_name());
-                                        newhabitevent.put("habitevent" + Integer.toString(i) + "comment", habit_events.get(i - 1).getComment());
-                                        newhabitevent.put("habitevent" + Integer.toString(i) + "eventtime", habit_events.get(i - 1).getEventtime());
-                                        newhabitevent.put("habitevent" + Integer.toString(i) + "status", habit_events.get(i - 1).getStatus());
-                                        newhabitevent.put("habitevent" + Integer.toString(i) + "photos", habit_events.get(i - 1).getPhoto());
-                                        newhabitevent.put("habitevent" + Integer.toString(i) + "geolocation", habit_events.get(i - 1).getGeolocation());
-                                    }
-                                    noteRef.set(newhabitevent);
-
-                                    //intnet to Habit Event Page
-                                    Intent Jump = new Intent();
-                                    Jump.setClass(AddNewHabitEventActivity.this, HabitEventActivity.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("UserName", Username);
-                                    Jump.putExtras(bundle);
-                                    startActivity(Jump);
                                 }
-                            }
-                        });
+                            });
+                }else{
+                    Toast.makeText(AddNewHabitEventActivity.this, "Incorrect habit_name", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
+
 
     }
 

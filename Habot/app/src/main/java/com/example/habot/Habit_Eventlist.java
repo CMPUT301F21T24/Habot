@@ -48,10 +48,11 @@ public class Habit_Eventlist extends ArrayAdapter<Habit_Event> {
         }
         Habit_Event habit_event = habitevents.get(position);
         TextView habitname = view.findViewById(R.id.habitevent_name);
+        TextView time = view.findViewById(R.id.time_view);
 
         //set habit name
         habitname.setText(habit_event.getHabit_name());
-
+        time.setText(habit_event.getEventtime());
         return view;
     }
 
