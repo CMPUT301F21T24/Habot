@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.27113133940182055" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/addnewhabit.xml" value="0.25" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/addnewhabitevent.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/calendar_layout.xml" value="0.3255208333333333" />
@@ -21,7 +22,7 @@
         <entry key="app/src/main/res/layout/aaaa.xml" value="0.28055555555555556" />
         <entry key="app/src/main/res/layout/add_new_habit.xml" value="0.37589376915219613" />
         <entry key="app/src/main/res/layout/addnewhabit.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/addnewhabitevent.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/addnewhabitevent.xml" value="0.24092437116396678" />
         <entry key="app/src/main/res/layout/calendar_layout.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/checkfollower.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/checkfollowing.xml" value="0.29635416666666664" />
