@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -16,7 +17,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -36,6 +39,8 @@ public class AddNewHabitActivity extends AppCompatActivity {
     EditText HabitNameEditText;
     EditText HabitDescriptionEditText;
     EditText HabitPrivacyEditText;
+    TextView TitleTextView;
+    TextView habit_name_text;
 //    Button HabitOccurDateButton;
 //    TextView HabitOccurDateTextView;
     Button ConfirmButton;
@@ -48,6 +53,8 @@ public class AddNewHabitActivity extends AppCompatActivity {
     String privacy;
     int position;
     EditText TimeStartEditText;
+    ArrayList <Habit_Event> habiteventlist;
+
 
     /**
      *  Action after this activity is created.
@@ -68,16 +75,19 @@ public class AddNewHabitActivity extends AppCompatActivity {
         TimeStartEditText = findViewById(R.id.TimeStart);
         ConfirmButton = findViewById(R.id.confirm_button);
         HabitPrivacyEditText = findViewById(R.id.Habit_Privacy);
+        TitleTextView = findViewById(R.id.Title);
+        habit_name_text = findViewById(R.id.habit_name_text);
         db = FirebaseFirestore.getInstance();
 
         habitlist = new ArrayList<Habit>();
-
+        habiteventlist = new ArrayList<Habit_Event>();
         // get info from the database
         Bundle bundle = getIntent().getExtras();
         String Username = bundle.getString("UserName");
 
         // retrieve data from the HabitList document from the firebase
         DocumentReference noteRef = db.collection(Username).document("HabitList");
+        DocumentReference noteRef1 = db.collection(Username).document("HabitEventList");
         Boolean edit = bundle.getBoolean("edit");
         Boolean calendar = bundle.getBoolean("calendar");
         Log.d("TAG", "onCreate:2222222222222222222222calendar boolean value:"+calendar);
@@ -86,10 +96,13 @@ public class AddNewHabitActivity extends AppCompatActivity {
         System.out.println("onCreate:3333333333333333333333333calendar boolean value:"+edit);
 
         if(edit){
+            HabitNameEditText.setVisibility(View.INVISIBLE);
+            habit_name_text.setVisibility(View.INVISIBLE);
             /**
              * This for checking whether it is in the edit mode
              */
             position = bundle.getInt("position");
+
             if(!calendar) {
 /**
  * calendar is boolean to check whether it is jumped back from Calendar Activity or not.
@@ -117,6 +130,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                     HabitStartDateTextView.setText(dateStart);
                                     TimeStartEditText.setText(timestart);
                                     HabitPrivacyEditText.setText(privacy);
+                                    TitleTextView.setText(HabitNameInput);
 //                                HabitOccurDateTextView.setText(dateOccur);
                                 }
                             }
@@ -135,6 +149,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 TimeStartEditText.setText(timestart);
                 CancelBackToMenuButton.setText("Delete");
                 ConfirmButton.setText("Update");
+                TitleTextView.setText(HabitNameInput);
 
             }
 
@@ -201,6 +216,43 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 final int[] stop_point = new int[1];
                 HashMap<String, String> newhabit = new HashMap<>();
                 if(edit){
+                    noteRef1.get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if(documentSnapshot.exists()){
+                                        String title;
+                                        title = HabitNameEditText.getText().toString();
+                                        for (int i =0; ; i++){
+                                            if (habiteventlist.size()==i){
+                                                stop_point[0] = i-1;
+                                                break;
+                                            }
+                                            if (habiteventlist.get(i).getHabit_name().equals(title)) {
+
+                                                habiteventlist.remove(i);
+                                                i-=1;
+
+                                            }
+
+                                        }
+                                        HashMap<String,String> newhabitevent = new HashMap<>();
+                                        for (int i = 1; i <= stop_point[0]+1; i++) {
+                                            Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
+
+
+                                            newhabitevent.put("habitevent" + Integer.toString(i) + "name", habiteventlist.get(i - 1).getHabit_name());
+                                            newhabitevent.put("habitevent" + Integer.toString(i) + "comment", habiteventlist.get(i - 1).getComment());
+                                            newhabitevent.put("habitevent" + Integer.toString(i) + "eventtime", habiteventlist.get(i - 1).getEventtime());
+                                            newhabitevent.put("habitevent" + Integer.toString(i) + "status", habiteventlist.get(i - 1).getStatus());
+                                            newhabitevent.put("habitevent" + Integer.toString(i) + "photos", habiteventlist.get(i - 1).getPhoto());
+                                            newhabitevent.put("habitevent" + Integer.toString(i) + "geolocation", habiteventlist.get(i - 1).getGeolocation());
+                                        }
+                                        noteRef1.set(newhabitevent);
+
+                                    }
+                                }
+                            });
                     noteRef.get()
                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
@@ -381,5 +433,39 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 }
             }
         });
+        noteRef1.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            /**
+             * This will get Snapshot from firestore database instantly.
+             * @param value
+             * @param error
+             */
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                habiteventlist.clear();
+                for (int i =1;;i++)
+                {
+
+                    String habit_name = (String) value.getString("habitevent"+Integer.toString(i)+"name");
+                    if(habit_name==null){
+                        break;
+                    }
+                    Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + habit_name);
+
+                    //get data from the database
+                    String eventtime = value.getString("habitevent"+Integer.toString(i)+"eventtime");
+                    String comment = value.getString("habitevent"+Integer.toString(i)+"comment");
+                    String photo = value.getString("habitevent"+Integer.toString(i)+"photo");
+                    String status = value.getString("habitevent"+Integer.toString(i)+"status");
+                    String geolocation = value.getString("habitevent"+Integer.toString(i)+"geolocation");
+
+                    //add data to the habit event list
+                    habiteventlist.add(new Habit_Event(habit_name, eventtime, comment, photo, status, geolocation));
+
+                }
+            }
+        });
+
+
     }
+
 }
