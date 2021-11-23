@@ -68,7 +68,7 @@
             android:layout_marginRight="20dp"
             android:gravity="center"
             android:maxLength="20"
-            android:text="No text for now"
+            android:text="Comment here"
             android:textColor="#FFF"
             android:textSize="20sp"></EditText>
 
@@ -81,13 +81,6 @@
             android:text="Geolocation: Not Support For Now"
             android:textColor="#FFF"
             android:textSize="20sp"></TextView>
-
-        <!--        <com.google.android.gms.maps.MapView-->
-        <!--            android:id="@+id/mapView"-->
-        <!--            android:layout_width="140dp"-->
-        <!--            android:layout_height="140dp"-->
-        <!--            android:layout_marginLeft="160dp"-->
-        <!--            android:layout_marginTop="60dp" />-->
 
 
         <TextView
@@ -117,13 +110,18 @@
             android:id="@+id/detail_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_centerHorizontal="true"
             android:text="Habit name"
             android:textColor="@color/white"
-            android:textSize="34sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/display_image"
+            android:layout_width="200dp"
+            android:layout_height="110dp"
+            android:layout_marginLeft="190dp"
+            tools:srcCompat="@tools:sample/avatars"></ImageView>
 
         <EditText
             android:id="@+id/detail_time"

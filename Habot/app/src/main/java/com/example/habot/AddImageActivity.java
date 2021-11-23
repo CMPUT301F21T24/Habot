@@ -105,6 +105,8 @@ public class AddImageActivity extends AppCompatActivity {
             //get image uri from the selected image in Gallery
             imageUri = data.getData();
 
+            Log.d("TAG","!!!!!!!!!!!!!!"+imageUri);
+
             //Display the image to the user
             imageView.setImageURI(imageUri);
         }
@@ -115,6 +117,8 @@ public class AddImageActivity extends AppCompatActivity {
 
             //get Uri from Bitmap
             imageUri = getImageUri(getApplicationContext(),bitmap);
+
+            Log.d("TAG","!!!!!!!!!!!!!!"+imageUri);
 
             //Display the URI to the users
             imageView.setImageURI(imageUri);

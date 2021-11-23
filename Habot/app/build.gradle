@@ -60,4 +60,10 @@ dependencies {
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.3.1'
 
     implementation 'com.google.firebase:firebase-storage'
+
+    implementation 'com.firebaseui:firebase-ui-storage:7.2.0'
+
+
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 }

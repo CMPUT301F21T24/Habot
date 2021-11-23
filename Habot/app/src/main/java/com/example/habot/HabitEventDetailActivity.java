@@ -1,11 +1,15 @@
 package com.example.habot;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -22,9 +27,16 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -43,6 +55,9 @@ public class HabitEventDetailActivity extends AppCompatActivity {
     Button deletebutton;
     Button updatebutton;
     ArrayList<Habit_Event> habit_events;
+
+    ImageView displayImage;
+
 
     /**
      * This activity will be created when the activity starts
@@ -64,6 +79,7 @@ public class HabitEventDetailActivity extends AppCompatActivity {
         habit_time = findViewById(R.id.detail_time);
         deletebutton = findViewById(R.id.delete_new_habit_event);
         updatebutton = findViewById(R.id.update_new_habit_event);
+        displayImage = findViewById(R.id.display_image);
         habit_events = new ArrayList<Habit_Event>();
 
         db = FirebaseFirestore.getInstance();
@@ -90,7 +106,20 @@ public class HabitEventDetailActivity extends AppCompatActivity {
                     habit_status.setText(status);
                     habit_time.setText(time);
 
+
+                    FirebaseStorage mStorageRef = FirebaseStorage.getInstance();
+
+                    String imageName = habit_name.getText().toString() + "-" + time;
+                    StorageReference imageReference = mStorageRef.getReference().child(Username+"/"+imageName);
+
+                    Log.d("TAG",Username+"!!!!!!!!!!!"+time);
+
+                    Glide.with(getApplicationContext())
+                            .load(imageReference)
+                            .into(displayImage);
+
                 }
+
             }
         });
 
@@ -235,7 +264,6 @@ public class HabitEventDetailActivity extends AppCompatActivity {
         });
 
 
-
-
     }
+
 }
