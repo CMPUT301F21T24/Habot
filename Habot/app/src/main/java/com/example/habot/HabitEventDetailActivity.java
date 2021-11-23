@@ -7,10 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
@@ -19,6 +22,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -133,6 +138,26 @@ public class HabitEventDetailActivity extends AppCompatActivity {
 
 
                                     }
+
+                                    //Delete the corresponding image from Firestore Storage
+                                    FirebaseStorage mStorageRef = FirebaseStorage.getInstance();
+
+                                    String imageName = habit_name.getText().toString() + "-" + habit_time.getText().toString();
+                                    StorageReference imageReference = mStorageRef.getReference().child(Username+"/"+imageName);
+
+                                    //Delete image
+                                    imageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Toast.makeText(HabitEventDetailActivity.this, "Cloud Image Deleted", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(HabitEventDetailActivity.this, "Cloud Image Delete Failed", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
                                     noteRef.set(updatehabitevents);
                                     Intent Jump = new Intent();
                                     Jump.setClass(HabitEventDetailActivity.this, HabitEventActivity.class);
@@ -147,7 +172,6 @@ public class HabitEventDetailActivity extends AppCompatActivity {
 
             }
         });
-
 
         updatebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +221,7 @@ public class HabitEventDetailActivity extends AppCompatActivity {
 
                                     }
                                 }
+
                                 noteRef.set(updatehabitevents);
                                 Intent Jump = new Intent();
                                 Jump.setClass(HabitEventDetailActivity.this, HabitEventActivity.class);

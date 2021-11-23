@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,6 +64,14 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
     TextView geolocationtextview;
     ArrayList<Habit> habitlist;
     TextView geolocation1;
+    String URI;
+    Uri imageUri;
+
+    String Bundle2HabitName;
+    String Bundle2Address;
+    String Bundle2Comment;
+    String Bundle2Status;
+    String Bundle2Time;
 
 
     /**
@@ -72,6 +85,8 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         String Username = bundle.getString("UserName");
+
+
         Log.d("TAG", "----------------> Username is :"+Username);
 
         //get id from layout files
@@ -81,12 +96,11 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         habit_name = findViewById(R.id.habit_name_input);
         addlocationbutton = findViewById(R.id.add_location_button);
         geolocationtextview = findViewById(R.id.display_geolocation);
-        geolocation1 = findViewById(R.id.display_geolocation);
-
         addImageButton = findViewById(R.id.add_image_button);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
+        Boolean image = bundle.getBoolean("addImage");
 
         db = FirebaseFirestore.getInstance();
         DocumentReference noteRef = db.collection(Username).document("HabitEventList");
@@ -132,6 +146,28 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
             }
         });
 
+        if (image){
+            String URI = bundle.getString("Uri");
+            imageUri = Uri.parse(URI);
+
+            Bundle2HabitName = bundle.getString("HabitName");
+            Bundle2Address = bundle.getString("Address");
+            Bundle2Comment = bundle.getString("Comment");
+            Bundle2Status = bundle.getString("Status");
+            Bundle2Time = bundle.getString("Time");
+
+            Log.d("TAG","++++++++++++++++++++++++"+habit_name.getText().toString());
+
+            habit_name.setText(Bundle2HabitName);
+            geolocationtextview.setText(Bundle2Address);
+            comment.setText(Bundle2Comment);
+            status.setText(Bundle2Status);
+            time.setText(Bundle2Time);
+
+            Log.d("TAG","++++++++++++++++++++++++"+habit_name.getText().toString());
+        }
+
+
         CancelBackHabitEventButton.setOnClickListener(new View.OnClickListener() {
             /**
              * This takes a view as parameter, when users click on Cancel Button
@@ -166,10 +202,26 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         addImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String HabitNameInput = habit_name.getText().toString();
+                String CommentInput = comment.getText().toString();
+                String StatusInput = status.getText().toString();
+                String TimeInput = time.getText().toString();
+                String AddressInput = geolocationtextview.getText().toString();
+
+                Log.d("TAG","++++++++++++++++++++++++"+HabitNameInput);
+
                 Intent Jump = new Intent();
                 Jump.setClass(AddNewHabitEventActivity.this, AddImageActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("UserName", Username);
+                bundle.putString("HabitName", HabitNameInput);
+                bundle.putString("Comment", CommentInput);
+                bundle.putString("Status", StatusInput);
+                bundle.putString("Time", TimeInput);
+                bundle.putString("Address", AddressInput);
+                bundle.putBoolean("addImage",true);
+
                 Jump.putExtras(bundle);
                 startActivity(Jump);
             }
@@ -223,8 +275,31 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                                             habit_events.add(new Habit_Event(name,habiteventtime,habitcomment, habitphoto, habitstatus, habitgeolocation));
                                         }
 
+                                        if (imageUri != null){
+                                            //Upload Image Stages
+                                            FirebaseStorage mStorageRef = FirebaseStorage.getInstance();
+
+                                            String imageName = habit_name.getText().toString() + "-" + time.getText().toString();
+                                            StorageReference imageReference = mStorageRef.getReference().child(Username+"/"+imageName);
+
+                                            //Set Metadata to the Uri
+                                            StorageMetadata metadata = new StorageMetadata.Builder()
+                                                    .setContentType("image/jpg")
+                                                    .build();
+
+                                            //Put file to the Firestore Storage
+                                            imageReference.putFile(imageUri,metadata)
+                                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                            Toast.makeText(AddNewHabitEventActivity.this, "Image Uploaded to Cloud", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                        }
+
+
                                         //add to habit event list
-                                        habit_events.add(new Habit_Event(habit_name.getText().toString(),time.getText().toString(),comment.getText().toString(),"nothing",status.getText().toString(),geolocation1.getText().toString()));
+                                        habit_events.add(new Habit_Event(habit_name.getText().toString(),time.getText().toString(),comment.getText().toString(),"imageName",status.getText().toString(),geolocationtextview.getText().toString()));
                                         for (int i = 1; i <= stop_point[0]; i++) {
                                             Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
 
@@ -238,7 +313,7 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                                         }
                                         noteRef.set(newhabitevent);
 
-                                        //intnet to Habit Event Page
+                                        //intent to Habit Event Page
                                         Intent Jump = new Intent();
                                         Jump.setClass(AddNewHabitEventActivity.this, HabitEventActivity.class);
                                         Bundle bundle = new Bundle();

@@ -2,6 +2,8 @@ package com.example.habot;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -27,15 +29,14 @@ import java.io.ByteArrayOutputStream;
 
 public class AddImageActivity extends AppCompatActivity {
     ImageView imageView;
+
     Button gallery_button;
     Button btnCaptureImage;
+    Button upload_button;
 
     private static final int PICK_IMAGE = 100;
+
     Uri imageUri;
-
-    UploadTask uploadTask;
-
-    Button upload_button;
 
     String Username;
 
@@ -62,8 +63,6 @@ public class AddImageActivity extends AppCompatActivity {
             }
         });
 
-
-
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,62 +72,52 @@ public class AddImageActivity extends AppCompatActivity {
             }
         });
 
+        upload_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Jump = new Intent();
+                Jump.setClass(AddImageActivity.this, AddNewHabitEventActivity.class);
+                bundle.putString("Uri",imageUri.toString());
+                Jump.putExtras(bundle);
+                startActivity(Jump);
+            }
+        });
+
     }
 
     private void openGallery(){
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, PICK_IMAGE);
     }
+
+    public Uri getImageUri(Context context, Bitmap bitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(),bitmap,"bit2Uri",null);
+
+        return Uri.parse(path);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-        if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
 
+            //get image uri from the selected image in Gallery
             imageUri = data.getData();
+
+            //Display the image to the user
             imageView.setImageURI(imageUri);
-
-            FirebaseStorage mStorageRef = FirebaseStorage.getInstance();
-            StorageReference imageReference = mStorageRef.getReference().child(Username+"/image");
-
-            StorageMetadata metadata = new StorageMetadata.Builder()
-                    .setContentType("image/jpg")
-                    .build();
-
-            imageReference.putFile(imageUri,metadata)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(AddImageActivity.this, "Upload success", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-
         }
 
         else{
+            //get bitmap info. from the photo taken by users
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(bitmap);
 
-            FirebaseStorage mStorageRef = FirebaseStorage.getInstance();
-            StorageReference imageReference = mStorageRef.getReference().child(Username+"/image2");
+            //get Uri from Bitmap
+            imageUri = getImageUri(getApplicationContext(),bitmap);
 
-            imageView.setDrawingCacheEnabled(true);
-            imageView.buildDrawingCache();
-
-            Bitmap bitmappp = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            ByteArrayOutputStream tempBit = new ByteArrayOutputStream();
-            bitmappp.compress(Bitmap.CompressFormat.JPEG,100,tempBit);
-            byte[] byteData = tempBit.toByteArray();
-
-            imageReference.putBytes(byteData);
-
-            //Log.d("TAG","11111111111111111111"+mStorageRef.getName());
-
+            //Display the URI to the users
+            imageView.setImageURI(imageUri);
         }
     }
-
-
-
-
-
 }
