@@ -73,6 +73,8 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
     String Bundle2Status;
     String Bundle2Time;
 
+    String imageName;
+
 
     /**
      * This will create when the activity starts.
@@ -279,7 +281,7 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                                             //Upload Image Stages
                                             FirebaseStorage mStorageRef = FirebaseStorage.getInstance();
 
-                                            String imageName = habit_name.getText().toString() + "-" + time.getText().toString();
+                                            imageName = habit_name.getText().toString() + "-" + time.getText().toString();
                                             StorageReference imageReference = mStorageRef.getReference().child(Username+"/"+imageName);
 
                                             //Set Metadata to the Uri
@@ -299,7 +301,7 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
 
 
                                         //add to habit event list
-                                        habit_events.add(new Habit_Event(habit_name.getText().toString(),time.getText().toString(),comment.getText().toString(),"imageName",status.getText().toString(),geolocationtextview.getText().toString()));
+                                        habit_events.add(new Habit_Event(habit_name.getText().toString(),time.getText().toString(),comment.getText().toString(),imageName,status.getText().toString(),geolocationtextview.getText().toString()));
                                         for (int i = 1; i <= stop_point[0]; i++) {
                                             Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
 
