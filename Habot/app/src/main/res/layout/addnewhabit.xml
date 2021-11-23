@@ -145,19 +145,6 @@
         <!--            android:text="2021-9-14"-->
         <!--            android:textColor="#fff"-->
         <!--            android:textSize="20sp" />-->
-        <EditText
-            android:id="@+id/TimeStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="350dp"
-            android:ems="10"
-            android:hint="00:00"
-            android:inputType="time"
-            android:textColor="@color/white"
-            android:textColorHint="#fff"
-            android:textSize="20sp" />
 
 
         <Button
@@ -180,23 +167,151 @@
             android:backgroundTint="#D6D7D7"
             android:text="Add" />
 
-        <EditText
-            android:id="@+id/Habit_Privacy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="450dp"
-            android:ems="10"
-            android:hint="Privacy: private/public"
-            android:inputType="textPersonName"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
-
         <!--        <EditText-->
         <!--            android:id="@+id/editTextTime"-->
         <!--            android:layout_width="wrap_content"-->
         <!--            android:layout_height="wrap_content"-->
         <!--            android:ems="10"-->
         <!--            android:inputType="time" />-->
+
+
+        <RadioGroup
+            android:layout_width="219dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="100dp"
+            tools:layout_editor_absoluteX="174dp"
+            tools:layout_editor_absoluteY="102dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints">
+
+                <RadioButton
+                    android:id="@+id/privateButton"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:text="Private"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
+
+                <RadioButton
+                    android:id="@+id/publicButton"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:text="Public"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="220dp"
+            tools:layout_editor_absoluteX="174dp"
+            tools:layout_editor_absoluteY="102dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints">
+
+                <RadioButton
+                    android:id="@+id/Monday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:text="Mon"
+                    android:textColor="#FFFFFF"
+                    android:onClick="checkButton"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/Tuesday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:text="Tue"
+                    android:onClick="checkButton"
+                    android:textColor="#FFFFFF" />
+
+                <RadioButton
+                    android:id="@+id/Wednesday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:checked="false"
+                    android:text="Wed"
+                    android:onClick="checkButton"
+                    android:textColor="#FFFFFF" />
+
+                <RadioButton
+                    android:id="@+id/Thursday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:checked="true"
+                    android:text="Thur"
+                    android:onClick="checkButton"
+                    android:textColor="#FFFFFF" />
+
+                <RadioButton
+                    android:id="@+id/Friday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:text="Fri"
+                    android:onClick="checkButton"
+                    android:textColor="#FFFFFF" />
+
+                <RadioButton
+                    android:id="@+id/Saturday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:text="Sat"
+                    android:onClick="checkButton"
+                    android:textColor="#FFFFFF" />
+
+                <RadioButton
+                    android:id="@+id/Sunday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:text="Sun"
+                    android:onClick="checkButton"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="140dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Privacy:"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
 
 
     </RelativeLayout>

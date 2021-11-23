@@ -2,6 +2,7 @@ package com.example.habot;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -83,42 +84,49 @@ public class LoginActivity extends AppCompatActivity {
                 //get user input from EditText View
                 final String Username = UsernameLoginEditText.getText().toString();
                 final String Password = PasswordLoginEditText.getText().toString();
+                if (Username.length() == 0){
+                    Toast.makeText(LoginActivity.this, "Username can not be empty, please sign up first", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    DocumentReference noteRef = db.collection(Username).document("UserProfile");
+                    noteRef.get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                /**
+                                 * this takes documentSnapshot as parameter and
+                                 * if obtain data successfully, do the action
+                                 * @param documentSnapshot
+                                 */
 
-                // get the username from the database, and check if it equals to the user input
-                DocumentReference noteRef = db.collection(Username).document("UserProfile");
-                noteRef.get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            /**
-                             * this takes documentSnapshot as parameter and
-                             * if obtain data successfully, do the action
-                             * @param documentSnapshot
-                             */
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                //if get Snapshot in the userProfile successfully, compares the password with the user input
-                                if(documentSnapshot.exists()){
-                                    String password = documentSnapshot.getString("Password");
-                                    // if passwords match, jump to menu page
-                                    if (password.equals(Password)){
-                                        Intent JumpToMenu = new Intent();
-                                        JumpToMenu.setClass(LoginActivity.this, MenuActivity.class);
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("UserName", Username);
-                                        JumpToMenu.putExtras(bundle);
-                                        startActivity(JumpToMenu);
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    //if get Snapshot in the userProfile successfully, compares the password with the user input
+
+                                    if(documentSnapshot.exists()){
+                                        String password = documentSnapshot.getString("Password");
+                                        // if passwords match, jump to menu page
+                                        if (password.equals(Password)){
+                                            Intent JumpToMenu = new Intent();
+                                            JumpToMenu.setClass(LoginActivity.this, MenuActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString("UserName", Username);
+                                            JumpToMenu.putExtras(bundle);
+                                            startActivity(JumpToMenu);
+                                        }
+                                        // else turn the error message visible
+                                        else {
+                                            Toast.makeText(LoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+
+                                        }
                                     }
                                     // else turn the error message visible
-                                    else {
-                                        Toast.makeText(LoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
-
+                                    else{
+                                        Toast.makeText(LoginActivity.this, "Username not found, please sign up first", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                                // else turn the error message visible
-                                else{
-                                    Toast.makeText(LoginActivity.this, "Username not found, please sign up first", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                            });
+
+                }
+
             }
         });
     }

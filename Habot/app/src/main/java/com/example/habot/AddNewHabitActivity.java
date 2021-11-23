@@ -1,12 +1,17 @@
 package com.example.habot;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +43,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
     Button HabitStartDateButton;
     EditText HabitNameEditText;
     EditText HabitDescriptionEditText;
-    EditText HabitPrivacyEditText;
+   // EditText HabitPrivacyEditText;
     TextView TitleTextView;
     TextView habit_name_text;
 //    Button HabitOccurDateButton;
@@ -50,10 +55,13 @@ public class AddNewHabitActivity extends AppCompatActivity {
     String HabitDescriptionInput;
     String dateStart;
     String timestart;
+    String time;
     String privacy;
     int position;
-    EditText TimeStartEditText;
+    //EditText TimeStartEditText;
     ArrayList <Habit_Event> habiteventlist;
+    RadioGroup radioGroup;
+    RadioButton radioButton;
 
 
     /**
@@ -64,17 +72,24 @@ public class AddNewHabitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addnewhabit);
-
+        radioGroup = findViewById(R.id.radioGroup);
         // connect with the layout file using the ids
         CancelBackToMenuButton = findViewById(R.id.add_habit_cancel_button);
         HabitStartDateTextView = findViewById(R.id.input_habit_startDate);
         HabitStartDateButton = findViewById(R.id.habit_startDate_text);
         HabitNameEditText = findViewById(R.id.input_habit_name);
         HabitDescriptionEditText = findViewById(R.id.input_habit_description);
+
 //        HabitOccurDateButton = findViewById(R.id.habit_occurDate_text);
-        TimeStartEditText = findViewById(R.id.TimeStart);
+
+
+    //    TimeStartEditText = findViewById(R.id.TimeStart);
+
+
+
+
         ConfirmButton = findViewById(R.id.confirm_button);
-        HabitPrivacyEditText = findViewById(R.id.Habit_Privacy);
+    //    HabitPrivacyEditText = findViewById(R.id.Habit_Privacy);
         TitleTextView = findViewById(R.id.Title);
         habit_name_text = findViewById(R.id.habit_name_text);
         db = FirebaseFirestore.getInstance();
@@ -128,8 +143,8 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                     HabitNameEditText.setText(HabitNameInput);
                                     HabitDescriptionEditText.setText(HabitDescriptionInput);
                                     HabitStartDateTextView.setText(dateStart);
-                                    TimeStartEditText.setText(timestart);
-                                    HabitPrivacyEditText.setText(privacy);
+                                    //TimeStartEditText.setText(timestart);
+                                    //HabitPrivacyEditText.setText(privacy);
                                     TitleTextView.setText(HabitNameInput);
 //                                HabitOccurDateTextView.setText(dateOccur);
                                 }
@@ -146,7 +161,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 HabitNameEditText.setText(HabitNameInput);
                 HabitDescriptionEditText.setText(HabitDescriptionInput);
                 HabitStartDateTextView.setText(dateStart);
-                TimeStartEditText.setText(timestart);
+                //TimeStartEditText.setText(timestart);
                 CancelBackToMenuButton.setText("Delete");
                 ConfirmButton.setText("Update");
                 TitleTextView.setText(HabitNameInput);
@@ -165,8 +180,8 @@ public class AddNewHabitActivity extends AppCompatActivity {
             HabitNameEditText.setText(HabitNameInput);
             HabitDescriptionEditText.setText(HabitDescriptionInput);
             HabitStartDateTextView.setText(dateStart);
-            TimeStartEditText.setText(timestart);
-            HabitPrivacyEditText.setText(privacy);
+            //TimeStartEditText.setText(timestart);
+            //HabitPrivacyEditText.setText(privacy);
 //            HabitOccurDateTextView.setText(dateOccur);
 
         }
@@ -181,8 +196,8 @@ public class AddNewHabitActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String HabitNameInput = HabitNameEditText.getText().toString();
                 String HabitDescriptionInput = HabitDescriptionEditText.getText().toString();
-                String timestart = TimeStartEditText.getText().toString();
-                String privacy = HabitPrivacyEditText.getText().toString();
+                //String timestart = TimeStartEditText.getText().toString();
+                //String privacy = HabitPrivacyEditText.getText().toString();
                 // when pressed, app will need to CalendarActivity for date selection
                 Intent intent = new Intent(AddNewHabitActivity.this, CalendarActivity.class);
                 Bundle bundle = new Bundle();
@@ -318,14 +333,14 @@ public class AddNewHabitActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View view) {
-                String TimeStart = TimeStartEditText.getText().toString();
-                Log.d("TAG", "------------->>>>>>>>>>>>>kkkkkkkkkkkkkkkkkk Time Stored"+ TimeStart);
+              //  String TimeStart = TimeStartEditText.getText().toString();
+              //  Log.d("TAG", "------------->>>>>>>>>>>>>kkkkkkkkkkkkkkkkkk Time Stored"+ TimeStart);
 
                 String title = HabitNameEditText.getText().toString();
                 String reason = HabitDescriptionEditText.getText().toString();
                 String date = HabitStartDateTextView.getText().toString();
-                String time = TimeStartEditText.getText().toString();
-                String privacy = HabitPrivacyEditText.getText().toString();
+               // String time = TimeStartEditText.getText().toString();
+               // String privacy = HabitPrivacyEditText.getText().toString();
                 HashMap<String, String> newhabit = new HashMap<>();
 
                 final int[] stop_point = new int[1];
@@ -465,6 +480,11 @@ public class AddNewHabitActivity extends AppCompatActivity {
             }
         });
 
+        }
+    public void checkButton(View v){
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
+        Log.d(TAG, "checkButton: "+ radioId);
 
     }
 
