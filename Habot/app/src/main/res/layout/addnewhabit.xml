@@ -314,6 +314,123 @@
             android:textSize="30sp" />
 
 
+        <RadioGroup
+            android:id="@+id/privacy"
+            android:layout_width="219dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="100dp"
+            tools:layout_editor_absoluteX="174dp"
+            tools:layout_editor_absoluteY="102dp"
+            android:orientation="horizontal">
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                tools:ignore="MissingConstraints">-->
+
+                <RadioButton
+                    android:id="@+id/privateButton"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:text="Private"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:onClick="checkButton"/>
+
+                <RadioButton
+                    android:id="@+id/publicButton"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:text="Public"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:onClick="checkButton"
+                    android:checked="true"/>
+
+<!--            </LinearLayout>-->
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="320dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkbox0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MO"
+                android:textColor="@color/white"></CheckBox>
+
+            <CheckBox
+                android:id="@+id/checkbox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TU"
+                android:textColor="@color/white"></CheckBox>
+
+            <CheckBox
+                android:id="@+id/checkbox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WE"
+                android:textColor="@color/white"></CheckBox>
+
+            <CheckBox
+                android:id="@+id/checkbox3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TR"
+                android:textColor="@color/white"></CheckBox>
+
+            <CheckBox
+                android:id="@+id/checkbox4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FR"
+                android:textColor="@color/white"></CheckBox>
+
+            <CheckBox
+                android:id="@+id/checkbox5"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SA"
+                android:textColor="@color/white"></CheckBox>
+
+            <CheckBox
+                android:id="@+id/checkbox6"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SU"
+                android:textColor="@color/white"></CheckBox>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="140dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Privacy:"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
+
     </RelativeLayout>
 
 </RelativeLayout>

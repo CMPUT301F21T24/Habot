@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -43,10 +44,10 @@ public class AddNewHabitActivity extends AppCompatActivity {
     Button HabitStartDateButton;
     EditText HabitNameEditText;
     EditText HabitDescriptionEditText;
-   // EditText HabitPrivacyEditText;
+    // EditText HabitPrivacyEditText;
     TextView TitleTextView;
     TextView habit_name_text;
-//    Button HabitOccurDateButton;
+    //    Button HabitOccurDateButton;
 //    TextView HabitOccurDateTextView;
     Button ConfirmButton;
     FirebaseFirestore db;
@@ -62,6 +63,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
     ArrayList <Habit_Event> habiteventlist;
     RadioGroup radioGroup;
     RadioButton radioButton;
+    CheckBox checkBox;
 
 
     /**
@@ -72,7 +74,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addnewhabit);
-        radioGroup = findViewById(R.id.radioGroup);
+        radioGroup = findViewById(R.id.privacy);
         // connect with the layout file using the ids
         CancelBackToMenuButton = findViewById(R.id.add_habit_cancel_button);
         HabitStartDateTextView = findViewById(R.id.input_habit_startDate);
@@ -83,13 +85,13 @@ public class AddNewHabitActivity extends AppCompatActivity {
 //        HabitOccurDateButton = findViewById(R.id.habit_occurDate_text);
 
 
-    //    TimeStartEditText = findViewById(R.id.TimeStart);
+        //    TimeStartEditText = findViewById(R.id.TimeStart);
 
 
 
 
         ConfirmButton = findViewById(R.id.confirm_button);
-    //    HabitPrivacyEditText = findViewById(R.id.Habit_Privacy);
+        //    HabitPrivacyEditText = findViewById(R.id.Habit_Privacy);
         TitleTextView = findViewById(R.id.Title);
         habit_name_text = findViewById(R.id.habit_name_text);
         db = FirebaseFirestore.getInstance();
@@ -146,7 +148,43 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                     //TimeStartEditText.setText(timestart);
                                     //HabitPrivacyEditText.setText(privacy);
                                     TitleTextView.setText(HabitNameInput);
-//                                HabitOccurDateTextView.setText(dateOccur);
+                                    if(privacy != null){
+                                    if(privacy.equals("private")){
+                                        RadioButton radioButton = findViewById(R.id.privateButton);
+                                        radioButton.setChecked(true);
+                                    }}
+
+                                    if(timestart != null){
+                                    if(timestart.charAt(0) == '1'){
+                                        checkBox = findViewById(R.id.checkbox0);
+                                        checkBox.setChecked(true);
+                                    }
+                                    if(timestart.charAt(1) == '1'){
+                                        checkBox = findViewById(R.id.checkbox1);
+                                        checkBox.setChecked(true);
+                                    }
+                                    if(timestart.charAt(2) == '1'){
+                                        checkBox = findViewById(R.id.checkbox2);
+                                        checkBox.setChecked(true);
+                                    }
+                                    if(timestart.charAt(3) == '1'){
+                                        checkBox = findViewById(R.id.checkbox3);
+                                        checkBox.setChecked(true);
+                                    }
+                                    if(timestart.charAt(4) == '1'){
+                                        checkBox = findViewById(R.id.checkbox4);
+                                        checkBox.setChecked(true);
+                                    }
+                                    if(timestart.charAt(5) == '1'){
+                                        checkBox = findViewById(R.id.checkbox5);
+                                        checkBox.setChecked(true);
+                                    }
+                                    if(timestart.charAt(6) == '1'){
+                                        checkBox = findViewById(R.id.checkbox6);
+                                        checkBox.setChecked(true);
+                                    }}
+
+//                                  HabitOccurDateTextView.setText(dateOccur);
                                 }
                             }
                         });
@@ -165,6 +203,41 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 CancelBackToMenuButton.setText("Delete");
                 ConfirmButton.setText("Update");
                 TitleTextView.setText(HabitNameInput);
+                Log.d(TAG, "onCreate: --------------"+privacy);
+                if(privacy!= null){
+                if(privacy.equals("private")){
+                    RadioButton radioButton = findViewById(R.id.privateButton);
+                    radioButton.setChecked(true);
+                }}
+                if(timestart != null){
+                if(timestart.charAt(0) == '1'){
+                    checkBox = findViewById(R.id.checkbox0);
+                    checkBox.setChecked(true);
+                }
+                if(timestart.charAt(1) == '1'){
+                    checkBox = findViewById(R.id.checkbox1);
+                    checkBox.setChecked(true);
+                }
+                if(timestart.charAt(2) == '1'){
+                    checkBox = findViewById(R.id.checkbox2);
+                    checkBox.setChecked(true);
+                }
+                if(timestart.charAt(3) == '1'){
+                    checkBox = findViewById(R.id.checkbox3);
+                    checkBox.setChecked(true);
+                }
+                if(timestart.charAt(4) == '1'){
+                    checkBox = findViewById(R.id.checkbox4);
+                    checkBox.setChecked(true);
+                }
+                if(timestart.charAt(5) == '1'){
+                    checkBox = findViewById(R.id.checkbox5);
+                    checkBox.setChecked(true);
+                }
+                if(timestart.charAt(6) == '1'){
+                    checkBox = findViewById(R.id.checkbox6);
+                    checkBox.setChecked(true);
+                }}
 
             }
 
@@ -180,6 +253,41 @@ public class AddNewHabitActivity extends AppCompatActivity {
             HabitNameEditText.setText(HabitNameInput);
             HabitDescriptionEditText.setText(HabitDescriptionInput);
             HabitStartDateTextView.setText(dateStart);
+            if(privacy!= null){
+            if(privacy.equals("private")){
+                RadioButton radioButton = findViewById(R.id.privateButton);
+                radioButton.setChecked(true);}}
+
+            if(timestart != null){
+                if(timestart.charAt(0) == '1'){
+                    checkBox = findViewById(R.id.checkbox0);
+                    checkBox.setChecked(true);
+                }
+                if(timestart.charAt(1) == '1'){
+                    checkBox = findViewById(R.id.checkbox1);
+                    checkBox.setChecked(true);
+                }
+                if(timestart.charAt(2) == '1'){
+                    checkBox = findViewById(R.id.checkbox2);
+                    checkBox.setChecked(true);
+                }
+                if(timestart.charAt(3) == '1'){
+                    checkBox = findViewById(R.id.checkbox3);
+                    checkBox.setChecked(true);
+                }
+                if(timestart.charAt(4) == '1'){
+                    checkBox = findViewById(R.id.checkbox4);
+                    checkBox.setChecked(true);
+                }
+                if(timestart.charAt(5) == '1'){
+                    checkBox = findViewById(R.id.checkbox5);
+                    checkBox.setChecked(true);
+                }
+                if(timestart.charAt(6) == '1'){
+                    checkBox = findViewById(R.id.checkbox6);
+                    checkBox.setChecked(true);
+                }}
+
             //TimeStartEditText.setText(timestart);
             //HabitPrivacyEditText.setText(privacy);
 //            HabitOccurDateTextView.setText(dateOccur);
@@ -196,7 +304,66 @@ public class AddNewHabitActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String HabitNameInput = HabitNameEditText.getText().toString();
                 String HabitDescriptionInput = HabitDescriptionEditText.getText().toString();
-                //String timestart = TimeStartEditText.getText().toString();
+                String timestart;
+                timestart = "";
+
+                checkBox = findViewById(R.id.checkbox0);
+                if(checkBox.isChecked()){
+                    timestart += "1";
+                }
+                else
+                {
+                    timestart += "0";
+                }
+                checkBox = findViewById(R.id.checkbox1);
+                if(checkBox.isChecked()){
+                    timestart += "1";
+                }
+                else
+                {
+                    timestart += "0";
+                }
+                checkBox = findViewById(R.id.checkbox2);
+                if(checkBox.isChecked()){
+                    timestart += "1";
+                }
+                else
+                {
+                    timestart += "0";
+                }
+                checkBox = findViewById(R.id.checkbox3);
+                if(checkBox.isChecked()){
+                    timestart += "1";
+                }
+                else
+                {
+                    timestart += "0";
+                }
+                checkBox = findViewById(R.id.checkbox4);
+                if(checkBox.isChecked()){
+                    timestart += "1";
+                }
+                else
+                {
+                    timestart += "0";
+                }
+                checkBox = findViewById(R.id.checkbox5);
+                if(checkBox.isChecked()){
+                    timestart += "1";
+                }
+                else
+                {
+                    timestart += "0";
+                }
+                checkBox = findViewById(R.id.checkbox6);
+                if(checkBox.isChecked()){
+                    timestart += "1";
+                }
+                else
+                {
+                    timestart += "0";
+                }
+
                 //String privacy = HabitPrivacyEditText.getText().toString();
                 // when pressed, app will need to CalendarActivity for date selection
                 Intent intent = new Intent(AddNewHabitActivity.this, CalendarActivity.class);
@@ -206,6 +373,11 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 bundle.putString("HabitDescription", HabitDescriptionInput);
                 bundle.putString("TimeStart", timestart);
                 bundle.putBoolean("edit",edit);
+                if(radioGroup.getCheckedRadioButtonId() == R.id.publicButton){
+                    privacy = "public";
+                }else{
+                    privacy = "private";
+                }
                 bundle.putString("privacy",privacy);
                 if(edit){
                     bundle.putInt("position",position);
@@ -333,14 +505,78 @@ public class AddNewHabitActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View view) {
-              //  String TimeStart = TimeStartEditText.getText().toString();
-              //  Log.d("TAG", "------------->>>>>>>>>>>>>kkkkkkkkkkkkkkkkkk Time Stored"+ TimeStart);
+                //  String TimeStart = TimeStartEditText.getText().toString();
+                //  Log.d("TAG", "------------->>>>>>>>>>>>>kkkkkkkkkkkkkkkkkk Time Stored"+ TimeStart);
 
                 String title = HabitNameEditText.getText().toString();
                 String reason = HabitDescriptionEditText.getText().toString();
                 String date = HabitStartDateTextView.getText().toString();
-               // String time = TimeStartEditText.getText().toString();
-               // String privacy = HabitPrivacyEditText.getText().toString();
+                String starttime[] = new String[1];
+                String privacy;
+                if(radioGroup.getCheckedRadioButtonId() == R.id.publicButton){
+                    privacy = "public";
+                }else{
+                    privacy = "private";
+                }
+                starttime[0] = "";
+                checkBox = findViewById(R.id.checkbox0);
+                if(checkBox.isChecked()){
+                    starttime[0] += "1";
+                }
+                else
+                {
+                    starttime[0] += "0";
+                }
+                checkBox = findViewById(R.id.checkbox1);
+                if(checkBox.isChecked()){
+                    starttime[0] += "1";
+                }
+                else
+                {
+                    starttime[0] += "0";
+                }
+                checkBox = findViewById(R.id.checkbox2);
+                if(checkBox.isChecked()){
+                    starttime[0] += "1";
+                }
+                else
+                {
+                    starttime[0] += "0";
+                }
+                checkBox = findViewById(R.id.checkbox3);
+                if(checkBox.isChecked()){
+                    starttime[0] += "1";
+                }
+                else
+                {
+                    starttime[0] += "0";
+                }
+                checkBox = findViewById(R.id.checkbox4);
+                if(checkBox.isChecked()){
+                    starttime[0] += "1";
+                }
+                else
+                {
+                    starttime[0] += "0";
+                }
+                checkBox = findViewById(R.id.checkbox5);
+                if(checkBox.isChecked()){
+                    starttime[0] += "1";
+                }
+                else
+                {
+                    starttime[0] += "0";
+                }
+                checkBox = findViewById(R.id.checkbox6);
+                if(checkBox.isChecked()){
+                    starttime[0] += "1";
+                }
+                else
+                {
+                    starttime[0] += "0";
+                }
+
+
                 HashMap<String, String> newhabit = new HashMap<>();
 
                 final int[] stop_point = new int[1];
@@ -366,7 +602,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                             habitlist.add(new Habit(title, reason, date, time, privacy));
 
                                         }
-                                        habitlist.add(new Habit(title, reason, date, time, privacy));
+                                        habitlist.add(new Habit(title, reason, date, starttime[0], privacy));
                                         for (int i = 1; i <= stop_point[0]; i++) {
                                             Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
 
@@ -422,7 +658,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                             newhabit.put("habit"+Integer.toString(position+1)+"name",title);
                                             newhabit.put("habit"+Integer.toString(position+1)+"reason",reason);
                                             newhabit.put("habit"+Integer.toString(position+1)+"date",date);
-                                            newhabit.put("habit"+Integer.toString(position+1)+"time",time);
+                                            newhabit.put("habit"+Integer.toString(position+1)+"time",starttime[0]);
                                             newhabit.put("habit"+Integer.toString(i)+"privacy",privacy);
                                         }
                                         else {
@@ -480,7 +716,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
             }
         });
 
-        }
+    }
     public void checkButton(View v){
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);

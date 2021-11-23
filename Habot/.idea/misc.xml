@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/haowe/AndroidStudioProjects/Habot/Habot/app/src/main/res/layout/addnewhabit.xml" value="0.45" />
+        <entry key="..\:/Users/haowe/AndroidStudioProjects/Habot/Habot/app/src/main/res/layout/addnewhabitevent.xml" value="0.19710144927536233" />
+        <entry key="..\:/Users/haowe/AndroidStudioProjects/Habot/Habot/app/src/main/res/layout/calendar_layout.xml" value="0.15653495440729484" />
+        <entry key="..\:/Users/haowe/AndroidStudioProjects/Habot/Habot/app/src/main/res/layout/checkrequestname.xml" value="0.165" />
+        <entry key="..\:/Users/haowe/AndroidStudioProjects/Habot/Habot/app/src/main/res/layout/habitdetail.xml" value="0.22192028985507245" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/addnewhabit.xml" value="0.25" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/addnewhabitevent.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/calendar_layout.xml" value="0.3255208333333333" />
