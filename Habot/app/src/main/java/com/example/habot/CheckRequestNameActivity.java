@@ -8,18 +8,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -38,6 +42,7 @@ public class CheckRequestNameActivity extends AppCompatActivity {
     ArrayList<Request> requestlist;
     ArrayList<Request> requestlist1;
     ArrayList<Request> showRequestSend;
+    ArrayAdapter<Request> showSendAdapter;
 
 
     /**
@@ -65,9 +70,43 @@ public class CheckRequestNameActivity extends AppCompatActivity {
         showRequestSend = new ArrayList<Request>();
 
 
+
+
+
+        //在这里写listview的内容
+        final int[] stop_point = new int[1];
+        showSendAdapter = new sentRequestList(this,showRequestSend);
+        nameList.setAdapter(showSendAdapter);
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference = db.collection(Username);
+        DocumentReference noteRef = collectionReference.document("RequestSendList");
+        noteRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                            showRequestSend.clear();
+                                            for (int i = 1 ; ; i++){
+
+                                                String title = (String) value.getString("UserRequest"+Integer.toString(i)+"SenderName");
+                                                if(title==null){
+                                                    stop_point[0] = i;
+                                                    break;
+                                                }
+
+
+                                                showRequestSend.add(new Request(title));
+
+                                            }
+                                            showSendAdapter.notifyDataSetChanged();
+
+                                        }
+                                    });
+
+
+
         returnToFollowers.setOnClickListener(new View.OnClickListener() {
             /**
              * When back button on the top left of the screen is clicked, jump back to check following activity page.
+             *
              * @param v
              */
             @Override
@@ -229,20 +268,6 @@ public class CheckRequestNameActivity extends AppCompatActivity {
 
 
 
-
-        nameList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            /**
-             * List all the doers that user have followed
-             * @param adapterView
-             * @param view
-             * @param i
-             * @param l
-             */
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-        });
 
 
 
