@@ -37,6 +37,7 @@ public class CheckRequestNameActivity extends AppCompatActivity {
     FirebaseFirestore db;
     ArrayList<Request> requestlist;
     ArrayList<Request> requestlist1;
+    ArrayList<Request> showRequestSend;
 
 
     /**
@@ -61,6 +62,7 @@ public class CheckRequestNameActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         requestlist = new ArrayList<Request>();
         requestlist1 = new ArrayList<Request>();
+        showRequestSend = new ArrayList<Request>();
 
 
         returnToFollowers.setOnClickListener(new View.OnClickListener() {
@@ -114,11 +116,34 @@ public class CheckRequestNameActivity extends AppCompatActivity {
                                             requestlist.add(new Request(sender));
                                         }
                                         Log.d(TAG, "onSuccess: fsadfsfdsf"+Username);
-                                        requestlist.add(new Request(Username));
-                                        for (int i = 1; i <= stop_point[0]; i++){
-                                            newRequest.put("UserRequest" + Integer.toString(i) + "SenderName", requestlist.get(i - 1).getSender());
+
+
+
+                                        Boolean isSame = false;
+                                        for (int i = 0 ; i < requestlist.size() ; i++){
+                                            if (requestlist.get(i).getSender().equals(Username)){
+                                                isSame = true;
+                                                break;
+                                            }else{
+                                                isSame = false;
+
+                                            }
 
                                         }
+                                        if (isSame){
+                                            for (int i = 1; i < stop_point[0]; i++){
+                                                newRequest.put("UserRequest" + Integer.toString(i) + "SenderName", requestlist.get(i - 1).getSender());
+
+                                            }
+
+                                        }else{
+                                            requestlist.add(new Request(Username));
+                                            for (int i = 1; i <= stop_point[0]; i++){
+                                                newRequest.put("UserRequest" + Integer.toString(i) + "SenderName", requestlist.get(i - 1).getSender());
+
+                                            }
+                                        }
+
                                         documentReference.set(newRequest);
 
 
@@ -138,13 +163,41 @@ public class CheckRequestNameActivity extends AppCompatActivity {
 
                                                             requestlist1.add(new Request(sender));
                                                         }
-                                                        Log.d(TAG, "onSuccess: fsadfsfdsf"+Username);
-                                                        requestlist1.add(new Request(theID));
-                                                        for (int i = 1; i <= stop_point[0]; i++){
-                                                            newRequest1.put("UserRequest" + Integer.toString(i) + "SenderName", requestlist1.get(i - 1).getSender());
+
+
+                                                        Boolean issame = false;
+                                                        for (int i = 0 ; i < requestlist1.size() ; i++){
+                                                            if (requestlist1.get(i).getSender().equals(theID)){
+                                                                issame = true;
+                                                                break;
+                                                            }else{
+                                                                issame = false;
+
+                                                            }
 
                                                         }
+                                                        if (issame){
+                                                            for (int i = 1; i < stop_point[0]; i++){
+                                                                newRequest1.put("UserRequest" + Integer.toString(i) + "SenderName", requestlist1.get(i - 1).getSender());
+
+                                                            }
+
+                                                        }else{
+                                                            requestlist1.add(new Request(theID));
+                                                            for (int i = 1; i <= stop_point[0]; i++){
+                                                                newRequest1.put("UserRequest" + Integer.toString(i) + "SenderName", requestlist1.get(i - 1).getSender());
+
+                                                            }
+                                                        }
+
+
                                                         documentReference1.set(newRequest1);
+                                                        Intent Jump = new Intent();
+                                                        Jump.setClass(CheckRequestNameActivity.this, CheckFollowingActivity.class);
+                                                        Bundle bundle = new Bundle();
+                                                        bundle.putString("UserName", Username);
+                                                        Jump.putExtras(bundle);
+                                                        startActivity(Jump);
 
                                                     }
                                                 });
@@ -188,7 +241,7 @@ public class CheckRequestNameActivity extends AppCompatActivity {
              */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //
+
             }
         });
 
