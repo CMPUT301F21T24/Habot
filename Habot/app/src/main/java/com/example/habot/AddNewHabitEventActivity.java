@@ -219,14 +219,14 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String status;
-                if (status_group.getCheckedRadioButtonId() == R.id.radio_NotDone){
-                    status = "Not Done";
+                if (status_group.getCheckedRadioButtonId() == R.id.radio_Done){
+                    status = "Done";
                 }
                 else if (status_group.getCheckedRadioButtonId() == R.id.radio_IP){
                     status = "In Progress";
                 }
                 else{
-                    status = "Done";
+                    status = "Not Done";
                 }
 
                 String HabitNameInput = habit_name.getText().toString();
@@ -264,14 +264,14 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                 boolean find = false;
                 String status;
 
-                if (status_group.getCheckedRadioButtonId() == R.id.radio_NotDone){
-                    status = "Not Done";
+                if (status_group.getCheckedRadioButtonId() == R.id.radio_Done){
+                    status = "Done";
                 }
                 else if (status_group.getCheckedRadioButtonId() == R.id.radio_IP){
                     status = "In Progress";
                 }
                 else{
-                    status = "Done";
+                    status = "Not Done";
                 }
 
                 HashMap<String,String> newhabitevent = new HashMap<>();

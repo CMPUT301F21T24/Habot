@@ -237,12 +237,12 @@ public class HabitEventDetailActivity extends AppCompatActivity {
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                                     String statusText;
-                                    if (status_group.getCheckedRadioButtonId() == R.id.radio_NotDone) {
-                                        statusText = "Not Done";
+                                    if (status_group.getCheckedRadioButtonId() == R.id.radio_Done) {
+                                        statusText = "Done";
                                     } else if (status_group.getCheckedRadioButtonId() == R.id.radio_IP) {
                                         statusText = "In Progress";
                                     } else {
-                                        statusText = "Done";
+                                        statusText = "Not Done";
                                     }
 
                                     for (int i = 1; ; i++) {
@@ -301,5 +301,4 @@ public class HabitEventDetailActivity extends AppCompatActivity {
         select_status = findViewById(radioId);
 
     }
-
 }
