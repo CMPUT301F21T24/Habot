@@ -5,10 +5,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 /**
  * This activity will check doers that user is following.
@@ -18,6 +27,9 @@ public class CheckFollowingActivity extends AppCompatActivity {
     Button TodayHabitBackButton;
     Button FollowersPendingButton;
     ListView userFollowing;
+    FirebaseFirestore db;
+    ArrayList<Request> requestArrayList;
+    ArrayAdapter<Request> requestArrayAdapter;
 
     /**
      * Action after this activity is created.
@@ -35,6 +47,19 @@ public class CheckFollowingActivity extends AppCompatActivity {
         TodayHabitBackButton = findViewById(R.id.back_buttom);
         FollowersPendingButton = findViewById(R.id.request_button);
         userFollowing = findViewById(R.id.userFollowing);
+        requestArrayList = new ArrayList<Request>();
+        //requestArrayAdapter = new RequestList(this,requestArrayList);
+
+//        userFollowing.setAdapter(requestArrayAdapter);
+//        db = FirebaseFirestore.getInstance();
+//        CollectionReference collectionReference = db.collection(Username);
+//        //这里要自己的sending list放在这里
+//        DocumentReference noteRef = collectionReference.document("");
+//        noteRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//
+//                                    }
+
+
         TodayHabitBackButton.setOnClickListener(new View.OnClickListener() {
             /**
              * When back button on the top left of the screen is clicked, jump back to main menu page.
@@ -81,7 +106,7 @@ public class CheckFollowingActivity extends AppCompatActivity {
              */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //
+
             }
         });
 
