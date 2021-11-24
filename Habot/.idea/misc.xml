@@ -17,6 +17,7 @@
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/habiteventdetail.xml" value="0.25" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/signup.xml" value="0.23641304347826086" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/todayhabit.xml" value="0.375" />
+        <entry key="app/src/main/res/drawable-v24/circle.xml" value="0.41822916666666665" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/drawable/ic_test.xml" value="0.26614583333333336" />
@@ -35,7 +36,7 @@
         <entry key="app/src/main/res/layout/following.xml" value="0.37589376915219613" />
         <entry key="app/src/main/res/layout/habit_detail.xml" value="0.37589376915219613" />
         <entry key="app/src/main/res/layout/habitdetail.xml" value="0.29635416666666664" />
-        <entry key="app/src/main/res/layout/habitdetailcontent.xml" value="0.3515625" />
+        <entry key="app/src/main/res/layout/habitdetailcontent.xml" value="0.45" />
         <entry key="app/src/main/res/layout/habitevent.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/habiteventdetail.xml" value="0.38333333333333336" />
         <entry key="app/src/main/res/layout/login.xml" value="0.1" />
