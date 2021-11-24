@@ -149,8 +149,10 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         });
 
         if (image){
-            String URI = bundle.getString("Uri");
-            imageUri = Uri.parse(URI);
+            if (bundle.getString("Uri") != null){
+                String URI = bundle.getString("Uri");
+                imageUri = Uri.parse(URI);
+            }
 
             Bundle2HabitName = bundle.getString("HabitName");
             Bundle2Address = bundle.getString("Address");

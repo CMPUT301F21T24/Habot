@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class AddImageActivity extends AppCompatActivity {
     Button gallery_button;
     Button btnCaptureImage;
     Button upload_button;
+    Button return_button;
 
     private static final int PICK_IMAGE = 100;
 
@@ -49,6 +51,7 @@ public class AddImageActivity extends AppCompatActivity {
         gallery_button = findViewById(R.id.gallery);
         upload_button = findViewById(R.id.upload_btn);
         btnCaptureImage = (Button) findViewById(R.id.camera);
+        return_button = findViewById(R.id.return_button);
 
 
         Bundle bundle = getIntent().getExtras();
@@ -72,6 +75,7 @@ public class AddImageActivity extends AppCompatActivity {
             }
         });
 
+
         upload_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +86,18 @@ public class AddImageActivity extends AppCompatActivity {
                 startActivity(Jump);
             }
         });
+
+
+        return_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Jump = new Intent();
+                Jump.setClass(AddImageActivity.this, AddNewHabitEventActivity.class);
+                Jump.putExtras(bundle);
+                startActivity(Jump);
+            }
+        });
+
 
     }
 
@@ -122,6 +138,10 @@ public class AddImageActivity extends AppCompatActivity {
 
             //Display the URI to the users
             imageView.setImageURI(imageUri);
+        }
+
+        if (imageUri != null){
+            upload_button.setVisibility(View.VISIBLE);
         }
     }
 }
