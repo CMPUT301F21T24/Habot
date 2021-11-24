@@ -128,7 +128,6 @@ public class CheckRequestNameActivity extends AppCompatActivity {
                                                 isSame = false;
 
                                             }
-
                                         }
                                         if (isSame){
                                             for (int i = 1; i < stop_point[0]; i++){
