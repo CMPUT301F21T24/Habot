@@ -102,17 +102,41 @@
             android:textColor="#FFF"
             android:textSize="25sp"></TextView>
 
-        <EditText
-            android:id="@+id/status_input"
+        <RadioGroup
+            android:id="@+id/status_radio"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="380dp"
+            android:layout_marginTop="400dp"
             android:layout_marginRight="20dp"
             android:gravity="center"
-            android:hint="Enter your status:\n\nNot Done / In Progress / Done"
-            android:textColor="@color/white"
-            android:textColorHint="#98ACB8"></EditText>
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_NotDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:onClick="checkButton"
+                android:text="NOT DONE"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio_IP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:onClick="checkButton"
+                android:text="IN PROGRESS"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio_Done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:onClick="checkButton"
+                android:text="DONE"></RadioButton>
+
+        </RadioGroup>
 
         <Button
             android:id="@+id/cancel_new_habit_event"
@@ -156,7 +180,8 @@
             android:inputType="time"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:maxLength="5"/>
 
 
     </RelativeLayout>

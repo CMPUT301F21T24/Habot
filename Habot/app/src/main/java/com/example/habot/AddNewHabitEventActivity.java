@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +56,6 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
     Button addlocationbutton;
     Button addImageButton;
     EditText comment;
-    EditText status;
     EditText time;
     EditText habit_name;
     FirebaseFirestore db;
@@ -63,8 +64,6 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
     List<Address> addresses;
     TextView geolocationtextview;
     ArrayList<Habit> habitlist;
-    TextView geolocation1;
-    String URI;
     Uri imageUri;
 
     String Bundle2HabitName;
@@ -74,6 +73,9 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
     String Bundle2Time;
 
     String imageName;
+
+    RadioGroup status_group;
+    RadioButton select_status;
 
 
     /**
@@ -89,16 +91,15 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         String Username = bundle.getString("UserName");
 
 
-        Log.d("TAG", "----------------> Username is :"+Username);
-
         //get id from layout files
         comment = findViewById(R.id.comment_input);
-        status = findViewById(R.id.status_input);
+        status_group = findViewById(R.id.status_radio);
         time = findViewById(R.id.time_input);
         habit_name = findViewById(R.id.habit_name_input);
         addlocationbutton = findViewById(R.id.add_location_button);
         geolocationtextview = findViewById(R.id.display_geolocation);
         addImageButton = findViewById(R.id.add_image_button);
+
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -133,7 +134,6 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                         stop_point[0] = i;
                         break;
                     }
-                    Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + title);
 
                     //get Habit reson and date
                     String reason = value.getString("habit"+Integer.toString(i)+"reason");
@@ -158,15 +158,29 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
             Bundle2Status = bundle.getString("Status");
             Bundle2Time = bundle.getString("Time");
 
-            Log.d("TAG","++++++++++++++++++++++++"+habit_name.getText().toString());
 
             habit_name.setText(Bundle2HabitName);
             geolocationtextview.setText(Bundle2Address);
             comment.setText(Bundle2Comment);
-            status.setText(Bundle2Status);
+            //status.setText(Bundle2Status);
             time.setText(Bundle2Time);
 
-            Log.d("TAG","++++++++++++++++++++++++"+habit_name.getText().toString());
+            if (Bundle2Status != null){
+                if (Bundle2Status.equals("Done")){
+                    RadioButton Done = findViewById(R.id.radio_Done);
+                    Done.setChecked(true);
+                }
+                else if (Bundle2Status.equals("In Progress")){
+                    RadioButton inProgress = findViewById(R.id.radio_IP);
+                    inProgress.setChecked(true);
+                }
+                else if (Bundle2Status.equals("Not Done")){
+                    RadioButton notDone = findViewById(R.id.radio_NotDone);
+                    notDone.setChecked(true);
+                }
+            }
+
+
         }
 
 
@@ -204,14 +218,22 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         addImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String status;
+                if (status_group.getCheckedRadioButtonId() == R.id.radio_NotDone){
+                    status = "Not Done";
+                }
+                else if (status_group.getCheckedRadioButtonId() == R.id.radio_IP){
+                    status = "In Progress";
+                }
+                else{
+                    status = "Done";
+                }
 
                 String HabitNameInput = habit_name.getText().toString();
                 String CommentInput = comment.getText().toString();
-                String StatusInput = status.getText().toString();
+                String StatusInput = status;
                 String TimeInput = time.getText().toString();
                 String AddressInput = geolocationtextview.getText().toString();
-
-                Log.d("TAG","++++++++++++++++++++++++"+HabitNameInput);
 
                 Intent Jump = new Intent();
                 Jump.setClass(AddNewHabitEventActivity.this, AddImageActivity.class);
@@ -240,92 +262,104 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final int[] stop_point = new int[1];
                 boolean find = false;
+                String status;
+
+                if (status_group.getCheckedRadioButtonId() == R.id.radio_NotDone){
+                    status = "Not Done";
+                }
+                else if (status_group.getCheckedRadioButtonId() == R.id.radio_IP){
+                    status = "In Progress";
+                }
+                else{
+                    status = "Done";
+                }
 
                 HashMap<String,String> newhabitevent = new HashMap<>();
+                //find the habit name from the database, if so, set find to true
                 for (int s = 0; s <habitlist.size(); s++){
-                    Log.d(TAG, "onClick: ssssssssssss  "+habitlist.get(s).gettitle());
-                    Log.d(TAG,"!!!!!!!!dwvwwwv  "+habit_name.getText().toString());
                     if(habitlist.get(s).gettitle().equals(habit_name.getText().toString())){
                         find = true;
                     }
                 }
-                if(find == true){
+                if(find == true) {
+                    if (time.getText().toString().equals("")) {
+                        Toast.makeText(AddNewHabitEventActivity.this, "Time Cannot be Empty", Toast.LENGTH_SHORT).show();
+                    } else {
+                        noteRef.get()
+                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    /**
+                                     * Check if DocumentSnapshot in the firestore successful obtained
+                                     *
+                                     * @param documentSnapshot
+                                     */
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        if (documentSnapshot.exists()) {
+                                            for (int i = 1; ; i++) {
+                                                String name = documentSnapshot.getString("habitevent" + Integer.toString(i) + "name");
+                                                if (name == null) {
+                                                    stop_point[0] = i;
+                                                    break;
+                                                }
 
-                    noteRef.get()
-                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                /**
-                                 * Check if DocumentSnapshot in the firestore successful obtained
-                                 * @param documentSnapshot
-                                 */
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    if(documentSnapshot.exists()){
-                                        for(int i = 1;;i++){
-                                            String name = documentSnapshot.getString("habitevent"+Integer.toString(i)+"name");
-                                            if(name == null){
-                                                stop_point[0]=i;
-                                                break;
+                                                //get data from firestore database
+                                                String habitcomment = documentSnapshot.getString("habitevent" + Integer.toString(i) + "comment");
+
+                                                String habiteventtime = documentSnapshot.getString("habitevent" + Integer.toString(i) + "eventtime");
+                                                String habitstatus = documentSnapshot.getString("habitevent" + Integer.toString(i) + "status");
+                                                String habitphoto = documentSnapshot.getString("habitevent" + Integer.toString(i) + "photos");
+                                                String habitgeolocation = documentSnapshot.getString("habitevent" + Integer.toString(i) + "geolocation");
+                                                habit_events.add(new Habit_Event(name, habiteventtime, habitcomment, habitphoto, habitstatus, habitgeolocation));
                                             }
 
-                                            //get data from firestore database
-                                            String habitcomment = documentSnapshot.getString("habitevent"+Integer.toString(i)+"comment");
+                                            if (imageUri != null) {
+                                                //Upload Image Stages
+                                                FirebaseStorage mStorageRef = FirebaseStorage.getInstance();
 
-                                            String habiteventtime= documentSnapshot.getString("habitevent"+Integer.toString(i)+"eventtime");
-                                            String habitstatus = documentSnapshot.getString("habitevent"+Integer.toString(i)+"status");
-                                            String habitphoto = documentSnapshot.getString("habitevent"+Integer.toString(i)+"photos");
-                                            String habitgeolocation = documentSnapshot.getString("habitevent"+Integer.toString(i)+"geolocation");
-                                            habit_events.add(new Habit_Event(name,habiteventtime,habitcomment, habitphoto, habitstatus, habitgeolocation));
+                                                imageName = habit_name.getText().toString() + "-" + time.getText().toString();
+                                                StorageReference imageReference = mStorageRef.getReference().child(Username + "/" + imageName);
+
+                                                //Set Metadata to the Uri
+                                                StorageMetadata metadata = new StorageMetadata.Builder()
+                                                        .setContentType("image/jpg")
+                                                        .build();
+
+                                                //Put file to the Firestore Storage
+                                                imageReference.putFile(imageUri, metadata)
+                                                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                            @Override
+                                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                                Toast.makeText(AddNewHabitEventActivity.this, "Image Uploaded to Cloud", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                            }
+
+                                            //add to habit event list
+                                            habit_events.add(new Habit_Event(habit_name.getText().toString(), time.getText().toString(), comment.getText().toString(), imageName, status, geolocationtextview.getText().toString()));
+                                            for (int i = 1; i <= stop_point[0]; i++) {
+
+                                                newhabitevent.put("habitevent" + Integer.toString(i) + "name", habit_events.get(i - 1).getHabit_name());
+                                                newhabitevent.put("habitevent" + Integer.toString(i) + "comment", habit_events.get(i - 1).getComment());
+                                                newhabitevent.put("habitevent" + Integer.toString(i) + "eventtime", habit_events.get(i - 1).getEventtime());
+                                                newhabitevent.put("habitevent" + Integer.toString(i) + "status", habit_events.get(i - 1).getStatus());
+                                                newhabitevent.put("habitevent" + Integer.toString(i) + "photos", habit_events.get(i - 1).getPhoto());
+                                                newhabitevent.put("habitevent" + Integer.toString(i) + "geolocation", habit_events.get(i - 1).getGeolocation());
+                                            }
+                                            noteRef.set(newhabitevent);
+
+                                            //intent to Habit Event Page
+                                            Intent Jump = new Intent();
+                                            Jump.setClass(AddNewHabitEventActivity.this, HabitEventActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString("UserName", Username);
+                                            Jump.putExtras(bundle);
+                                            startActivity(Jump);
                                         }
-
-                                        if (imageUri != null){
-                                            //Upload Image Stages
-                                            FirebaseStorage mStorageRef = FirebaseStorage.getInstance();
-
-                                            imageName = habit_name.getText().toString() + "-" + time.getText().toString();
-                                            StorageReference imageReference = mStorageRef.getReference().child(Username+"/"+imageName);
-
-                                            //Set Metadata to the Uri
-                                            StorageMetadata metadata = new StorageMetadata.Builder()
-                                                    .setContentType("image/jpg")
-                                                    .build();
-
-                                            //Put file to the Firestore Storage
-                                            imageReference.putFile(imageUri,metadata)
-                                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                                        @Override
-                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                            Toast.makeText(AddNewHabitEventActivity.this, "Image Uploaded to Cloud", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
-                                        }
-
-
-                                        //add to habit event list
-                                        habit_events.add(new Habit_Event(habit_name.getText().toString(),time.getText().toString(),comment.getText().toString(),imageName,status.getText().toString(),geolocationtextview.getText().toString()));
-                                        for (int i = 1; i <= stop_point[0]; i++) {
-                                            Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
-
-
-                                            newhabitevent.put("habitevent" + Integer.toString(i) + "name", habit_events.get(i - 1).getHabit_name());
-                                            newhabitevent.put("habitevent" + Integer.toString(i) + "comment", habit_events.get(i - 1).getComment());
-                                            newhabitevent.put("habitevent" + Integer.toString(i) + "eventtime", habit_events.get(i - 1).getEventtime());
-                                            newhabitevent.put("habitevent" + Integer.toString(i) + "status", habit_events.get(i - 1).getStatus());
-                                            newhabitevent.put("habitevent" + Integer.toString(i) + "photos", habit_events.get(i - 1).getPhoto());
-                                            newhabitevent.put("habitevent" + Integer.toString(i) + "geolocation", habit_events.get(i - 1).getGeolocation());
-                                        }
-                                        noteRef.set(newhabitevent);
-
-                                        //intent to Habit Event Page
-                                        Intent Jump = new Intent();
-                                        Jump.setClass(AddNewHabitEventActivity.this, HabitEventActivity.class);
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("UserName", Username);
-                                        Jump.putExtras(bundle);
-                                        startActivity(Jump);
                                     }
-                                }
-                            });
-                }else{
+                                });
+                    }
+                }
+                else{
                     Toast.makeText(AddNewHabitEventActivity.this, "Incorrect habit_name", Toast.LENGTH_SHORT).show();
 
                 }
@@ -361,7 +395,7 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
 
                         geolocationtextview.setText(addresses.get(0).getAddressLine(0));
 
-                        Log.d("TAG", "onComplete: "+ addresses.get(0).getAddressLine(0));
+
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -370,5 +404,11 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void checkButton(View v){
+        int radioId = status_group.getCheckedRadioButtonId();
+        select_status = findViewById(radioId);
+
     }
 }

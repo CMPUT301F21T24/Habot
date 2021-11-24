@@ -1,5 +1,7 @@
 package com.example.habot;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +55,6 @@ public class HabitEventDetailActivity extends AppCompatActivity {
     TextView habit_name;
 
     EditText habit_comment;
-    EditText habit_status;
     EditText habit_time;
 
     Button deletebutton;
@@ -59,6 +62,9 @@ public class HabitEventDetailActivity extends AppCompatActivity {
     ArrayList<Habit_Event> habit_events;
 
     ImageView displayImage;
+
+    RadioGroup status_group;
+    RadioButton select_status;
 
 
     /**
@@ -77,7 +83,7 @@ public class HabitEventDetailActivity extends AppCompatActivity {
         //get id from layout files
         habit_name = findViewById(R.id.detail_name);
         habit_comment = findViewById(R.id.detail_comment);
-        habit_status = findViewById(R.id.detail_status);
+        status_group = findViewById(R.id.status_radio);
         habit_time = findViewById(R.id.detail_time);
         deletebutton = findViewById(R.id.delete_new_habit_event);
         updatebutton = findViewById(R.id.update_new_habit_event);
@@ -105,8 +111,22 @@ public class HabitEventDetailActivity extends AppCompatActivity {
                     //show the content on the surface
                     habit_name.setText(name);
                     habit_comment.setText(comment);
-                    habit_status.setText(status);
                     habit_time.setText(time);
+
+                    if (status != null){
+                        if (status.equals("Done")){
+                            RadioButton Done = findViewById(R.id.radio_Done);
+                            Done.setChecked(true);
+                        }
+                        else if (status.equals("In Progress")){
+                            RadioButton inProgress = findViewById(R.id.radio_IP);
+                            inProgress.setChecked(true);
+                        }
+                        else if (status.equals("Not Done")){
+                            RadioButton notDone = findViewById(R.id.radio_NotDone);
+                            notDone.setChecked(true);
+                        }
+                    }
 
 
                     FirebaseStorage mStorageRef = FirebaseStorage.getInstance();
@@ -114,7 +134,6 @@ public class HabitEventDetailActivity extends AppCompatActivity {
                     String imageName = habit_name.getText().toString() + "-" + time;
                     StorageReference imageReference = mStorageRef.getReference().child(Username+"/"+imageName);
 
-                    Log.d("TAG",Username+"!!!!!!!!!!!"+time);
 
                     Glide.with(getApplicationContext())
                             .load(imageReference)
@@ -141,10 +160,8 @@ public class HabitEventDetailActivity extends AppCompatActivity {
                                             String name = (String) documentSnapshot.getString("habitevent" + Integer.toString(i) + "name");
                                             if (name == null) {
                                                 stop_point[0] = i;
-                                                Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i));
                                                 break;
                                             }
-                                            Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + name);
                                             String comment = documentSnapshot.getString("habitevent" + Integer.toString(i) + "comment");
                                             String status = documentSnapshot.getString("habitevent" + Integer.toString(i) + "status");
                                             String eventtime = documentSnapshot.getString("habitevent"+ Integer.toString(i) + "eventtime");
@@ -158,7 +175,6 @@ public class HabitEventDetailActivity extends AppCompatActivity {
                                         habit_events.remove(position);
                                     }
                                     for (int i = 1; i < stop_point[0]-1; i++) {
-                                        Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
 
                                         updatehabitevents.put("habitevent" + Integer.toString(i) + "name", habit_events.get(i - 1).getHabit_name());
                                         updatehabitevents.put("habitevent" + Integer.toString(i) + "comment", habit_events.get(i - 1).getComment());
@@ -210,61 +226,79 @@ public class HabitEventDetailActivity extends AppCompatActivity {
                 HashMap<String, String> updatehabitevents = new HashMap<>();
 
                 final int[] stop_point = new int[1];
-                noteRef.get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                for (int i = 1; ; i++) {
 
-                                    String name = (String) documentSnapshot.getString("habitevent" + Integer.toString(i) + "name");
-                                    if (name == null) {
-                                        stop_point[0] = i;
-                                        Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i));
-                                        break;
+                if (habit_time.getText().toString().equals("")) {
+                    Toast.makeText(HabitEventDetailActivity.this, "Time Cannot be Empty", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    noteRef.get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                                    String statusText;
+                                    if (status_group.getCheckedRadioButtonId() == R.id.radio_NotDone) {
+                                        statusText = "Not Done";
+                                    } else if (status_group.getCheckedRadioButtonId() == R.id.radio_IP) {
+                                        statusText = "In Progress";
+                                    } else {
+                                        statusText = "Done";
                                     }
-                                    Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + name);
-                                    String comment = documentSnapshot.getString("habitevent" + Integer.toString(i) + "comment");
-                                    String status = documentSnapshot.getString("habitevent" + Integer.toString(i) + "status");
-                                    String eventtime = documentSnapshot.getString("habitevent"+ Integer.toString(i) + "eventtime");
-                                    String photos = documentSnapshot.getString("habitevent"+Integer.toString(i)+"photos");
-                                    String geolocation = documentSnapshot.getString("habitevent"+Integer.toString(i)+"geolocation");
+
+                                    for (int i = 1; ; i++) {
+
+                                        String name = (String) documentSnapshot.getString("habitevent" + Integer.toString(i) + "name");
+                                        if (name == null) {
+                                            stop_point[0] = i;
+                                            break;
+                                        }
+                                        String comment = documentSnapshot.getString("habitevent" + Integer.toString(i) + "comment");
+                                        String status = documentSnapshot.getString("habitevent" + Integer.toString(i) + "status");
+                                        String eventtime = documentSnapshot.getString("habitevent" + Integer.toString(i) + "eventtime");
+                                        String photos = documentSnapshot.getString("habitevent" + Integer.toString(i) + "photos");
+                                        String geolocation = documentSnapshot.getString("habitevent" + Integer.toString(i) + "geolocation");
 
 
-                                    habit_events.add(new Habit_Event(name, eventtime, comment, photos, status, geolocation));
+                                        habit_events.add(new Habit_Event(name, eventtime, comment, photos, status, geolocation));
+                                    }
+                                    for (int i = 1; i < stop_point[0]; i++) {
+                                        if (position == (i - 1)) {
+                                            updatehabitevents.put("habitevent" + Integer.toString(i) + "name", habit_name.getText().toString());
+                                            updatehabitevents.put("habitevent" + Integer.toString(i) + "comment", habit_comment.getText().toString());
+                                            updatehabitevents.put("habitevent" + Integer.toString(i) + "eventtime", habit_time.getText().toString());
+                                            updatehabitevents.put("habitevent" + Integer.toString(i) + "status", statusText);
+                                            updatehabitevents.put("habitevent" + Integer.toString(i) + "geolocation", "Somewhere");
+                                            updatehabitevents.put("habitevent" + Integer.toString(i) + "photos", "Nothing");
+                                        } else {
+                                            updatehabitevents.put("habitevent" + Integer.toString(i) + "name", habit_events.get(i - 1).getHabit_name());
+                                            updatehabitevents.put("habitevent" + Integer.toString(i) + "comment", habit_events.get(i - 1).getComment());
+                                            updatehabitevents.put("habitevent" + Integer.toString(i) + "eventtime", habit_events.get(i - 1).getEventtime());
+                                            updatehabitevents.put("habitevent" + Integer.toString(i) + "status", habit_events.get(i - 1).getStatus());
+                                            updatehabitevents.put("habitevent" + Integer.toString(i) + "photos", habit_events.get(i - 1).getPhoto());
+                                            updatehabitevents.put("habitevent" + Integer.toString(i) + "geolocation", habit_events.get(i - 1).getGeolocation());
+
+                                        }
+                                    }
+
+                                    noteRef.set(updatehabitevents);
+                                    Intent Jump = new Intent();
+                                    Jump.setClass(HabitEventDetailActivity.this, HabitEventActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("UserName", Username);
+                                    Jump.putExtras(bundle);
+                                    startActivity(Jump);
                                 }
-                                for (int i = 1; i < stop_point[0]; i++) {
-                                    Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
-                                    if(position==(i-1)){
-                                        updatehabitevents.put("habitevent"+Integer.toString(i)+"name",habit_name.getText().toString());
-                                        updatehabitevents.put("habitevent"+Integer.toString(i)+"comment",habit_comment.getText().toString());
-                                        updatehabitevents.put("habitevent"+Integer.toString(i)+"eventtime",habit_time.getText().toString());
-                                        updatehabitevents.put("habitevent"+Integer.toString(i)+"status",habit_status.getText().toString());
-                                        updatehabitevents.put("habitevent"+Integer.toString(i)+"geolocation","Somewhere");
-                                        updatehabitevents.put("habitevent"+Integer.toString(i)+"photos","Nothing");
-                                    }
-                                    else {
-                                        updatehabitevents.put("habitevent" + Integer.toString(i) + "name", habit_events.get(i - 1).getHabit_name());
-                                        updatehabitevents.put("habitevent" + Integer.toString(i) + "comment", habit_events.get(i - 1).getComment());
-                                        updatehabitevents.put("habitevent" + Integer.toString(i) + "eventtime", habit_events.get(i - 1).getEventtime());
-                                        updatehabitevents.put("habitevent" + Integer.toString(i) + "status", habit_events.get(i - 1).getStatus());
-                                        updatehabitevents.put("habitevent" + Integer.toString(i) + "photos", habit_events.get(i - 1).getPhoto());
-                                        updatehabitevents.put("habitevent" + Integer.toString(i) + "geolocation", habit_events.get(i - 1).getGeolocation());
-
-                                    }
-                                }
-
-                                noteRef.set(updatehabitevents);
-                                Intent Jump = new Intent();
-                                Jump.setClass(HabitEventDetailActivity.this, HabitEventActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putString("UserName", Username);
-                                Jump.putExtras(bundle);
-                                startActivity(Jump);
-                            }
-                        });
+                            });
+                }
             }
         });
 
+
+    }
+
+    public void checkButton(View v){
+        int radioId = status_group.getCheckedRadioButtonId();
+        select_status = findViewById(radioId);
 
     }
 
