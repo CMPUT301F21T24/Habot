@@ -47,7 +47,9 @@ public class HabitEventDetailActivity extends AppCompatActivity {
 
     //initialize the variables
     FirebaseFirestore db;
-    EditText habit_name;
+
+    TextView habit_name;
+
     EditText habit_comment;
     EditText habit_status;
     EditText habit_time;
