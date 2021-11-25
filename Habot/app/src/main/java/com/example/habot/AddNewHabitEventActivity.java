@@ -238,6 +238,7 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
 
                     Jump.putExtras(bundle);
                     startActivity(Jump);
+//                    getLocation();
 
                 } else {
                     ActivityCompat.requestPermissions(AddNewHabitEventActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
@@ -400,42 +401,42 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
 
     }
 
-//    private void getLocation(){
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return;
-//        }
-//        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Location> task) {
-//                Location location = task.getResult();
-//                if (location != null) {
-//
-//
-//                    try {
-//                        Geocoder geocoder = new Geocoder(AddNewHabitEventActivity.this, Locale.getDefault());
-//                        addresses = geocoder.getFromLocation(
-//                                location.getLatitude(), location.getLongitude(), 1
-//                        );
-//
-//                        geolocationtextview.setText(addresses.get(0).getAddressLine(0));
-//
-//
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            }
-//        });
-//    }
+    private void getLocation(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                Location location = task.getResult();
+                if (location != null) {
+
+
+                    try {
+                        Geocoder geocoder = new Geocoder(AddNewHabitEventActivity.this, Locale.getDefault());
+                        addresses = geocoder.getFromLocation(
+                                location.getLatitude(), location.getLongitude(), 1
+                        );
+
+                        geolocationtextview.setText(addresses.get(0).getAddressLine(0));
+
+
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
+    }
 
     public void checkButton(View v){
         int radioId = status_group.getCheckedRadioButtonId();
