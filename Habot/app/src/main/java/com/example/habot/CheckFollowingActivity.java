@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.CollectionReference;
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
@@ -30,6 +32,11 @@ public class CheckFollowingActivity extends AppCompatActivity {
     FirebaseFirestore db;
     ArrayList<Request> requestArrayList;
     ArrayAdapter<Request> requestArrayAdapter;
+
+
+
+
+
 
     /**
      * Action after this activity is created.
@@ -48,16 +55,40 @@ public class CheckFollowingActivity extends AppCompatActivity {
         FollowersPendingButton = findViewById(R.id.request_button);
         userFollowing = findViewById(R.id.userFollowing);
         requestArrayList = new ArrayList<Request>();
-        //requestArrayAdapter = new RequestList(this,requestArrayList);
+        db = FirebaseFirestore.getInstance();
 
-//        userFollowing.setAdapter(requestArrayAdapter);
-//        db = FirebaseFirestore.getInstance();
-//        CollectionReference collectionReference = db.collection(Username);
-//        //这里要自己的sending list放在这里
-//        DocumentReference noteRef = collectionReference.document("");
-//        noteRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//
-//                                    }
+        //在这里写listview 显示
+        requestArrayAdapter = new sentRequestList(this,requestArrayList);
+        userFollowing.setAdapter(requestArrayAdapter);
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference = db.collection(Username);
+        DocumentReference noteRef = collectionReference.document("RequestSendList");
+        noteRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                requestArrayList.clear();
+                for (int i = 1 ; ; i++){
+
+                    String title = (String) value.getString("UserRequest"+Integer.toString(i)+"SenderName");
+                    if(title==null){
+                        break;
+                    }
+                    String condition = (String) value.getString("UserRequest"+Integer.toString(i)+"ConditionStatus");
+                    if (condition.equals("False")){
+                        continue;
+                    }
+
+
+                    requestArrayList.add(new Request(title,condition));
+
+                }
+                requestArrayAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+
+
 
 
         TodayHabitBackButton.setOnClickListener(new View.OnClickListener() {
