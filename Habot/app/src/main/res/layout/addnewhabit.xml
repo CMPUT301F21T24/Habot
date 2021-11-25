@@ -197,35 +197,35 @@
                 android:id="@+id/checkbox0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MO"
+                android:text="SU"
                 android:textColor="@color/white"></CheckBox>
 
             <CheckBox
                 android:id="@+id/checkbox1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TU"
+                android:text="MO"
                 android:textColor="@color/white"></CheckBox>
 
             <CheckBox
                 android:id="@+id/checkbox2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="WE"
+                android:text="TU"
                 android:textColor="@color/white"></CheckBox>
 
             <CheckBox
                 android:id="@+id/checkbox3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TR"
+                android:text="WE"
                 android:textColor="@color/white"></CheckBox>
 
             <CheckBox
                 android:id="@+id/checkbox4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FR"
+                android:text="TR"
                 android:textColor="@color/white"></CheckBox>
 
             <CheckBox
@@ -233,7 +233,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SA"
+                android:text="FR"
                 android:textColor="@color/white"></CheckBox>
 
             <CheckBox
@@ -241,7 +241,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SU"
+                android:text="SA"
                 android:textColor="@color/white"></CheckBox>
 
         </LinearLayout>
