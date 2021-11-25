@@ -66,12 +66,13 @@
             android:textSize="20sp"></EditText>
 
         <TextView
+            android:id="@+id/geolocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="310dp"
             android:layout_marginRight="20dp"
-            android:text="Geolocation: Support For Now"
+            android:text="Geolocation: "
             android:textColor="#FFF"
             android:textSize="20sp"></TextView>
 
@@ -100,25 +101,25 @@
                 android:id="@+id/radio_NotDone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:onClick="checkButton"
-                android:text="NOT DONE"></RadioButton>
+                android:text="NOT DONE"
+                android:textColor="@color/white"></RadioButton>
 
             <RadioButton
                 android:id="@+id/radio_IP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:onClick="checkButton"
-                android:text="IN PROGRESS"></RadioButton>
+                android:text="IN PROGRESS"
+                android:textColor="@color/white"></RadioButton>
 
             <RadioButton
                 android:id="@+id/radio_Done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:onClick="checkButton"
-                android:text="DONE"></RadioButton>
+                android:text="DONE"
+                android:textColor="@color/white"></RadioButton>
 
         </RadioGroup>
 
@@ -138,10 +139,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="440dp"
             android:inputType="time"
+            android:maxLength="5"
             android:text="Time"
             android:textColor="@color/white"
-            android:textSize="30sp"
-            android:maxLength="5"/>
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/delete_new_habit_event"

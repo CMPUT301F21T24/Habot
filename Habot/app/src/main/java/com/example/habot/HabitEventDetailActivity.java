@@ -56,6 +56,7 @@ public class HabitEventDetailActivity extends AppCompatActivity {
 
     EditText habit_comment;
     EditText habit_time;
+    TextView geolocation;
 
     Button deletebutton;
     Button updatebutton;
@@ -88,6 +89,7 @@ public class HabitEventDetailActivity extends AppCompatActivity {
         deletebutton = findViewById(R.id.delete_new_habit_event);
         updatebutton = findViewById(R.id.update_new_habit_event);
         displayImage = findViewById(R.id.display_image);
+        geolocation = findViewById(R.id.geolocation);
         habit_events = new ArrayList<Habit_Event>();
 
         db = FirebaseFirestore.getInstance();
@@ -107,11 +109,12 @@ public class HabitEventDetailActivity extends AppCompatActivity {
                     String comment = value.getString("habitevent"+Integer.toString(position+1)+"comment");
                     String status = value.getString("habitevent"+Integer.toString(position+1)+"status");
                     String time = value.getString("habitevent"+Integer.toString(position+1)+"eventtime");
-
+                    String Dgeolocation = value.getString("habitevent"+Integer.toString(position+1)+"geolocation");
                     //show the content on the surface
                     habit_name.setText(name);
                     habit_comment.setText(comment);
                     habit_time.setText(time);
+                    geolocation.setText("Geolocation: "+Dgeolocation);
 
                     if (status != null){
                         if (status.equals("Done")){

@@ -580,6 +580,10 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 HashMap<String, String> newhabit = new HashMap<>();
 
                 final int[] stop_point = new int[1];
+                if(title.equals("")){
+                    Toast.makeText(AddNewHabitActivity.this, "Missing habit name", Toast.LENGTH_SHORT).show();
+                }
+                else{
                 if(!edit){
                     noteRef.get()
                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -681,7 +685,7 @@ public class AddNewHabitActivity extends AppCompatActivity {
                                 }
                             });
 
-                }
+                }}
             }
         });
         noteRef1.addSnapshotListener(new EventListener<DocumentSnapshot>() {

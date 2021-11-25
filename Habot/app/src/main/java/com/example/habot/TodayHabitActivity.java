@@ -20,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * This creates TodayHabitActivity when this starts.
@@ -96,6 +97,7 @@ public class TodayHabitActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 Todayhabitlist.clear();
+                int Today_day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
                 for (int i =1;;i++)
                 {
                     //get the Habit Name
@@ -113,7 +115,8 @@ public class TodayHabitActivity extends AppCompatActivity {
                     String privacy = value.getString("habit" + Integer.toString(i) + "privacy");
 
                     //add Title, reason and date to the habitlist
-                    Todayhabitlist.add(new Habit(title, reason, date, time, privacy));
+                    if(time.charAt(Today_day-1) == '1'){
+                    Todayhabitlist.add(new Habit(title, reason, date, time, privacy));}
 
                 }
                 //add Habit to the dataset
