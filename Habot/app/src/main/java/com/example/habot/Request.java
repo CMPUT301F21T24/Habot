@@ -6,18 +6,26 @@ package com.example.habot;
 public class Request {
 
     public String Sender;
+    public String Condition;
 
 
     /**
      * Constructor of Request object
      */
-    Request( String sender){
+    Request( String sender, String condition){
 
         this.Sender = sender;
+        this.Condition = condition;
 
     }
 
+    public String getCondition() {
+        return Condition;
+    }
 
+    public void setCondition(String condition) {
+        Condition = condition;
+    }
 
     /**
      * This will return the sender of request

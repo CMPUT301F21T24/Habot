@@ -91,9 +91,10 @@ public class CheckRequestNameActivity extends AppCompatActivity {
                                                     stop_point[0] = i;
                                                     break;
                                                 }
+                                                String condition = (String) value.getString("UserRequest"+Integer.toString(i)+"ConditionStatus");
 
 
-                                                showRequestSend.add(new Request(title));
+                                                showRequestSend.add(new Request(title,condition));
 
                                             }
                                             showSendAdapter.notifyDataSetChanged();
@@ -151,8 +152,9 @@ public class CheckRequestNameActivity extends AppCompatActivity {
                                                 stop_point[0] = i;
                                                 break;
                                             }
+                                            String conditionStatus = (String) documentSnapshot.getString("UserRequest" + Integer.toString(i) + "ConditionStatus");
 
-                                            requestlist.add(new Request(sender));
+                                            requestlist.add(new Request(sender,conditionStatus));
                                         }
                                         Log.d(TAG, "onSuccess: fsadfsfdsf"+Username);
 
@@ -171,14 +173,15 @@ public class CheckRequestNameActivity extends AppCompatActivity {
                                         if (isSame){
                                             for (int i = 1; i < stop_point[0]; i++){
                                                 newRequest.put("UserRequest" + Integer.toString(i) + "SenderName", requestlist.get(i - 1).getSender());
+                                                newRequest.put("UserRequest" + Integer.toString(i) + "ConditionStatus", requestlist.get(i - 1).getCondition());
 
                                             }
 
                                         }else{
-                                            requestlist.add(new Request(Username));
+                                            requestlist.add(new Request(Username,"False"));
                                             for (int i = 1; i <= stop_point[0]; i++){
                                                 newRequest.put("UserRequest" + Integer.toString(i) + "SenderName", requestlist.get(i - 1).getSender());
-
+                                                newRequest.put("UserRequest" + Integer.toString(i) + "ConditionStatus", requestlist.get(i - 1).getCondition());
                                             }
                                         }
 
@@ -198,8 +201,9 @@ public class CheckRequestNameActivity extends AppCompatActivity {
                                                                 stop_point[0] = i;
                                                                 break;
                                                             }
+                                                            String conditionStatus = (String) documentSnapshot.getString("UserRequest" + Integer.toString(i) + "ConditionStatus");
 
-                                                            requestlist1.add(new Request(sender));
+                                                            requestlist1.add(new Request(sender,conditionStatus));
                                                         }
 
 
@@ -217,14 +221,14 @@ public class CheckRequestNameActivity extends AppCompatActivity {
                                                         if (issame){
                                                             for (int i = 1; i < stop_point[0]; i++){
                                                                 newRequest1.put("UserRequest" + Integer.toString(i) + "SenderName", requestlist1.get(i - 1).getSender());
-
+                                                                newRequest1.put("UserRequest" + Integer.toString(i) + "ConditionStatus", requestlist1.get(i - 1).getCondition());
                                                             }
 
                                                         }else{
-                                                            requestlist1.add(new Request(theID));
+                                                            requestlist1.add(new Request(theID,"False"));
                                                             for (int i = 1; i <= stop_point[0]; i++){
                                                                 newRequest1.put("UserRequest" + Integer.toString(i) + "SenderName", requestlist1.get(i - 1).getSender());
-
+                                                                newRequest1.put("UserRequest" + Integer.toString(i) + "ConditionStatus", requestlist1.get(i - 1).getCondition());
                                                             }
                                                         }
 
