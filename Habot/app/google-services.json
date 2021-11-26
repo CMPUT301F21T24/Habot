@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1089211356173",
+    "project_id": "habot-1643d",
+    "storage_bucket": "habot-1643d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089211356173:android:a7b9522d7224e59ca6b144",
+        "android_client_info": {
+          "package_name": "com.example.habot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089211356173-5f4u9hh35pm0rg6igrn6j3ostmfij5b3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxcbUU_wsl3uFxAaQv1gesnwDjU1PgOTQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1089211356173-5f4u9hh35pm0rg6igrn6j3ostmfij5b3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
