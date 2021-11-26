@@ -152,6 +152,8 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
             if (bundle.getString("Uri") != null){
                 addImageButton.setText("Image Added Successfully");
                 addImageButton.setTextColor(getResources().getColor(R.color.green));
+                addImageButton.setBackgroundColor(getResources().getColor(R.color.background));
+                addImageButton.setEnabled(false);
                 String URI = bundle.getString("Uri");
                 imageUri = Uri.parse(URI);
             }
