@@ -42,6 +42,8 @@ public class AddImageActivity extends AppCompatActivity {
 
     String Username;
 
+    private static final int CAMERA_REQUEST = 1888;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +71,10 @@ public class AddImageActivity extends AppCompatActivity {
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 0);
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent,CAMERA_REQUEST);
+                //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //startActivityForResult(intent, 0);
             }
         });
 
@@ -113,31 +116,33 @@ public class AddImageActivity extends AppCompatActivity {
 
         return Uri.parse(path);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
 
-            //get image uri from the selected image in Gallery
-            imageUri = data.getData();
+            if (data != null) {
+                //get image uri from the selected image in Gallery
+                imageUri = data.getData();
 
-            Log.d("TAG","!!!!!!!!!!!!!!"+imageUri);
+                //Display the image to the user
+                imageView.setImageURI(imageUri);
+            }
 
-            //Display the image to the user
-            imageView.setImageURI(imageUri);
         }
 
-        else{
-            //get bitmap info. from the photo taken by users
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+        else if (resultCode == CAMERA_REQUEST && resultCode == RESULT_OK){
 
-            //get Uri from Bitmap
-            imageUri = getImageUri(getApplicationContext(),bitmap);
+            if (data != null) {
+                //get bitmap info. from the photo taken by users
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
 
-            Log.d("TAG","!!!!!!!!!!!!!!"+imageUri);
-
-            //Display the URI to the users
-            imageView.setImageURI(imageUri);
+                //get Uri from Bitmap
+                imageUri = getImageUri(getApplicationContext(), bitmap);
+                //Display the URI to the users
+                imageView.setImageURI(imageUri);
+            }
         }
 
         if (imageUri != null){
