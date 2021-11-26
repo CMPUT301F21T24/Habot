@@ -132,9 +132,8 @@ public class AddImageActivity extends AppCompatActivity {
 
         }
 
-        else if (resultCode == CAMERA_REQUEST && resultCode == RESULT_OK){
+        else if (resultCode == RESULT_OK){
 
-            if (data != null) {
                 //get bitmap info. from the photo taken by users
                 Bitmap bitmap = (Bitmap) data.getExtras().get("data");
 
@@ -142,7 +141,6 @@ public class AddImageActivity extends AppCompatActivity {
                 imageUri = getImageUri(getApplicationContext(), bitmap);
                 //Display the URI to the users
                 imageView.setImageURI(imageUri);
-            }
         }
 
         if (imageUri != null){

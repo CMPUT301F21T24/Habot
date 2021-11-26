@@ -38,6 +38,20 @@
         android:gravity="center">
 
         <Button
+            android:id="@+id/log_out_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="465dp"
+            android:layout_marginRight="50dp"
+            android:layout_toLeftOf="@+id/Menu_following_button"
+            android:background="@android:color/holo_blue_dark"
+            android:backgroundTint="#040D1E"
+            android:clickable="true"
+            android:text="LOG OUT"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <Button
             android:id="@+id/Menu_following_button"
             android:layout_width="190dp"
             android:layout_height="80dp"

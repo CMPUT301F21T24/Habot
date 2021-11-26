@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 /**
  * create menu page when this activity starts.
@@ -17,6 +18,7 @@ public class MenuActivity extends AppCompatActivity {
     Button follower_button;
     Button habit_event_button;
     Button habit_detail_button;
+    Button log_out_button;
 
     /**
      * Action after activity starts.
@@ -38,6 +40,8 @@ public class MenuActivity extends AppCompatActivity {
         follower_button = findViewById(R.id.Menu_follower_button);
         habit_event_button = findViewById(R.id.Menu_habit_event_button);
         habit_detail_button = findViewById(R.id.Menu_habit_detail_button);
+        log_out_button = findViewById(R.id.log_out_button);
+
 
         following_button.setOnClickListener(new View.OnClickListener() {
             /**
@@ -122,6 +126,14 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        log_out_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Jump = new Intent();
+                Jump.setClass(MenuActivity.this, LoginActivity.class);
+                startActivity(Jump);
+            }
+        });
 
 
     }
