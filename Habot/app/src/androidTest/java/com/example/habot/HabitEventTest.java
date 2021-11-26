@@ -68,11 +68,12 @@ public class HabitEventTest {
         solo.clickOnButton("Login");
         solo.clickOnButton("Habit Event");
         solo.clickOnView(solo.getView(R.id.newHabitsEvent_button));
-        solo.enterText((EditText) solo.getView(R.id.habit_name_input),"TestThisHabitEvent");
-        solo.enterText((EditText) solo.getView(R.id.status_input),"TestThisDescription");
+        solo.enterText((EditText) solo.getView(R.id.habit_name_input),"Test");
+        solo.enterText((EditText) solo.getView(R.id.comment_input),"TestThisComment");
+        solo.enterText((EditText) solo.getView(R.id.time_input),"10:20");
         solo.clickOnView(solo.getView(R.id.upload_new_habit_event));
-        assertTrue(solo.searchText("TestThisHabitEvent"));
-        assertTrue(solo.waitForText("TestThisHabitEvent", 1, 2000));
+        assertTrue(solo.searchText("Test"));
+        assertTrue(solo.waitForText("Test", 1, 2000));
 
         ArrayList<View> l = solo.getCurrentViews();
         String listString = l.get(0).toString();
@@ -92,12 +93,13 @@ public class HabitEventTest {
         solo.clickOnButton("Login");
         solo.clickOnButton("Habit Event");
         solo.clickOnView(solo.getView(R.id.newHabitsEvent_button));
+        solo.enterText((EditText) solo.getView(R.id.habit_name_input),"Test");
+        solo.enterText((EditText) solo.getView(R.id.comment_input),"TestThisComment1");
+        solo.enterText((EditText) solo.getView(R.id.time_input),"10:30");
 
-        solo.enterText((EditText) solo.getView(R.id.habit_name_input),"TestThisHabitEvent");
-        solo.enterText((EditText) solo.getView(R.id.status_input),"TestThisDescription");
         solo.clickOnView(solo.getView(R.id.upload_new_habit_event));
-        assertTrue(solo.searchText("TestThisHabitEvent"));
-        assertTrue(solo.waitForText("TestThisHabitEvent", 1, 2000));
+        assertTrue(solo.searchText("Test"));
+        assertTrue(solo.waitForText("Test", 1, 2000));
         solo.clickInList(0);
         solo.enterText((EditText) solo.getView(R.id.habit_name_input),"renew");
         solo.clickOnView(solo.getView(R.id.upload_new_habit_event));

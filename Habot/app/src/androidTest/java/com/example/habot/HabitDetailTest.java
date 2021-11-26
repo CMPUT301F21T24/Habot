@@ -69,11 +69,11 @@ public class HabitDetailTest {
         solo.clickOnView(solo.getView(R.id.log_in_button));
         solo.clickOnView(solo.getView(R.id.Menu_habit_detail_button));
         solo.clickOnView(solo.getView(R.id.newHabits_button));
-        solo.enterText((EditText) solo.getView(R.id.input_habit_name),"TestThisHabit");
+        solo.enterText((EditText) solo.getView(R.id.input_habit_name),"Test");
         solo.enterText((EditText) solo.getView(R.id.input_habit_description),"TestThisDescription");
         solo.clickOnView(solo.getView(R.id.confirm_button));
-        assertTrue(solo.searchText("TestThisHabit"));
-        assertTrue(solo.waitForText("TestThisHabit", 1, 2000));
+        assertTrue(solo.searchText("Test"));
+        assertTrue(solo.waitForText("Test", 1, 2000));
         solo.clickInList(0);
     }
 
@@ -88,7 +88,7 @@ public class HabitDetailTest {
         solo.clickOnButton("Login");
         solo.clickOnButton("Habit Detail");
         solo.clickOnButton("Add New Habit");
-        solo.enterText((EditText) solo.getView(R.id.input_habit_name),"MaybeThisDelete");
+        solo.enterText((EditText) solo.getView(R.id.input_habit_name),"Test");
         solo.enterText((EditText) solo.getView(R.id.input_habit_description),"MaybeThisDelete");
         solo.clickOnButton("Add");
 
@@ -96,7 +96,7 @@ public class HabitDetailTest {
         String listString = l.get(0).toString();
         solo.clickInList(0);
         solo.clearEditText((EditText) solo.getView(R.id.input_habit_name));
-        solo.enterText((EditText) solo.getView(R.id.input_habit_name),"ThisMustBeDelete");
+        solo.enterText((EditText) solo.getView(R.id.input_habit_name),"Test");
         solo.clearEditText((EditText) solo.getView(R.id.input_habit_description));
         solo.enterText((EditText) solo.getView(R.id.input_habit_description),"ThisMustBeDelete");
         solo.clickOnButton("Update");
@@ -117,7 +117,7 @@ public class HabitDetailTest {
         solo.clickOnButton("Login");
         solo.clickOnButton("Habit Detail");
         solo.clickOnButton("Add New Habit");
-        solo.enterText((EditText) solo.getView(R.id.input_habit_name),"TestThisDeleteHabit");
+        solo.enterText((EditText) solo.getView(R.id.input_habit_name),"Test");
         solo.enterText((EditText) solo.getView(R.id.input_habit_description),"TestThisDescription");
         solo.clickOnButton("Add");
         solo.clickInList(0);

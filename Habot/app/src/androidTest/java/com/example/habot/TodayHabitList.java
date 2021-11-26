@@ -67,12 +67,12 @@ public class TodayHabitList {
         solo.clickOnView(solo.getView(R.id.log_in_button));
         solo.clickOnView(solo.getView(R.id.Menu_habit_detail_button));
         solo.clickOnView(solo.getView(R.id.newHabits_button));
-        solo.enterText((EditText) solo.getView(R.id.input_habit_name),"TestThisHabit");
+        solo.enterText((EditText) solo.getView(R.id.input_habit_name),"Test");
         solo.enterText((EditText) solo.getView(R.id.input_habit_description),"TestThisDescription");
         solo.clickOnView(solo.getView(R.id.confirm_button));
         solo.clickOnView(solo.getView(R.id.HabitDetailToMenu));
         solo.clickOnView(solo.getView(R.id.Menu_today_habit_button));
-        assertTrue(solo.waitForText("TestThisHabit", 1, 2000));
+        assertTrue(solo.waitForText("Test", 1, 2000));
         solo.clickOnView(solo.getView(R.id.TodayHabitToMenu));
         solo.clickOnView(solo.getView(R.id.Menu_habit_detail_button));
         solo.clickInList(0);
