@@ -77,16 +77,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng Edmonton = new LatLng(53.631611, -113.323975);
             address[0] = Edmonton.latitude;
             address[1] = Edmonton.longitude;
-//            try {
-//                Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
-//                addresses = geocoder.getFromLocation(
-//                        Edmonton.latitude, Edmonton.longitude, 1
-//                );
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-            mMap.addMarker(new MarkerOptions().position(Edmonton).title("Marker in Edmonton"));
+            try {
+                Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
+                addresses = geocoder.getFromLocation(
+                        Edmonton.latitude, Edmonton.longitude, 1
+                );
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//            mMap.addMarker(new MarkerOptions().position(Edmonton).title("Marker in Edmonton"));
+            mMap.addMarker(new MarkerOptions().position(Edmonton).title(addresses.get(0).getAddressLine(0)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(Edmonton));
 
         } else {
@@ -99,21 +100,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.clear();
                 Log.d("TAG", "onMapClick: 0000000000000000"+latLng.longitude+"iiiiiiiiiii"+latLng.latitude);
 
-//                try {
-//                    Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
-//                    addresses = geocoder.getFromLocation(
-//                            latLng.latitude, latLng.longitude, 1
-//                    );
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                Log.d("TAG", "onMapClick: 00000000000"+ addresses.get(0).getAddressLine(0));
+                try {
+                    Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
+                    addresses = geocoder.getFromLocation(
+                            latLng.latitude, latLng.longitude, 1
+                    );
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Log.d("TAG", "onMapClick: 00000000000"+ addresses.get(0).getAddressLine(0));
 
                 address[0] = latLng.latitude;
                 address[1] = latLng.longitude;
-//                mMap.addMarker(new MarkerOptions().position(latLng).title(addresses.get(0).getAddressLine(0)));
-                mMap.addMarker(new MarkerOptions().position(latLng).title(latLng.latitude+","+latLng.longitude));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(addresses.get(0).getAddressLine(0)));
+//                mMap.addMarker(new MarkerOptions().position(latLng).title(latLng.latitude+","+latLng.longitude));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
             }
@@ -122,7 +123,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 Bundle bundle = getIntent().getExtras();
-                bundle.putString("Address", address[0]+","+address[1]);
+//                bundle.putString("Address", address[0]+","+address[1]);
+                bundle.putString("Address", addresses.get(0).getAddressLine(0));
 //                bundle.putDouble("longtitude",address[1]);
 //                bundle.putDouble("latitude",address[0]);
                 Intent Jump = new Intent();
