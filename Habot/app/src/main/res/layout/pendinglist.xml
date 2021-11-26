@@ -39,7 +39,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:text="Pending List"
+            android:text="StatusCheck"
             android:textColor="#fff"
             android:textSize="40sp" />
 
@@ -53,30 +53,29 @@
         android:background="#0B233B"
         android:gravity="center">
 
-        <TextView
-            android:id="@+id/search_button"
-            android:layout_width="147dp"
-            android:layout_height="33dp"
+        <Button
+            android:id="@+id/acceptButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="91dp"
+            android:layout_marginTop="191dp"
+            android:layout_marginEnd="94dp"
+            android:text="Accept" />
+
+        <Button
+            android:id="@+id/declineButton"
+            android:layout_width="228dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="256dp"
-            android:layout_marginBottom="602dp"
-            android:text="Requests:"
-            android:textColor="#fff"
-            android:textSize="20sp" />
-
-        <ListView
-            android:id="@+id/nameList"
-            android:layout_width="match_parent"
-            android:layout_height="574dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="11dp"
-            android:textColor="#fff">
-
-        </ListView>
-
+            android:layout_marginStart="91dp"
+            android:layout_marginEnd="91dp"
+            android:layout_marginBottom="187dp"
+            android:text="Decline" />
     </RelativeLayout>
 
 </RelativeLayout>

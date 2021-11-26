@@ -55,12 +55,12 @@
 
         <TextView
             android:id="@+id/search_button"
-            android:layout_width="147dp"
-            android:layout_height="33dp"
+            android:layout_width="145dp"
+            android:layout_height="52dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="256dp"
-            android:layout_marginBottom="602dp"
+            android:layout_marginEnd="258dp"
+            android:layout_marginBottom="558dp"
             android:text="All Followers:"
             android:textColor="#fff"
             android:textSize="20sp" />
@@ -69,26 +69,15 @@
             android:id="@+id/userFollowers"
             android:layout_width="match_parent"
             android:layout_height="520dp"
-            android:layout_above="@+id/request_button"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="-5dp"
-            android:layout_marginBottom="19dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="-4dp"
+            android:layout_marginBottom="38dp"
             android:textColor="#fff">
 
         </ListView>
 
-        <Button
-            android:id="@+id/request_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="0dp"
-            android:background="#040D1E"
-            android:text="Pending"
-            android:textColor="#fff"
-            android:textSize="20sp" />
+
     </RelativeLayout>
 
 </RelativeLayout>

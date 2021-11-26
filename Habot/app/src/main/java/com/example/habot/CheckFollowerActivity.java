@@ -5,10 +5,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.ArrayList;
 
 /**
  * This activity will check if there are any other doer wants to follow user.
@@ -16,8 +27,10 @@ import androidx.appcompat.app.AppCompatActivity;
 public class CheckFollowerActivity extends AppCompatActivity {
 
     Button TodayHabitBackButton;
-    Button FollowersPendingButton;
     ListView userFollower;
+    FirebaseFirestore db;
+    ArrayList<Request> requestArrayList;
+    ArrayAdapter<Request> requestArrayAdapter;
 
     /**
      * Action after this activity is created.
@@ -34,8 +47,50 @@ public class CheckFollowerActivity extends AppCompatActivity {
         Log.d("TAG", "----------------> Username is :"+Username);
         // connect layout file with view id
         TodayHabitBackButton = findViewById(R.id.BackButton);
-        FollowersPendingButton = findViewById(R.id.request_button);
         userFollower = findViewById(R.id.userFollowers);
+
+        requestArrayList = new ArrayList<Request>();
+        db = FirebaseFirestore.getInstance();
+
+        //在这里写listview 显示
+        requestArrayAdapter = new sentRequestList(this,requestArrayList);
+        userFollower.setAdapter(requestArrayAdapter);
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference = db.collection(Username);
+        DocumentReference noteRef = collectionReference.document("RequestRecievedList");
+        noteRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                requestArrayList.clear();
+                for (int i = 1 ; ; i++){
+
+                    String title = (String) value.getString("UserRequest"+Integer.toString(i)+"SenderName");
+                    if(title==null){
+                        break;
+                    }
+                    String condition = (String) value.getString("UserRequest"+Integer.toString(i)+"ConditionStatus");
+                    if (condition.equals("True")){
+                        continue;
+                    }
+
+                    requestArrayList.add(new Request(title,condition));
+
+                }
+                requestArrayAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
 
 
         TodayHabitBackButton.setOnClickListener(new View.OnClickListener() {
@@ -56,36 +111,29 @@ public class CheckFollowerActivity extends AppCompatActivity {
             }
         });
 
-        FollowersPendingButton.setOnClickListener(new View.OnClickListener(){
-            /**
-             * When followers pending button is clicked, jump to pending list activity.
-             * @param view
-             */
-            @Override
-            public void onClick(View view){
-                Intent JumpToPendingList = new Intent();
-                // jump from check follower activity to pending list activity
-                JumpToPendingList.setClass(CheckFollowerActivity.this,PendingListActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("UserName", Username);
-                JumpToPendingList.putExtras(bundle);
-                // initiate the jump
-                startActivity(JumpToPendingList);
-
-            }
-        });
 
         userFollower.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             /**
              * Check doer who is following user
              * @param adapterView
              * @param view
-             * @param i
+             * @param position
              * @param l
              */
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String followerName = requestArrayList.get(position).getSender();
+                String followerStatus = requestArrayList.get(position).getCondition();
+                Intent JumpToRequest = new Intent();
+                // jump from check follower activity to pending list activity
+                JumpToRequest.setClass(CheckFollowerActivity.this,PendingListActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("UserName", Username);
+                bundle.putString("followerName",followerName);
+                bundle.putString("followerStatus",followerStatus);
+                JumpToRequest.putExtras(bundle);
+                // initiate the jump
+                startActivity(JumpToRequest);
             }
         });
 
