@@ -57,7 +57,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="130dp"
             android:layout_marginRight="20dp"
-            android:text="Add Image"></Button>
+            android:text="No Image, Tap to Add"
+            android:textColor="@color/red"></Button>
 
         <TextView
             android:id="@+id/display_geolocation"
