@@ -42,6 +42,30 @@ public class FollowerTest {
         solo.clickOnButton("Login");
     }
 
+    @Test
+    public void AddRequestToFollower() {
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.UsernameLogin), "Test985");
+        solo.enterText((EditText) solo.getView(R.id.PasswordLogin), "12345");
+        solo.clickOnButton("Login");
+        solo.clickOnView(solo.getView(R.id.Menu_follower_button));
+
+        assertTrue(solo.searchText("androidTest"));
+        assertTrue(solo.waitForText("androidTest", 1, 2000));
+
+
+    }
+
+
+    /**
+     * the function finish use the solo instrument
+     * @throws Exception
+     */
+    @After
+    public void tearDown() throws Exception{
+        solo.finishOpenedActivities();
+    }
+
 
 
 }
