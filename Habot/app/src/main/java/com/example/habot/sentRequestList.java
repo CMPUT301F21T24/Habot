@@ -38,4 +38,21 @@ public class sentRequestList extends ArrayAdapter<Request> {
 
         return view;
     }
+
+
+    public int getCount(){
+        return requests.size();
+    }
+
+    public void AddRequest(Request request){
+        requests.add(request);
+    }
+
+    public void DeleteRequest(int i){
+        requests.remove(i);
+    }
+
+    public Request returnRequest(int i){
+        return requests.get(i);
+    }
 }
