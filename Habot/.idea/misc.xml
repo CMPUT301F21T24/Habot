@@ -4,9 +4,6 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.24233661075766338" />
-        <entry key="..\:/Users/haowe/AndroidStudioProjects/Habot/Habot/app/src/main/res/layout/checkrequestname.xml" value="0.16847826086956522" />
-        <entry key="..\:/Users/haowe/AndroidStudioProjects/Habot/Habot/app/src/main/res/layout/eachhabitevent.xml" value="0.16847826086956522" />
-        <entry key="..\:/Users/haowe/AndroidStudioProjects/Habot/Habot/app/src/main/res/layout/habiteventdetail.xml" value="0.16847826086956522" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/Project/Habot/Habot/app/src/main/res/layout/activity_maps.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/addnewhabit.xml" value="0.25" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/addnewhabitevent.xml" value="0.17760416666666667" />
@@ -26,13 +23,16 @@
         <entry key="app/src/main/res/drawable/ic_test.xml" value="0.26614583333333336" />
         <entry key="app/src/main/res/layout/Sign_In.xml" value="0.37589376915219613" />
         <entry key="app/src/main/res/layout/aaaa.xml" value="0.28055555555555556" />
+        <entry key="app/src/main/res/layout/activity_maps.xml" value="0.39791666666666664" />
         <entry key="app/src/main/res/layout/add_new_habit.xml" value="0.37589376915219613" />
+        <entry key="app/src/main/res/layout/addfollowinghabit.xml" value="0.1863799283154122" />
         <entry key="app/src/main/res/layout/addimage.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/addnewhabit.xml" value="0.2594178310659167" />
-        <entry key="app/src/main/res/layout/addnewhabitevent.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/addnewhabit.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/addnewhabitevent.xml" value="0.25" />
         <entry key="app/src/main/res/layout/calendar_layout.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/checkfollower.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/checkfollowing.xml" value="0.29635416666666664" />
+        <entry key="app/src/main/res/layout/checkfollowinghabits.xml" value="0.375" />
         <entry key="app/src/main/res/layout/checkrequestname.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/eachhabitevent.xml" value="0.39791666666666664" />
         <entry key="app/src/main/res/layout/followers.xml" value="0.37589376915219613" />
@@ -45,11 +45,10 @@
         <entry key="app/src/main/res/layout/login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/menu.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/menudelete.xml" value="0.29635416666666664" />
-        <entry key="app/src/main/res/layout/pendinglist.xml" value="0.2630755446200768" />
+        <entry key="app/src/main/res/layout/pendinglist.xml" value="0.37589376915219613" />
         <entry key="app/src/main/res/layout/profile.xml" value="0.37589376915219613" />
         <entry key="app/src/main/res/layout/requestcontent.xml" value="0.18229166666666666" />
         <entry key="app/src/main/res/layout/requestdetailcontent.xml" value="0.20260416666666667" />
-        <entry key="app/src/main/res/layout/sentrequestcontent.xml" value="0.18055555555555555" />
         <entry key="app/src/main/res/layout/signin.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/signup.xml" value="0.375" />
         <entry key="app/src/main/res/layout/today_habits.xml" value="0.21145833333333333" />

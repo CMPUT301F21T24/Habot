@@ -89,6 +89,14 @@
             android:name=".MapsActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".CheckFollowingHabits"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".AddNewHabitFromFollowing"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

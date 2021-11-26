@@ -35,9 +35,6 @@ public class CheckFollowingActivity extends AppCompatActivity {
 
 
 
-
-
-
     /**
      * Action after this activity is created.
      * @param savedInstanceState
@@ -56,6 +53,7 @@ public class CheckFollowingActivity extends AppCompatActivity {
         userFollowing = findViewById(R.id.userFollowing);
         requestArrayList = new ArrayList<Request>();
         db = FirebaseFirestore.getInstance();
+
 
         //在这里写listview 显示
         requestArrayAdapter = new sentRequestList(this,requestArrayList);
@@ -137,7 +135,14 @@ public class CheckFollowingActivity extends AppCompatActivity {
              */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Intent Jump = new Intent();
+                String FollowingUserName = requestArrayList.get(i).getSender();
+                Jump.setClass(CheckFollowingActivity.this, CheckFollowingHabits.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("UserName", Username);
+                bundle.putString("FollowingUserName", FollowingUserName);
+                Jump.putExtras(bundle);
+                startActivity(Jump);
             }
         });
 

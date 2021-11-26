@@ -82,14 +82,6 @@ public class AddNewHabitActivity extends AppCompatActivity {
         HabitNameEditText = findViewById(R.id.input_habit_name);
         HabitDescriptionEditText = findViewById(R.id.input_habit_description);
 
-//        HabitOccurDateButton = findViewById(R.id.habit_occurDate_text);
-
-
-        //    TimeStartEditText = findViewById(R.id.TimeStart);
-
-
-
-
         ConfirmButton = findViewById(R.id.confirm_button);
         //    HabitPrivacyEditText = findViewById(R.id.Habit_Privacy);
         TitleTextView = findViewById(R.id.Title);
