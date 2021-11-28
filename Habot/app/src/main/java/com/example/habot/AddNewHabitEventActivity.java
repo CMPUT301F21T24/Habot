@@ -148,8 +148,12 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
             }
         });
 
+        //if the activity is come back from addImage activity, do the actions
         if (image){
+            //if there is uri returns from addImage activity
             if (bundle.getString("Uri") != null){
+
+                //Set the button to be uneditable and notice users that image added successfully
                 addImageButton.setText("Image Added Successfully");
                 addImageButton.setTextColor(getResources().getColor(R.color.green));
                 addImageButton.setBackgroundColor(getResources().getColor(R.color.background));
@@ -158,12 +162,12 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
                 imageUri = Uri.parse(URI);
             }
 
+            //put the data back to the blank
             Bundle2HabitName = bundle.getString("HabitName");
             Bundle2Address = bundle.getString("Address");
             Bundle2Comment = bundle.getString("Comment");
             Bundle2Status = bundle.getString("Status");
             Bundle2Time = bundle.getString("Time");
-
 
             habit_name.setText(Bundle2HabitName);
             geolocationtextview.setText(Bundle2Address);
@@ -209,12 +213,13 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
 
         addlocationbutton.setOnClickListener(new View.OnClickListener() {
             /**
-             * The method will get the authorization of your current location.
-             * If you have the authorization then the app will jump to the MapsActivity.
+             * This will goes to MapsActivity when the user click the button, and requires system permisson
+             * @param v
              */
             @Override
             public void onClick(View v) {
 
+                //ask for permission
                 if (ActivityCompat.checkSelfPermission(AddNewHabitEventActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     String status;
                     if (status_group.getCheckedRadioButtonId() == R.id.radio_Done){
@@ -246,7 +251,6 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
 
                     Jump.putExtras(bundle);
                     startActivity(Jump);
-//                    getLocation();
 
                 } else {
                     ActivityCompat.requestPermissions(AddNewHabitEventActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
@@ -256,6 +260,10 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         });
 
         addImageButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This will intent to addImage page when the users click the button
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 String status;
@@ -409,6 +417,9 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method will get location from the MapsActivity
+     */
     private void getLocation(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -421,6 +432,10 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
             return;
         }
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            /**
+             * This will get result from the Location object and set text on the map
+             * @param task
+             */
             @Override
             public void onComplete(@NonNull Task<Location> task) {
                 Location location = task.getResult();
@@ -446,6 +461,10 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * get the radio button id when the user click the radio button
+     * @param v
+     */
     public void checkButton(View v){
         int radioId = status_group.getCheckedRadioButtonId();
         select_status = findViewById(radioId);

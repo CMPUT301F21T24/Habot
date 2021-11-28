@@ -132,7 +132,9 @@ public class HabitEventDetailActivity extends AppCompatActivity {
             }
         });
 
-
+        /**
+         * This onClickListener will delete a habit event
+         */
         deletebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,6 +210,9 @@ public class HabitEventDetailActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * This will update the details of a habit event after the user edit the habit event
+         */
         updatebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,6 +226,10 @@ public class HabitEventDetailActivity extends AppCompatActivity {
                 else {
                     noteRef.get()
                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                /**
+                                 * if success, do the actions
+                                 * @param documentSnapshot
+                                 */
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
 
@@ -284,6 +293,10 @@ public class HabitEventDetailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * get the radio button id when the user click the radio button
+     * @param v
+     */
     public void checkButton(View v){
         int radioId = status_group.getCheckedRadioButtonId();
         select_status = findViewById(radioId);
