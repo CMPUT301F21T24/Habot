@@ -96,21 +96,11 @@ public class CheckFollowingHabits extends AppCompatActivity {
         UserFollowingHabitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                CollectionReference collectionReference = db.collection(FollowingUserName);
-                DocumentReference noteRef = collectionReference.document("HabitList");
-                noteRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        //get the habit name
-                        String title = (String) value.getString("habit"+Integer.toString(i+1)+"name");
-
-                        String reason = value.getString("habit"+Integer.toString(i+1)+"reason");
-                        String date = value.getString("habit"+Integer.toString(i+1)+"date");
-                        String time = value.getString("habit"+Integer.toString(i+1)+"time");
-                        String privacy = value.getString("habit" + Integer.toString(i+1)+"privacy");
-
-                        //Habit FollowingUserHabit = new Habit(title, reason, date, time, privacy);
-
+                        String title = FollowingUserHabitList.get(i).gettitle();
+                        String reason = FollowingUserHabitList.get(i).getreason();
+                        String date = FollowingUserHabitList.get(i).getdate();
+                        String time = FollowingUserHabitList.get(i).getTime();
+                        String privacy = FollowingUserHabitList.get(i).getPrivacy();
                         Intent Jump = new Intent();
                         Jump.setClass(CheckFollowingHabits.this, AddNewHabitFromFollowing.class);
                         Bundle bundle = new Bundle();
@@ -123,8 +113,6 @@ public class CheckFollowingHabits extends AppCompatActivity {
                         bundle.putString("privacy", privacy);
                         Jump.putExtras(bundle);
                         startActivity(Jump);
-                    }
-                });
 
             }
         });
