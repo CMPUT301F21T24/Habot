@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * This is a sentRequestList that extends from ArrayAdapter
+ */
 public class sentRequestList extends ArrayAdapter<Request> {
     public ArrayList<Request> requests;
     private Context context;
@@ -22,7 +25,13 @@ public class sentRequestList extends ArrayAdapter<Request> {
         this.requests = requests;
     }
 
-
+    /**
+     * use getView to adapter the the arrayListAdapter
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return view
+     */
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         View view = convertView;
@@ -39,19 +48,35 @@ public class sentRequestList extends ArrayAdapter<Request> {
         return view;
     }
 
-
+    /**
+     *
+     * @return int size of the list
+     */
     public int getCount(){
         return requests.size();
     }
 
+    /**
+     * add a new request in the list
+     * @param request
+     */
     public void AddRequest(Request request){
         requests.add(request);
     }
 
+    /**
+     * Delete a request from the list
+     * @param i
+     */
     public void DeleteRequest(int i){
         requests.remove(i);
     }
 
+    /**
+     *
+     * @param i
+     * @return a request from the ith item
+     */
     public Request returnRequest(int i){
         return requests.get(i);
     }
