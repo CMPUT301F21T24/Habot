@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.24233661075766338" />
+        <entry key="..\:/Users/haowe/AndroidStudioProjects/Habot/Habot/app/src/main/res/layout/habiteventdetail.xml" value="0.15443840579710144" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/Project/Habot/Habot/app/src/main/res/layout/activity_maps.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/addnewhabit.xml" value="0.25" />
         <entry key="..\:/Users/haowe/AndroidStudioProjects/comput301/Habot/Habot/app/src/main/res/layout/addnewhabitevent.xml" value="0.17760416666666667" />
@@ -49,7 +50,6 @@
         <entry key="app/src/main/res/layout/profile.xml" value="0.37589376915219613" />
         <entry key="app/src/main/res/layout/requestcontent.xml" value="0.18229166666666666" />
         <entry key="app/src/main/res/layout/requestdetailcontent.xml" value="0.20260416666666667" />
-        <entry key="app/src/main/res/layout/sentrequestcontent.xml" value="0.39791666666666664" />
         <entry key="app/src/main/res/layout/signin.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/signup.xml" value="0.375" />
         <entry key="app/src/main/res/layout/today_habits.xml" value="0.21145833333333333" />
