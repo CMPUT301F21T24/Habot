@@ -208,6 +208,10 @@ public class AddNewHabitEventActivity extends AppCompatActivity {
         });
 
         addlocationbutton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * The method will get the authorization of your current location.
+             * If you have the authorization then the app will jump to the MapsActivity.
+             */
             @Override
             public void onClick(View v) {
 

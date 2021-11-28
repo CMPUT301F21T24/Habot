@@ -61,16 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Double address[] = new Double[2];
         mMap = googleMap;
         if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
+
             mMap.setMyLocationEnabled(true);
 
             // Add a marker in Sydney and move the camera
@@ -120,6 +111,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
         add_button.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This method is designed when the someone clicked the add button,
+             * the app will get the location and transfer it to the address name and jump back to the AddNewHabitEventActivity.
+             */
             @Override
             public void onClick(View v) {
                 Bundle bundle = getIntent().getExtras();
