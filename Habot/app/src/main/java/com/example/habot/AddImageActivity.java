@@ -2,9 +2,13 @@ package com.example.habot;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -44,6 +48,8 @@ public class AddImageActivity extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST = 1888;
 
+    private static final int REQUEST_CODE = 123456;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +77,16 @@ public class AddImageActivity extends AppCompatActivity {
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent,CAMERA_REQUEST);
-                //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //startActivityForResult(intent, 0);
+
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent,CAMERA_REQUEST);
+                }
+
+                else{
+                    ActivityCompat.requestPermissions(AddImageActivity.this, new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE }, REQUEST_CODE);
+                }
+
             }
         });
 
@@ -134,6 +146,7 @@ public class AddImageActivity extends AppCompatActivity {
 
         else if (resultCode == RESULT_OK){
 
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                 //get bitmap info. from the photo taken by users
                 Bitmap bitmap = (Bitmap) data.getExtras().get("data");
 
@@ -141,6 +154,12 @@ public class AddImageActivity extends AppCompatActivity {
                 imageUri = getImageUri(getApplicationContext(), bitmap);
                 //Display the URI to the users
                 imageView.setImageURI(imageUri);
+            }
+
+            else{
+                ActivityCompat.requestPermissions(AddImageActivity.this, new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE }, REQUEST_CODE);
+            }
+
         }
 
         if (imageUri != null){
