@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -19,6 +20,7 @@ public class MenuActivity extends AppCompatActivity {
     Button habit_event_button;
     Button habit_detail_button;
     Button log_out_button;
+    TextView usernameText;
 
     /**
      * Action after activity starts.
@@ -41,7 +43,9 @@ public class MenuActivity extends AppCompatActivity {
         habit_event_button = findViewById(R.id.Menu_habit_event_button);
         habit_detail_button = findViewById(R.id.Menu_habit_detail_button);
         log_out_button = findViewById(R.id.log_out_button);
+        usernameText = findViewById(R.id.displayUsername);
 
+        usernameText.setText(Username);
 
         following_button.setOnClickListener(new View.OnClickListener() {
             /**
