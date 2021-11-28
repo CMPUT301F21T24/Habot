@@ -22,6 +22,11 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
+/**
+ * the following habit can let user to accept or decline the check habit request from the
+ * other user. The following list can show all the unaccepted request.
+ */
+
 public class CheckFollowingHabits extends AppCompatActivity {
     Button BackButton;
     ListView UserFollowingHabitsListView;
@@ -49,9 +54,11 @@ public class CheckFollowingHabits extends AppCompatActivity {
         Title.setText(FollowingUserName + " Habits");
         Log.d("TAG", ">>>> check following habits --->> FollowingUserName: "+ FollowingUserName);
         // set back button
+
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent Jump = new Intent();
                 // jump from check follower activity to menu activity
                 Jump.setClass(CheckFollowingHabits.this, CheckFollowingActivity.class);
