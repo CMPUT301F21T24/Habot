@@ -131,6 +131,10 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         log_out_button.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This log out button will allow user to log ou from their account
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent Jump = new Intent();

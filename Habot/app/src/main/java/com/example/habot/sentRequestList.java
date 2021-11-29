@@ -73,7 +73,7 @@ public class sentRequestList extends ArrayAdapter<Request> {
     }
 
     /**
-     *
+     *This will return a request from the list index i
      * @param i
      * @return a request from the ith item
      */

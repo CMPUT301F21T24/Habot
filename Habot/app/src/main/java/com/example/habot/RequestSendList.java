@@ -17,8 +17,8 @@ public class RequestSendList {
     }
 
     /**
-     * a
-     * @return
+     * This will return the request list
+     * @return ArrayList
      */
     public ArrayList<Request> returnRequestList(){
         return this.requestArrayList;

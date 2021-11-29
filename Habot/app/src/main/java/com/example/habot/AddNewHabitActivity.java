@@ -575,6 +575,10 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 if(!edit){
                     noteRef.get()
                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                /**
+                                 * if success, add the habit to the habit list
+                                 * @param documentSnapshot
+                                 */
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     if (documentSnapshot.exists()) {

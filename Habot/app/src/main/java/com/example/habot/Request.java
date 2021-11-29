@@ -19,10 +19,18 @@ public class Request {
 
     }
 
+    /**
+     * This will get the condition of a user
+     * @return
+     */
     public String getCondition() {
         return Condition;
     }
 
+    /**
+     * This will take a string as input and set the condition
+     * @param condition
+     */
     public void setCondition(String condition) {
         Condition = condition;
     }
@@ -44,10 +52,5 @@ public class Request {
         Sender = sender;
     }
 
-    /**
-     * This will get request status of a request
-     * @return
-     *      This will return a request status
-     */
 
 }
