@@ -10,8 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import com.example.habot.databinding.ActivityMapsBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -25,13 +25,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-//extends FragmentActivity implements OnMapReadyCallback
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback{
+public class HabitDetailMaps extends AppCompatActivity implements OnMapReadyCallback {
+
 
     GoogleMap mMap;
     private ActivityMapsBinding binding;
     Button add_button;
     List<Address> addresses;
+    Bundle bundle;
+    Double address[] = new Double[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +41,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        setContentView(R.layout.activity_maps);
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
+        bundle = getIntent().getExtras();
+        String addr = bundle.getString("Address");
+        int index = addr.indexOf(",");
+        Log.d("TAG", "onCreate: -----------!!!"+addr.substring(0,index)+"9999"+addr.substring(index));
+        if(index != -1) {
+            address[0] = Double.parseDouble(addr.substring(0, index));
+            address[1] = Double.parseDouble(addr.substring(index+1));
+        }
         add_button = findViewById(R.id.add_button);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -58,17 +66,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     public void onMapReady(GoogleMap googleMap) {
-        Double address[] = new Double[2];
+
         mMap = googleMap;
-        if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(HabitDetailMaps.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             mMap.setMyLocationEnabled(true);
 
             // Add a marker in Sydney and move the camera
-            LatLng Edmonton = new LatLng(53.631611, -113.323975);
-            address[0] = Edmonton.latitude;
-            address[1] = Edmonton.longitude;
-
+//            LatLng Edmonton = new LatLng(53.631611, -113.323975);
+//            address[0] = Edmonton.latitude;
+//            address[1] = Edmonton.longitude;
 //            try {
 //                Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
 //                addresses = geocoder.getFromLocation(
@@ -79,11 +86,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                e.printStackTrace();
 //            }
 //            mMap.addMarker(new MarkerOptions().position(Edmonton).title("Marker in Edmonton"));
-            mMap.addMarker(new MarkerOptions().position(Edmonton).title(address[0]+","+address[1]));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(Edmonton));
+            LatLng newplace = new LatLng(address[0],address[1]);
+            mMap.addMarker(new MarkerOptions().position(newplace).title(address[0]+","+address[1]));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(newplace));
 
         } else {
-            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+            ActivityCompat.requestPermissions(HabitDetailMaps.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -91,7 +99,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onMapClick(LatLng latLng) {
                 mMap.clear();
 //                Log.d("TAG", "onMapClick: 0000000000000000"+latLng.longitude+"iiiiiiiiiii"+latLng.latitude);
-
+//
 //                try {
 //                    Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
 //                    addresses = geocoder.getFromLocation(
@@ -105,8 +113,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 address[0] = latLng.latitude;
                 address[1] = latLng.longitude;
-                mMap.addMarker(new MarkerOptions().position(latLng).title(address[0]+","+address[1]));
-//                mMap.addMarker(new MarkerOptions().position(latLng).title(latLng.latitude+","+latLng.longitude));
+//                mMap.addMarker(new MarkerOptions().position(latLng).title(addresses.get(0).getAddressLine(0)));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(latLng.latitude+","+latLng.longitude));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
             }
@@ -118,13 +126,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
              */
             @Override
             public void onClick(View v) {
-                Bundle bundle = getIntent().getExtras();
+
                 bundle.putString("Address", address[0]+","+address[1]);
+                bundle.putBoolean("maps",true);
 //                bundle.putString("Address", addresses.get(0).getAddressLine(0));
 //                bundle.putDouble("longtitude",address[1]);
 //                bundle.putDouble("latitude",address[0]);
                 Intent Jump = new Intent();
-                Jump.setClass(MapsActivity.this, AddNewHabitEventActivity.class);
+                Jump.setClass(HabitDetailMaps.this, HabitEventDetailActivity.class);
                 Jump.putExtras(bundle);
                 startActivity(Jump);
 

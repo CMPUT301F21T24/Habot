@@ -41,7 +41,7 @@ public class HabitEventDetailActivity extends AppCompatActivity {
 
     EditText habit_comment;
     EditText habit_time;
-    TextView geolocation;
+    Button geolocation;
 
     Button deletebutton;
     Button updatebutton;
@@ -51,6 +51,9 @@ public class HabitEventDetailActivity extends AppCompatActivity {
 
     RadioGroup status_group;
     RadioButton select_status;
+    String name, comment, status, time, Dgeolocation;
+    Bundle bundle;
+
 
 
     /**
@@ -62,8 +65,9 @@ public class HabitEventDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.habiteventdetail);
 
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         String Username = bundle.getString("UserName");
+        Boolean maps = bundle.getBoolean("maps");
         int position = bundle.getInt("position");
 
         //get id from layout files
@@ -89,44 +93,57 @@ public class HabitEventDetailActivity extends AppCompatActivity {
              */
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(value.exists()){
-                    String name = value.getString("habitevent"+Integer.toString(position+1)+"name");
-                    String comment = value.getString("habitevent"+Integer.toString(position+1)+"comment");
-                    String status = value.getString("habitevent"+Integer.toString(position+1)+"status");
-                    String time = value.getString("habitevent"+Integer.toString(position+1)+"eventtime");
-                    String Dgeolocation = value.getString("habitevent"+Integer.toString(position+1)+"geolocation");
-                    //show the content on the surface
+                if(value.exists()) {
+
+                    if (!maps) {
+                        name = value.getString("habitevent" + Integer.toString(position + 1) + "name");
+                        comment = value.getString("habitevent" + Integer.toString(position + 1) + "comment");
+                        status = value.getString("habitevent" + Integer.toString(position + 1) + "status");
+                        time = value.getString("habitevent" + Integer.toString(position + 1) + "eventtime");
+                        Dgeolocation = value.getString("habitevent" + Integer.toString(position + 1) + "geolocation");
+                        //show the content on the surface
+
+
+                    } else {
+                        name = bundle.getString("habitname");
+                        comment = bundle.getString("habitcomment");
+                        status = bundle.getString("status");
+                        time = bundle.getString("habittime");
+                        Dgeolocation = bundle.getString("Address");
+                    }
                     habit_name.setText(name);
                     habit_comment.setText(comment);
                     habit_time.setText(time);
                     geolocation.setText(Dgeolocation);
 
-                    if (status != null){
-                        if (status.equals("Done")){
+                    if (status != null) {
+                        if (status.equals("Done")) {
                             RadioButton Done = findViewById(R.id.radio_Done);
                             Done.setChecked(true);
-                        }
-                        else if (status.equals("In Progress")){
+
+                        } else if (status.equals("In Progress")) {
                             RadioButton inProgress = findViewById(R.id.radio_IP);
                             inProgress.setChecked(true);
-                        }
-                        else if (status.equals("Not Done")){
+
+                        } else if (status.equals("Not Done")) {
                             RadioButton notDone = findViewById(R.id.radio_NotDone);
                             notDone.setChecked(true);
+
+
                         }
+
+
+                        FirebaseStorage mStorageRef = FirebaseStorage.getInstance();
+
+                        String imageName = habit_name.getText().toString() + "-" + time;
+                        StorageReference imageReference = mStorageRef.getReference().child(Username + "/" + imageName);
+
+
+                        Glide.with(getApplicationContext())
+                                .load(imageReference)
+                                .into(displayImage);
+
                     }
-
-
-                    FirebaseStorage mStorageRef = FirebaseStorage.getInstance();
-
-                    String imageName = habit_name.getText().toString() + "-" + time;
-                    StorageReference imageReference = mStorageRef.getReference().child(Username+"/"+imageName);
-
-
-                    Glide.with(getApplicationContext())
-                            .load(imageReference)
-                            .into(displayImage);
-
                 }
 
             }
@@ -290,6 +307,31 @@ public class HabitEventDetailActivity extends AppCompatActivity {
             }
         });
 
+        geolocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bundle.putString("habitname",habit_name.getText().toString());
+                bundle.putString("habitcomment",habit_comment.getText().toString());
+                bundle.putString("habittime",habit_time.getText().toString());
+                bundle.putString("Address",geolocation.getText().toString());
+                RadioButton radioButton = findViewById(R.id.radio_Done);
+                if(radioButton.isChecked()){
+                    bundle.putString("status","Done");
+                }
+                radioButton = findViewById(R.id.radio_IP);
+                if(radioButton.isChecked()){
+                    bundle.putString("status","In Progress");
+                }
+                radioButton = findViewById(R.id.radio_NotDone);
+                if(radioButton.isChecked()){
+                    bundle.putString("status","Not Done");
+                }
+                Intent Jump = new Intent();
+                Jump.setClass(HabitEventDetailActivity.this, HabitDetailMaps.class );
+                Jump.putExtras(bundle);
+                startActivity(Jump);
+            }
+        });
 
     }
 

@@ -102,6 +102,10 @@
             android:name=".AddNewHabitFromFollowing"
             android:exported="true">
         </activity>
+        <activity android:name=".HabitDetailMaps"
+            android:exported="true">
+
+        </activity>
     </application>
 
 </manifest>
