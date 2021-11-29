@@ -114,7 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         add_button.setOnClickListener(new View.OnClickListener() {
             /**
              * This method is designed when the someone clicked the add button,
-             * the app will get the location and transfer it to the address name and jump back to the AddNewHabitEventActivity.
+             * the app will get the latitude and longitude and jump back to the AddNewHabitEventActivity.
              */
             @Override
             public void onClick(View v) {

@@ -308,6 +308,10 @@ public class HabitEventDetailActivity extends AppCompatActivity {
         });
 
         geolocation.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Geolication button will be jump to the HabiteventDetailActivity and get a clear view of that location.
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 bundle.putString("habitname",habit_name.getText().toString());
