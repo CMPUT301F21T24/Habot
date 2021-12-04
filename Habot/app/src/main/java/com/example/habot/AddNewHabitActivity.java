@@ -99,10 +99,6 @@ public class AddNewHabitActivity extends AppCompatActivity {
         DocumentReference noteRef1 = db.collection(Username).document("HabitEventList");
         Boolean edit = bundle.getBoolean("edit");
         Boolean calendar = bundle.getBoolean("calendar");
-        Log.d("TAG", "onCreate:2222222222222222222222calendar boolean value:"+calendar);
-        Log.d("TAG", "onCreate:3333333333333333333333333calendar boolean value:"+edit);
-
-        System.out.println("onCreate:3333333333333333333333333calendar boolean value:"+edit);
 
         if(edit){
             HabitNameEditText.setVisibility(View.INVISIBLE);
@@ -579,6 +575,10 @@ public class AddNewHabitActivity extends AppCompatActivity {
                 if(!edit){
                     noteRef.get()
                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                /**
+                                 * if success, add the habit to the habit list
+                                 * @param documentSnapshot
+                                 */
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     if (documentSnapshot.exists()) {
@@ -714,6 +714,10 @@ public class AddNewHabitActivity extends AppCompatActivity {
 
     }
     public void checkButton(View v){
+        /**
+         * This method is implement inside the RadioGroup.
+         * The main function of this method is to get the name of the radio button doer clicked.
+         */
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
         Log.d(TAG, "checkButton: "+ radioId);

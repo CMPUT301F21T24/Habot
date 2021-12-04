@@ -61,33 +61,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Double address[] = new Double[2];
         mMap = googleMap;
         if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
+
             mMap.setMyLocationEnabled(true);
 
             // Add a marker in Sydney and move the camera
             LatLng Edmonton = new LatLng(53.631611, -113.323975);
             address[0] = Edmonton.latitude;
             address[1] = Edmonton.longitude;
-            try {
-                Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
-                addresses = geocoder.getFromLocation(
-                        Edmonton.latitude, Edmonton.longitude, 1
-                );
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
+//                addresses = geocoder.getFromLocation(
+//                        Edmonton.latitude, Edmonton.longitude, 1
+//                );
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 //            mMap.addMarker(new MarkerOptions().position(Edmonton).title("Marker in Edmonton"));
-            mMap.addMarker(new MarkerOptions().position(Edmonton).title(addresses.get(0).getAddressLine(0)));
+            mMap.addMarker(new MarkerOptions().position(Edmonton).title(address[0]+","+address[1]));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(Edmonton));
 
         } else {
@@ -98,33 +90,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMapClick(LatLng latLng) {
                 mMap.clear();
-                Log.d("TAG", "onMapClick: 0000000000000000"+latLng.longitude+"iiiiiiiiiii"+latLng.latitude);
+//                Log.d("TAG", "onMapClick: 0000000000000000"+latLng.longitude+"iiiiiiiiiii"+latLng.latitude);
 
-                try {
-                    Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
-                    addresses = geocoder.getFromLocation(
-                            latLng.latitude, latLng.longitude, 1
-                    );
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Log.d("TAG", "onMapClick: 00000000000"+ addresses.get(0).getAddressLine(0));
+//                try {
+//                    Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
+//                    addresses = geocoder.getFromLocation(
+//                            latLng.latitude, latLng.longitude, 1
+//                    );
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                Log.d("TAG", "onMapClick: 00000000000"+ addresses.get(0).getAddressLine(0));
 
                 address[0] = latLng.latitude;
                 address[1] = latLng.longitude;
-                mMap.addMarker(new MarkerOptions().position(latLng).title(addresses.get(0).getAddressLine(0)));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(address[0]+","+address[1]));
 //                mMap.addMarker(new MarkerOptions().position(latLng).title(latLng.latitude+","+latLng.longitude));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
             }
         });
         add_button.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This method is designed when the someone clicked the add button,
+             * the app will get the latitude and longitude and jump back to the AddNewHabitEventActivity.
+             */
             @Override
             public void onClick(View v) {
                 Bundle bundle = getIntent().getExtras();
-//                bundle.putString("Address", address[0]+","+address[1]);
-                bundle.putString("Address", addresses.get(0).getAddressLine(0));
+                bundle.putString("Address", address[0]+","+address[1]);
+//                bundle.putString("Address", addresses.get(0).getAddressLine(0));
 //                bundle.putDouble("longtitude",address[1]);
 //                bundle.putDouble("latitude",address[0]);
                 Intent Jump = new Intent();

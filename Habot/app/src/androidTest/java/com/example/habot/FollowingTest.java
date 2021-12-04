@@ -51,9 +51,24 @@ public class FollowingTest {
         solo.clickOnView(solo.getView(R.id.request_button));
         solo.enterText((EditText) solo.getView(R.id.nameSearcher),"Test985");
         solo.clickOnView(solo.getView(R.id.search_button));
+        solo.clickOnView(solo.getView(R.id.request_button));
 
         assertTrue(solo.searchText("Test985"));
         assertTrue(solo.waitForText("Test985", 1, 2000));
 
+        solo.enterText((EditText) solo.getView(R.id.nameSearcher),"Test211");
+        solo.clickOnView(solo.getView(R.id.search_button));
+
+
     }
+
+    /**
+     * the function finish use the solo instrument
+     * @throws Exception
+     */
+    @After
+    public void tearDown() throws Exception{
+        solo.finishOpenedActivities();
+    }
+
 }

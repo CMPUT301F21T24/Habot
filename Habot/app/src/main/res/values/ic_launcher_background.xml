@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ic_launcher_background">#0B233B</color>
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBXMBAH3he4gIRszMEo-u7hLLsaaGf2tjE</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDFpfiqVMEYvoWxB6pzkDOj_i6CAi0yD8E</string>
+</string>
 </resources>

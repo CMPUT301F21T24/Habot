@@ -142,6 +142,7 @@ public class HabitEventActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("UserName", Username);
                 bundle.putInt("position",i);
+                bundle.putBoolean("maps",false);
                 Jump.putExtras(bundle);
                 startActivity(Jump);
             }

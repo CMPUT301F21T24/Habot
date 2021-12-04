@@ -126,6 +126,29 @@
             android:textColor="#FFFFFF"
             android:textSize="25sp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="400dp"
+            android:text="You are logging in as:"
+            android:textColor="@color/white"
+            android:textSize="15sp"></TextView>
+
+        <TextView
+            android:id="@+id/displayUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="420dp"
+            android:text="username"
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
+
     </RelativeLayout>
 
 </RelativeLayout>

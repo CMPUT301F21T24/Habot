@@ -42,6 +42,14 @@
         android:gravity="center">
 
 
+        <Button
+            android:id="@+id/geolocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="310dp"
+            android:textColor="@color/white" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,7 +74,7 @@
             android:textSize="20sp"></EditText>
 
         <TextView
-            android:id="@+id/geolocation"
+            android:id="@+id/displaygeolocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
