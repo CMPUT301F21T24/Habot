@@ -22,6 +22,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
+/**
+ * This Activity shows the habits who are being followed with
+ */
 public class CheckFollowingHabits extends AppCompatActivity {
     Button BackButton;
     ListView UserFollowingHabitsListView;
@@ -29,13 +32,20 @@ public class CheckFollowingHabits extends AppCompatActivity {
     ArrayAdapter<Habit> FollowingUserHabitsAdapter;
     ArrayList<Habit> FollowingUserHabitList;
     TextView Title;
+
+    /**
+     * create activity that shows the habits who are being followed with
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checkfollowinghabits);
         final int[] stop_point = new int[1];
 
-
+        /**
+         * find all the button
+         */
         BackButton = findViewById(R.id.UserHabitListToFollower);
         UserFollowingHabitsListView = findViewById(R.id.FollowingUsersHabitDetail);
         FollowingUserHabitList = new ArrayList<Habit>();
@@ -63,6 +73,9 @@ public class CheckFollowingHabits extends AppCompatActivity {
             }
         });
 
+        /**
+         * open the firebase database
+         */
         db = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = db.collection(FollowingUserName);
         DocumentReference noteRef = collectionReference.document("HabitList");
@@ -93,6 +106,9 @@ public class CheckFollowingHabits extends AppCompatActivity {
             }
         });
 
+        /**
+         * jump to next activity when user click one habit in the list
+         */
         UserFollowingHabitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {

@@ -42,7 +42,7 @@
         android:gravity="center">
 
 
-        <TextView
+        <Button
             android:id="@+id/geolocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

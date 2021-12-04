@@ -22,6 +22,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Activity that enable user to add others' habit to his/her own habit list
+ */
 public class AddNewHabitFromFollowing extends AppCompatActivity {
     Button CancelBackToCheckFollowingButton;
     TextView HabitStartDateTextView;
@@ -40,6 +43,11 @@ public class AddNewHabitFromFollowing extends AppCompatActivity {
     RadioButton radioButton;
     CheckBox checkBox;
 
+    /**
+     * create AddNewHabitFromFollowing Habit
+     * Activity that enable user to add others' habit to his/her own habit list
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +81,9 @@ public class AddNewHabitFromFollowing extends AppCompatActivity {
         String timestart = bundle.getString("time");
         String privacy = bundle.getString("privacy");
 
+        /**
+         * set button which enable user back to previous activity
+         */
         CancelBackToCheckFollowingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +99,7 @@ public class AddNewHabitFromFollowing extends AppCompatActivity {
             }
         });
 
+        // open database
         DocumentReference noteRef = db.collection(Username).document("HabitList");
 
 
@@ -132,6 +144,9 @@ public class AddNewHabitFromFollowing extends AppCompatActivity {
             }}
 
 
+        /**
+         * add habit to his/her own habit list when user click confirm button
+         */
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,6 +219,9 @@ public class AddNewHabitFromFollowing extends AppCompatActivity {
                 }
 
 
+                /**
+                 * store the data into firebase database
+                 */
                 HashMap<String, String> newhabit = new HashMap<>();
 
                 final int[] stop_point = new int[1];
@@ -220,10 +238,8 @@ public class AddNewHabitFromFollowing extends AppCompatActivity {
                                             String title = (String) documentSnapshot.getString("habit" + Integer.toString(i) + "name");
                                             if (title == null) {
                                                 stop_point[0] = i;
-                                                Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i));
                                                 break;
                                             }
-                                            Log.d("TAG", "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + title);
                                             String reason = documentSnapshot.getString("habit" + Integer.toString(i) + "reason");
                                             String date = documentSnapshot.getString("habit" + Integer.toString(i) + "date");
                                             String time = documentSnapshot.getString("habit"+Integer.toString(i)+"time");
@@ -233,9 +249,6 @@ public class AddNewHabitFromFollowing extends AppCompatActivity {
                                         }
                                         habitlist.add(new Habit(title, reason, date, starttime[0], privacy));
                                         for (int i = 1; i <= stop_point[0]; i++) {
-                                            Log.d("TAG", "onSuccess: zzzzzzzzzzzzzzzzzzzzzzzzz" + Integer.toString(i) + Integer.toString(stop_point[0]));
-
-
                                             newhabit.put("habit" + Integer.toString(i) + "name", habitlist.get(i - 1).gettitle());
                                             newhabit.put("habit" + Integer.toString(i) + "reason", habitlist.get(i - 1).getreason());
                                             newhabit.put("habit" + Integer.toString(i) + "date", habitlist.get(i - 1).getdate());

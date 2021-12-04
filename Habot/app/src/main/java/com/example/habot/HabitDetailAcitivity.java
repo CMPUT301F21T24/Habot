@@ -184,6 +184,10 @@ public class HabitDetailAcitivity extends AppCompatActivity {
         });
 
         SwapButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This method will swap the position of two habit
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 String habit1name = Swaphabit1.getText().toString();
