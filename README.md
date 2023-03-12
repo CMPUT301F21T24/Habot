@@ -10,3 +10,5 @@ An android App for recording the Habit.
 | Kexun Niu  | kexun  |
 | Haowei Yu  | haowei4  |
 | Stanley Huang  | stanley4  |
+
+Miss U all guys :)
