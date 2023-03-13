@@ -9,6 +9,5 @@ An android App for recording the Habit.
 | Wenhao Cao  | wcao4  |
 | Kexun Niu  | kexun  |
 | Haowei Yu  | haowei4  |
-| Stanley Huang  | stanley4  |
 
 Miss U all guys :)
